@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace Presentation.Controllers
 {
-    public class ApplicationDbContext
+    internal class NotificationsController
     {
     }
 }
