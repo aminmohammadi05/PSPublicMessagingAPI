@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   pspublicmessagingwbapi:
-    image: ${DOCKER_REGISTRY-}pspublicmessagingwbapi
+    image: ${DOCKER_REGISTRY-}pspublicmessagingwbapi:v1.0.7
     container_name: PSMessaging.Api
     build:
       context: .
@@ -25,6 +25,9 @@ services:
     image: rabbitmq:management
     container_name: PSMessaging.RabbitMq
     hostname: psmessaging-mq
+    ports:
+      - 5672:5672
+      - 15672:15672
     volumes:
       - ./.containers/queue/data/:/var/lib/rabbitmq
       - ./.containers/queue/log/:/var/log/rabbitmq
