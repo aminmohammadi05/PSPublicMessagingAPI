@@ -19,14 +19,17 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMassTransit(busConfigurator =>
 {
     busConfigurator.SetKebabCaseEndpointNameFormatter();
+    //busConfigurator.AddConsumer<NotificationCreatedConsumer>();
     busConfigurator.UsingRabbitMq((context, configurator) =>
     {
+        //configurator.Host(new Uri("amqp://guest:guest@localhost:5672"), h => { }
         configurator.Host(new Uri(builder.Configuration["MessageBroker:Host"]!), h =>
-        {
-            h.Username(builder.Configuration["MessageBroker:Username"]);
-            h.Password(builder.Configuration["MessageBroker:Password"]);
+    {
+        h.Username(builder.Configuration["MessageBroker:Username"]);
+        h.Password(builder.Configuration["MessageBroker:Password"]);
 
-        });
+    }
+            );
         configurator.ConfigureEndpoints(context);
     });
     
