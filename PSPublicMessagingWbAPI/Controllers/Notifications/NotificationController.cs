@@ -7,7 +7,7 @@ using PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification
 namespace PSPublicMessagingWbAPI.Controllers.Notifications;
 
 [ApiController]
-[Route("api/clientactions")]
+[Route("api/notifications")]
 public class NotificationController : ControllerBase
 {
     private readonly ISender _sender;

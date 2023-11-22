@@ -1,9 +1,12 @@
-﻿using PSPublicMessagingAPI.Application.Abstractions.Clock;
+﻿using MassTransit;
+using PSPublicMessagingAPI.Application.Abstractions.Clock;
 using PSPublicMessagingAPI.Application.Abstractions.Messaging;
-using PSPublicMessagingAPI.Application.Exceptions;
+using PSPublicMessagingAPI.Application.Contracts;
 using PSPublicMessagingAPI.Domain.Abstractions;
 using PSPublicMessagingAPI.Domain.Notifications;
+using PSPublicMessagingAPI.Domain.Notifications.Events;
 using PSPublicMessagingAPI.Domain.Shared;
+using ConcurrencyException = PSPublicMessagingAPI.Application.Exceptions.ConcurrencyException;
 
 namespace PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
 
@@ -12,15 +15,18 @@ internal sealed class CreateNotificationCommandHandler : ICommandHandler<CreateN
     private readonly INotificationRepository _notificationRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly IPublishEndpoint _publishEndpoint;
 
     public CreateNotificationCommandHandler(
         INotificationRepository notificationRepository,
         IUnitOfWork unitOfWork,
-        IDateTimeProvider dateTimeProvider)
+        IDateTimeProvider dateTimeProvider,
+        IPublishEndpoint publishEndpoint)
     {
         _notificationRepository = notificationRepository;
         _unitOfWork = unitOfWork;
         _dateTimeProvider = dateTimeProvider;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<Result<Guid>> Handle(CreateNotificationCommand request, CancellationToken cancellationToken)
@@ -49,6 +55,12 @@ internal sealed class CreateNotificationCommandHandler : ICommandHandler<CreateN
             _notificationRepository.Add(newNotification);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _publishEndpoint.Publish(
+                new NotificationCreatedEvent( 
+                newNotification.Id,
+                newNotification.NotificationTitle.Value,
+                newNotification.NotificationDate)
+                , cancellationToken);
 
             return newNotification.Id;
         }
