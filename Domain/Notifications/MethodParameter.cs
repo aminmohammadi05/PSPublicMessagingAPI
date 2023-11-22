@@ -11,9 +11,9 @@ public record MethodParameter
 
     public string Parameter { get; init; }
 
+
     
 
-   
 
     public static MethodParameter Create(string parameter)
     {

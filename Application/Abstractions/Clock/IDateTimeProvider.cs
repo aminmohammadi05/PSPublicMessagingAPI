@@ -1,4 +1,4 @@
-﻿namespace Application.Abstractions.Clock;
+﻿namespace PSPublicMessagingAPI.Application.Abstractions.Clock;
 
 public interface IDateTimeProvider
 {

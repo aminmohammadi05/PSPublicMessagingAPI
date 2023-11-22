@@ -4,7 +4,12 @@ using PSPublicMessagingAPI.Domain.Shared;
 namespace PSPublicMessagingAPI.Domain.ClientActions;
 public sealed class ClientAction : Entity
 {
-    public ClientAction(Guid id) : base(id)
+    private ClientAction(Guid id) : base(id)
+    {
+        
+    }
+
+    private ClientAction()
     {
         
     }

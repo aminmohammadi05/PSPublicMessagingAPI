@@ -1,5 +1,6 @@
 ﻿namespace PSPublicMessagingAPI.Domain.Notifications;
-internal interface INotificationRepository
+public interface INotificationRepository
 {
     Task<Notification?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    void Add(Notification notification);
 }

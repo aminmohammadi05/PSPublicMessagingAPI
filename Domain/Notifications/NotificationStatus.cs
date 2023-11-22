@@ -4,8 +4,8 @@ namespace PSPublicMessagingAPI.Domain.Notifications;
 
 public enum NotificationStatus
 {
-    Expired = 0,
-    New = 1,
-    Read = 2,
-    ReadyToPublish = 3
+    Expired = 1,
+    New = 2,
+    Read = 3,
+    ReadyToPublish = 4
 }

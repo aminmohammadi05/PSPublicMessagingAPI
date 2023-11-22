@@ -9,6 +9,11 @@ public sealed class PossibleAction : Entity
     {
         
     }
+
+    private PossibleAction()
+    {
+
+    }
     public PossibleActionName PossibleActionName { get; set; }
     
     public ModuleName ModuleName { get; set; }
