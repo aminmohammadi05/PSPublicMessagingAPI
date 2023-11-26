@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 
-namespace PSPublicMessagingWbAPI.Controllers.ClientActions;
+namespace PSPublicMessagingWebAPI.Controllers.ClientActions;
 
 [ApiController]
 [Route("api/clientactions")]

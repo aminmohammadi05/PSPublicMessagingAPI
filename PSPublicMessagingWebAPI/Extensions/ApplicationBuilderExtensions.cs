@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSPublicMessagingAPI.Infrastructure;
-using PSPublicMessagingWbAPI.Middleware;
+using PSPublicMessagingWebAPI.Middleware;
 
-namespace PSPublicMessagingWbAPI.Extensions;
+namespace PSPublicMessagingWebAPI.Extensions;
 
 public static class ApplicationBuilderExtensions
 {

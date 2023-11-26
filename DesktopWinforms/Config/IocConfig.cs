@@ -34,10 +34,10 @@ public class IocConfig
         //    busConfigurator.AddConsumer<NotificationCreatedConsumer>();
         //    busConfigurator.UsingRabbitMq((context, configurator) =>
         //    {
-        //        configurator.Host(new Uri("amqp://guest:guest@localhost:5672/vhost"), h =>
+        //        configurator.Host("localhost", "/", h =>
         //        {
-        //            //h.Username(ConfigurationManager.AppSettings["rabbitusername"]);
-        //            //h.Password(ConfigurationManager.AppSettings["rabbitpassword"]);
+        //            h.Username(ConfigurationManager.AppSettings["rabbitusername"]);
+        //            h.Password(ConfigurationManager.AppSettings["rabbitpassword"]);
         //        });
         //        configurator.ConfigureEndpoints(context);
         //    });

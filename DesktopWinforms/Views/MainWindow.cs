@@ -213,27 +213,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         }
         private async void MainWindow_Load(object sender, EventArgs e)
         {
-            _factory = new ConnectionFactory()
-            {
-                HostName = "localhost",
-                Port = 5672,
-                UserName = "guest",
-                Password = "guest"
-
-            };
-            _connection = _factory.CreateConnection();
-            _channel = _connection.CreateModel();
-
-            //_channel.QueueDeclare(queue: "notification-created", durable: false, exclusive: false, autoDelete: false, arguments: null);
-
-            _consumer = new EventingBasicConsumer(_channel);
-
-            _consumer.Received += (s, ev) =>
-            {
-                //Handle messages here.
-            };
-
-            _channel.BasicConsume(queue: "notification-created", autoAck: true, consumer: _consumer);
+            
 
             mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);
 

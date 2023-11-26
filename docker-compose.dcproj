@@ -6,7 +6,7 @@
     <ProjectGuid>e402e913-8f37-4c7a-a5cc-5adb2f86e243</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>pspublicmessagingwbapi</DockerServiceName>
+    <DockerServiceName>PSPublicMessagingWebAPI</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

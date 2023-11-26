@@ -1,36 +1,36 @@
 version: '3.4'
 
 services:
-  pspublicmessagingwbapi:
-    image: ${DOCKER_REGISTRY-}pspublicmessagingwbapi:v1.0.12
-    container_name: PSMessaging.Api
+  pspublicmessagingweb-api:
+    image: pspublicmessagingweb-api:v1.0.14
+    container_name: ps-messaging-api
     build:
-      context: .
-      dockerfile: PSPublicMessagingWbAPI/Dockerfile
+        context: .
+        dockerfile: PSPublicMessagingWebAPI/Dockerfile
     ports:
-      - 5000:80
-      - 5001:443
+        - 5000:80
+        - 5001:443
   pspublicmessaging-db:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: PSMessaging.Db
+    container_name: ps-messaging-db
     volumes:
-      - ./.containers/database:/var/opt/mssql/data
+        - ./.containers/database:/var/opt/mssql/data
     ports:
-      - 1433:1433
+        - 1433:1433
     environment:
-      ACCEPT_EULA: 'Y'
-      SA_PASSWORD: 'Pa55w0rd<db0562096>'
-      TZ: 'Asia/Tehran'
+        ACCEPT_EULA: 'Y'
+        SA_PASSWORD: 'Pa55w0rd<db0562096>'
+        TZ: 'Asia/Tehran'
   pspublicmessaging-mq:
     image: rabbitmq:management
-    container_name: PSMessaging.RabbitMq
+    container_name: ps-messaging-rabbitmq
     hostname: psmessaging-mq
     ports:
-      - 5672:5672
-      - 15672:15672
+        - 5672:5672
+        - 15672:15672
     volumes:
-      - ./.containers/queue/data/:/var/lib/rabbitmq
-      - ./.containers/queue/log/:/var/log/rabbitmq
+        - ./.containers/queue/data/:/var/lib/rabbitmq
+        - ./.containers/queue/log/:/var/log/rabbitmq
     environment:
         RABBITMQ_DEFAULT_USER: guest
         RABBITMQ_DEFAULT_PASS: guest

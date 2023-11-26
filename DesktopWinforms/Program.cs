@@ -19,7 +19,12 @@ using PSPublicMessagingAPI.Desktop.Models;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using System.Text;
-using Topshelf;
+using DesktopWinforms.Services;
+using Microsoft.Extensions.Hosting;
+using PSPublicMessagingAPI.Desktop.Consumers;
+using MassTransit;
+
+
 
 namespace DesktopWinforms
 {
@@ -30,9 +35,9 @@ namespace DesktopWinforms
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-
+            
 
             CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
 
@@ -48,17 +53,41 @@ namespace DesktopWinforms
             CultureInfo.DefaultThreadCurrentUICulture = culture;
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-
-            System.Windows.Forms.Application.Run(new MyCustomApplicationContext());
+            CreateHostBuilder(args).Build().Run();
+            System.Windows.Forms.Application.Run(new MyCustomApplicationContext(args));
+            
         }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddMassTransit(x =>
+                    {
+                        // elided...
+                        x.AddConsumer<NotificationCreatedConsumer>();
+                        x.UsingRabbitMq((context, cfg) =>
+                        {
+                            cfg.Host("localhost", "/", h =>
+                            {
+                                h.Username("guest");
+                                h.Password("guest");
+                            });
+
+                            cfg.ConfigureEndpoints(context);
+                        });
+                    });
+
+                    services.AddHostedService<Worker>();
+                });
     }
+
     public class MyCustomApplicationContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
         IServiceProvider serviceProvider;
        
         IConfigurationManagerService configurationManagerService;
-        public MyCustomApplicationContext()
+        public MyCustomApplicationContext(string[] args)
         {
             serviceProvider = IocConfig.CreateServiceProvider();
            
@@ -92,7 +121,9 @@ namespace DesktopWinforms
                 },
                 Visible = true
             };
+            
         }
+        
 
         void Exit(object sender, EventArgs e)
         {

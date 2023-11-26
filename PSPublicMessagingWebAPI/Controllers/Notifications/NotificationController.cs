@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 using PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
 
-namespace PSPublicMessagingWbAPI.Controllers.Notifications;
+namespace PSPublicMessagingWebAPI.Controllers.Notifications;
 
 [ApiController]
 [Route("api/notifications")]

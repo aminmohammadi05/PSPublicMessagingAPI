@@ -1,8 +1,8 @@
 using MassTransit;
 using PSPublicMessagingAPI.Application;
 using PSPublicMessagingAPI.Infrastructure;
-using PSPublicMessagingWbAPI.Consumers;
-using PSPublicMessagingWbAPI.Extensions;
+using PSPublicMessagingWebAPI.Consumers;
+using PSPublicMessagingWebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,7 @@
 using PSPublicMessagingAPI.Contract;
 
 
-namespace PSPublicMessagingWbAPI.Consumers
+namespace PSPublicMessagingWebAPI.Consumers
 {
     internal sealed class NotificationCreatedConsumer : IConsumer<NotificationCreatedEvent>
     {

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{B70C9E21-231B-4A22-BC73-EDD296469B28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSPublicMessagingWbAPI", "PSPublicMessagingWbAPI\PSPublicMessagingWbAPI.csproj", "{809A0C3D-FF06-4AF7-9BE3-A8E871DCBA15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSPublicMessagingWebAPI", "PSPublicMessagingWebAPI\PSPublicMessagingWebAPI.csproj", "{809A0C3D-FF06-4AF7-9BE3-A8E871DCBA15}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E402E913-8F37-4C7A-A5CC-5ADB2F86E243}"
 EndProject

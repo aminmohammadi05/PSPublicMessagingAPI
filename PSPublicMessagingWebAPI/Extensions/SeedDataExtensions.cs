@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using PSPublicMessagingAPI.Application.Abstractions.Data;
 
-namespace PSPublicMessagingWbAPI.Extensions;
+namespace PSPublicMessagingWebAPI.Extensions;
 
 public static class SeedDataExtensions
 {

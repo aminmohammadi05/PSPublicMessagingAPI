@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.Exceptions;
 
-namespace PSPublicMessagingWbAPI.Middleware;
+namespace PSPublicMessagingWebAPI.Middleware;
 
 public class ExceptionHandlingMiddleware
 {

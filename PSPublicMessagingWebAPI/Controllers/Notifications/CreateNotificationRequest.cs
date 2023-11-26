@@ -1,6 +1,6 @@
 ﻿using PSPublicMessagingAPI.Domain.Notifications;
 
-namespace PSPublicMessagingWbAPI.Controllers.Notifications;
+namespace PSPublicMessagingWebAPI.Controllers.Notifications;
 
 public sealed record CreateNotificationRequest(
     Guid possibleActionId,

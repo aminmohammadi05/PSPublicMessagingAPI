@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 using PSPublicMessagingAPI.Application.UserRoles.Queries;
 
-namespace PSPublicMessagingWbAPI.Controllers.UserRoles;
+namespace PSPublicMessagingWebAPI.Controllers.UserRoles;
 
 [ApiController]
 [Route("api/userroles")]

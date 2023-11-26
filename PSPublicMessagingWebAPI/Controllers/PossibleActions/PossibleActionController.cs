@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 using PSPublicMessagingAPI.Application.PossibleActions.Queries;
 
-namespace PSPublicMessagingWbAPI.Controllers.PossibleActions;
+namespace PSPublicMessagingWebAPI.Controllers.PossibleActions;
 
 [ApiController]
 [Route("api/possibleactions")]
