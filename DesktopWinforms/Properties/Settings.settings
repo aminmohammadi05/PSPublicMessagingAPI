@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DesktopWinforms.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="domain" Type="System.String" Scope="User">
+      <Value Profile="(Default)">parsswitch.net</Value>
+    </Setting>
+    <Setting Name="silent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="username" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ou" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="aboutTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">برنامه پیامرسان شرکت پارس سویچ</Value>
+    </Setting>
+    <Setting Name="aboutText" Type="System.String" Scope="User">
+      <Value Profile="(Default)">این برنامه به منظور ایجاد ارتباط سریع و بی واسطه بین کاربران سیستم های مختلف شرکت طراحی شده است</Value>
+    </Setting>
+    <Setting Name="rabbitusername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">guest</Value>
+    </Setting>
+    <Setting Name="rabbitpassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">guest</Value>
+    </Setting>
+    <Setting Name="hostname" Type="System.String" Scope="User">
+      <Value Profile="(Default)">amqp://localhost:5672</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

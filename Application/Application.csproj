@@ -12,6 +12,7 @@
     <Folder Include="ClientActions\Commands\" />
     <Folder Include="Notifications\Commands\CreateNotification\" />
     <Folder Include="PossibleActions\Commands\" />
+    <Folder Include="UserRoles\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contract\Contract.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 

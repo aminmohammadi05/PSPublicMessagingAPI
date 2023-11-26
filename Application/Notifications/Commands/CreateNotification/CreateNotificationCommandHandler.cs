@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using PSPublicMessagingAPI.Application.Abstractions.Clock;
 using PSPublicMessagingAPI.Application.Abstractions.Messaging;
-using PSPublicMessagingAPI.Application.Contracts;
+using PSPublicMessagingAPI.Contract;
 using PSPublicMessagingAPI.Domain.Abstractions;
 using PSPublicMessagingAPI.Domain.Notifications;
 using PSPublicMessagingAPI.Domain.Notifications.Events;

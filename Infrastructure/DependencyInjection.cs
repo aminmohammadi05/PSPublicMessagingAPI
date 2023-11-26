@@ -9,6 +9,7 @@ using PSPublicMessagingAPI.Domain.Abstractions;
 using PSPublicMessagingAPI.Domain.ClientActions;
 using PSPublicMessagingAPI.Domain.Notifications;
 using PSPublicMessagingAPI.Domain.PossibleActions;
+using PSPublicMessagingAPI.Domain.UserRoles;
 using PSPublicMessagingAPI.Infrastructure.Clock;
 using PSPublicMessagingAPI.Infrastructure.Data;
 using PSPublicMessagingAPI.Infrastructure.Repositories;
@@ -35,6 +36,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
         services.AddScoped<IClientActionRepository, ClientActionRepository>();
 

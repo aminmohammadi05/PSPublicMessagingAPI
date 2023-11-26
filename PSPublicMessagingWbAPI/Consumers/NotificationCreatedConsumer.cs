@@ -1,5 +1,6 @@
 ﻿using MassTransit;
-using PSPublicMessagingAPI.Application.Contracts;
+using PSPublicMessagingAPI.Contract;
+
 
 namespace PSPublicMessagingWbAPI.Consumers
 {

@@ -122,4 +122,13 @@ public sealed class Notification : Entity
 
         return notification;
     }
+
+    public Result ChangeStatus(NotificationStatus newStatus)
+    {
+        NotificationStatus = newStatus;
+
+        RaiseDomainEvent(new NotificationStateChangedDomainEvent(Id));
+
+        return Result.Success();
+    }
 }

@@ -158,6 +158,27 @@ namespace Infrastructure.Migrations
                     b.ToTable("PossibleAction", (string)null);
                 });
 
+            modelBuilder.Entity("PSPublicMessagingAPI.Domain.UserRoles.UserRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserRole", (string)null);
+                });
+
             modelBuilder.Entity("PSPublicMessagingAPI.Domain.Notifications.Notification", b =>
                 {
                     b.OwnsOne("PSPublicMessagingAPI.Domain.Notifications.MethodParameter", "MethodParameter", b1 =>

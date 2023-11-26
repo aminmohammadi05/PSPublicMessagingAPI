@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   pspublicmessagingwbapi:
-    image: ${DOCKER_REGISTRY-}pspublicmessagingwbapi:v1.0.7
+    image: ${DOCKER_REGISTRY-}pspublicmessagingwbapi:v1.0.12
     container_name: PSMessaging.Api
     build:
       context: .

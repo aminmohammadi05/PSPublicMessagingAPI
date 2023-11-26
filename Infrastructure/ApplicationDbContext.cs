@@ -21,6 +21,8 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
         _publisher = publisher;
     }
 
+   
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
