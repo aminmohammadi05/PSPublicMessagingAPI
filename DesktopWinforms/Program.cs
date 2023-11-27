@@ -9,6 +9,7 @@ using PSPublicMessagingAPI.Desktop.Services;
 using PSPublicMessagingAPI.Desktop.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -19,47 +20,53 @@ using PSPublicMessagingAPI.Desktop.Models;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using System.Text;
+using System.Threading.Tasks;
 using DesktopWinforms.Services;
 using Microsoft.Extensions.Hosting;
 using PSPublicMessagingAPI.Desktop.Consumers;
 using MassTransit;
-
+using SuperSimpleTcp;
 
 
 namespace DesktopWinforms
 {
     static class Program
     {
-        
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
-        static void Main(string[] args)
+        //[STAThread]
+        //static void Main(string[] args)
+        //{
+
+
+        //    CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
+
+        //    // The following line provides localization for the application's user interface.  
+        //    Thread.CurrentThread.CurrentUICulture = culture;
+
+        //    // The following line provides localization for data formats.  
+        //    Thread.CurrentThread.CurrentCulture = culture;
+
+        //    // Set this culture as the default culture for all threads in this application.  
+        //    // Note: The following properties are supported in the .NET Framework 4.5+ 
+        //    CultureInfo.DefaultThreadCurrentCulture = culture;
+        //    CultureInfo.DefaultThreadCurrentUICulture = culture;
+        //    System.Windows.Forms.Application.EnableVisualStyles();
+        //    System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+
+        //    System.Windows.Forms.Application.Run(new MyCustomApplicationContext());
+
+        //}
+        private static async Task Main()
         {
-            
-
-            CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
-
-            // The following line provides localization for the application's user interface.  
-            Thread.CurrentThread.CurrentUICulture = culture;
-
-            // The following line provides localization for data formats.  
-            Thread.CurrentThread.CurrentCulture = culture;
-
-            // Set this culture as the default culture for all threads in this application.  
-            // Note: The following properties are supported in the .NET Framework 4.5+ 
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
-            System.Windows.Forms.Application.EnableVisualStyles();
-            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            CreateHostBuilder(args).Build().Run();
-            System.Windows.Forms.Application.Run(new MyCustomApplicationContext(args));
-            
+            await CreateHostBuilder().Build().RunAsync();
         }
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureServices((hostContext, services) =>
+        private static IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
                 {
                     services.AddMassTransit(x =>
                     {
@@ -76,22 +83,23 @@ namespace DesktopWinforms
                             cfg.ConfigureEndpoints(context);
                         });
                     });
-
                     services.AddHostedService<Worker>();
+
+                    
                 });
+        }
     }
 
     public class MyCustomApplicationContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
         IServiceProvider serviceProvider;
-       
+        private SimpleTcpServer server = new SimpleTcpServer("127.0.0.1:13000");
         IConfigurationManagerService configurationManagerService;
-        public MyCustomApplicationContext(string[] args)
+        public MyCustomApplicationContext()
         {
             serviceProvider = IocConfig.CreateServiceProvider();
-           
-
+         
             configurationManagerService = serviceProvider.GetService<IConfigurationManagerService>();
             var encryptedUsername = configurationManagerService.UserName;
             var encryptedPassword = configurationManagerService.Password;
@@ -123,7 +131,7 @@ namespace DesktopWinforms
             };
             
         }
-        
+
 
         void Exit(object sender, EventArgs e)
         {

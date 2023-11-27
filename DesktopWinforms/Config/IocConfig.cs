@@ -15,6 +15,7 @@ using PSPublicMessagingAPI.Desktop.Services;
 using PSPublicMessagingAPI.Desktop.ViewModels;
 using PSPublicMessagingAPI.Desktop.Views;
 using PSPublicMessagingAPI.Domain.Notifications;
+using SuperSimpleTcp;
 
 
 namespace PSPublicMessagingAPI.Desktop.Config;
@@ -43,6 +44,7 @@ public class IocConfig
         //    });
 
         //});
+        services.AddSingleton<SimpleTcpServer>();
         services.AddSingleton<IMapper>(c => new Mapper(mapperConfiguration));
         services.AddSingleton<IToastService, ToastService>();
         services.AddSingleton<IFontService, FontService>();

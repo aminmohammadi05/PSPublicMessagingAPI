@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using DesktopWinforms.Services;
 using DevExpress.Utils.MVVM.Services;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -15,20 +16,18 @@ namespace PSPublicMessagingAPI.Desktop.Consumers;
 internal class NotificationCreatedConsumer : IConsumer<NotificationCreatedEvent>
 {
     readonly ILogger<NotificationCreatedEvent> _logger;
-   
-    public delegate void MessageEventHandler(object sender, NotificationCreatedEvent notification);
-    public event MessageEventHandler MessageReceived;
-    public NotificationCreatedConsumer(ILogger<NotificationCreatedEvent> logger)
+    public IDispatcher _dispatcher { get; set; }
+    public NotificationCreatedConsumer(ILogger<NotificationCreatedEvent> logger, IDispatcher dispatcher)
     {
         _logger = logger;
-       
+        _dispatcher = dispatcher;
     }
 
-    public Task Consume(ConsumeContext<NotificationCreatedEvent> context)
+    public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
     {
         //Notification notif = _communicationService.GetNotificationById(e.Entity.NotificationId);
         _logger.LogInformation("Received Text: {Text}", context.Message.notificationTitle);
-        MessageReceived(this, context.Message);
-        return Task.CompletedTask;
+        await _dispatcher.RunAsync();
+
     }
 }
