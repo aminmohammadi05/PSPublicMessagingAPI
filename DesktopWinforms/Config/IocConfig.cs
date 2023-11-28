@@ -51,9 +51,9 @@ public class IocConfig
         {
             return new Worker(s);
         });
-        services.AddScoped<IMapper>(c => new Mapper(mapperConfiguration));
-        services.AddScoped<IToastService, ToastService>();
-        services.AddScoped<NotificationCreatedConsumer>(s =>
+        services.AddSingleton<IMapper>(c => new Mapper(mapperConfiguration));
+        services.AddSingleton<IToastService, ToastService>();
+        services.AddSingleton<NotificationCreatedConsumer>(s =>
         {
             return new NotificationCreatedConsumer(s.GetRequiredService<ICommunicationApplicationController>(),
                 s.GetRequiredService<IToastService>(),
@@ -63,7 +63,7 @@ public class IocConfig
                 s.GetRequiredService<IConfigurationManagerService>(),
                 Dispatcher.CurrentDispatcher);
         });
-        services.AddScoped<IFontService, FontService>();
+        services.AddSingleton<IFontService, FontService>();
         services.AddSingleton<IMainView, MainWindow>();
         services.AddSingleton<INewNotification>(s =>
         {
@@ -86,7 +86,7 @@ public class IocConfig
 
         services.AddSingleton<IConfigurationManagerService, ConfigurationManagerService>();
 
-        services.AddScoped<ICommunicationApplicationController, CommunicationApplicationController>();
+        services.AddSingleton<ICommunicationApplicationController, CommunicationApplicationController>();
         services.AddSingleton<IActiveDirectoryService>(s =>
         {
             return new ActiveDirectoryService(s.GetRequiredService<IConfigurationManagerService>()
@@ -116,7 +116,7 @@ public class IocConfig
         //    return new NotificationService();
         //});
 
-        services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<ICommunicationApplicationController>(),
+        services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<ICommunicationApplicationController>(),
                                                            s.GetRequiredService<IToastService>(),
                                                            s.GetRequiredService<IActiveDirectoryService>(),
                                                           

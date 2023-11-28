@@ -37,7 +37,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         Read,
         All
     }
-    public partial class MainWindow : ViewBase, IMainView, IConsumer<NotificationCreatedEvent>
+    public partial class MainWindow : ViewBase, IMainView//, IConsumer<NotificationCreatedEvent>
     {
         private ConnectionFactory _factory;
         private IConnection _connection;
@@ -65,7 +65,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             InitializeComponent();
             _uiSyncContext = SynchronizationContext.Current;
             _consumer = consumer;
-            //_consumer.MessageReceived += _consumer_MessageReceived;
+            _consumer.MessageReceived += _consumer_MessageReceived; ;
             _configurationManagerService = configurationManagerService;
             SilentMode = _configurationManagerService.Silent;
             btnSilent.Checked = SilentMode;
@@ -88,7 +88,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             _activeDirectoryService = activeDirectoryService;
         }
 
-       
+      
 
         private List<Control> GetAllControls(Control container, List<Control> list)
         {
@@ -107,16 +107,16 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             return GetAllControls(container, new List<Control>());
         }
-        public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
+        public void _consumer_MessageReceived(object sender, PropertyChangedEventArgs e)
         {
-            NotificationDto notifi = _communicationAppController.GetNotificationById(context.Message.Id); ;
-            //message = await _communicationAppController.GetNotificationById(context.Message.Id);
-            if (notifi.Id == Guid.Empty)
+            NotificationViewModel message = _consumer.Notification;
+            
+            if (message.Id == Guid.Empty)
             {
 
                 return;
             }
-            NotificationViewModel message = _mapper.Map<NotificationViewModel>(notifi);
+          
             if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
             {
                 return;
@@ -124,13 +124,8 @@ namespace PSPublicMessagingAPI.Desktop.Views
             if ((!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Count() > 0) ||
                 (!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Any(x => x == _activeDirectoryService.OU)))
             {
-                if (SilentMode)
-                {
-                    Dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info), DispatcherPriority.Render);
-                   
-
-                }
-                else
+                
+                if(!SilentMode)
                 {
                     Dispatcher.Invoke(() =>
                     {
@@ -141,12 +136,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
                 }
 
-                //Dispatcher.Invoke(() => AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message));
-                //if (message.LastModifierUser != _activeDirectoryService.CurrentUser)
-                //{
-                //    Dispatcher.Invoke(() => AddNewNotification(dateTime, _activeDirectoryService.CurrentUser, message));
-
-                //}
+                
             }
         }
 

@@ -75,8 +75,8 @@ namespace DesktopWinforms
                     services.AddMassTransit(x =>
                     {
                         // elided...
-                        x.AddConsumer<NotificationCreatedConsumer>();
-                        x.AddConsumer<MainWindow>();
+                        x.AddConsumer<NotificationCreatedConsumer>().ExcludeFromConfigureEndpoints();
+                        //x.AddConsumer<MainWindow>();
                         x.UsingRabbitMq((context, cfg) =>
                         {
 

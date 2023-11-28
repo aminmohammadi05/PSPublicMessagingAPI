@@ -31,6 +31,7 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
     private readonly IConfigurationManagerService _configurationManagerService;
     private readonly Dispatcher _dispatcher;
     private NotificationCreatedEvent _message;
+    private NotificationViewModel notification;
 
 
     public event EventHandler<PropertyChangedEventArgs> MessageReceived;
@@ -52,6 +53,17 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
         _dispatcher = dispatcher;
     }
 
+    public NotificationViewModel Notification
+    {
+        get => notification;
+        set
+        {
+            notification = value;
+            OnPropertyChanged(nameof(Notification));
+            OnMessageReceived(nameof(Notification));
+        }
+    }
+
     public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
     {
         NotificationDto notifi = await _communicationAppController.GetNotificationByIdAsync(context.Message.Id);
@@ -62,6 +74,7 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
         }
 
         NotificationViewModel notification = _mapper.Map<NotificationViewModel>(notifi);
+        Notification = notification;
         if ((notification.TargetGroup == "All") ||
             (!string.IsNullOrEmpty(notification.TargetGroup) && notification.TargetGroup == _activeDirectoryService.OU) ||
             (string.IsNullOrEmpty(notification.TargetGroup) && notification.TargetClientUserName == _activeDirectoryService.CurrentUser))
@@ -69,20 +82,17 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
             _dispatcher.Invoke(() => ShowMessage(notification.NotificationText, ToastType.Info));
             if (_configurationManagerService.Silent)
             {
-                //_dispatcher.Invoke(() => ShowMessage(notification.NotificationText, ToastType.Info));
+                _dispatcher.Invoke(() => ShowMessage(notification.NotificationText, ToastType.Info));
             }
-            else
-            {
-                //_dispatcher.Invoke(() =>
-                //{
-                //    var msg = new Message(notification, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
-                //    msg.TopMost = true;
-                //    msg.Show();
-                //});
-            }
+            
         }
 
 
+    }
+    private void OnMessageReceived(string propertyName)
+    {
+
+        MessageReceived?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
 
