@@ -9,8 +9,10 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Text;
+using PSPublicMessagingAPI.Desktop.ViewModels;
+using DesktopWinforms.Models;
 
-namespace DesktopWinforms.Controllers;
+namespace PSPublicMessagingAPI.DesktopWinforms.Controllers;
 
 public class CommunicationApplicationController : ICommunicationApplicationController
 {
@@ -21,7 +23,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
     }
 
     public List<object> ClientActions { get; set; }
-    public async Task<List<Notification>> GetUserUnreadNotifications(string user, string OU)
+    public async Task<List<NotificationDto>> GetUserUnreadNotifications(string user, string OU)
     {
         using (var client = new HttpClient())
         {
@@ -37,7 +39,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonConvert.DeserializeObject<List<Notification>>(await response.Content.ReadAsStringAsync());
+                var data = JsonConvert.DeserializeObject<List<NotificationDto>>(await response.Content.ReadAsStringAsync());
                 return data;
 
             }
@@ -47,32 +49,80 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public Notification SetNotificationStatus(Guid notification, string lastModifierUser, NotificationStatus read)
+    public Task<NotificationDto> SetNotificationStatus(Guid notification, string lastModifierUser, NotificationStatus read)
     {
         throw new NotImplementedException();
     }
 
-    public Notification GetNotificationById(Guid notificationId)
+    public async  Task<NotificationDto> GetNotificationByIdAsync(Guid notificationId)
+    {
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+            var response = await client.GetAsync($"api/notifications/{notificationId.ToString()}");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<NotificationDto>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
+    }
+    public NotificationDto GetNotificationById(Guid notificationId)
+    {
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+            var response = client.GetAsync($"api/notifications/{notificationId.ToString()}").Result;
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = response.Content.ReadAsStringAsync().Result;
+                var data = JsonConvert.DeserializeObject<NotificationDto>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
+    }
+
+    public Task<List<NotificationDto>> GetAllNotifications(string user, string OU)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Notification>> GetAllNotifications(string user, string OU)
+    public Task<List<NotificationDto>> GetNotificationsByStatus(string user, string OU, NotificationStatus status)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<Notification>> GetNotificationsByStatus(string user, string OU, NotificationStatus status)
+    public Task<NotificationDto> SaveNotification(NotificationDto notification)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Notification> SaveNotification(Notification notification)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<Notification>> GetAllNotifications()
+    public Task<List<NotificationDto>> GetAllNotifications()
     {
         throw new NotImplementedException();
     }
@@ -115,11 +165,11 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
     }
 
     IToastService _toastService;
-    IServiceProvider _services;
-    public CommunicationApplicationController(IToastService toastService, IServiceProvider services)
+
+    public CommunicationApplicationController(IToastService toastService)
     {
         _toastService = toastService;
-        _services = services;
+       
         #region Dispatcher Config
 
         // Ignore unhandled exceptions

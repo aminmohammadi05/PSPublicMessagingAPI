@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoMapper;
+using DesktopWinforms.Models;
 
 namespace PSPublicMessagingAPI.Desktop.Views
 {
@@ -27,17 +28,17 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private IMapper _mapper;
         public bool CanCancel
         {
-            get => bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).NotificationId == Guid.Empty;
+            get => bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).Id == Guid.Empty;
 
         }
         public bool CanNew
         {
-            get => bsNotification.List.Count == 0 || bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).NotificationId != Guid.Empty;
+            get => bsNotification.List.Count == 0 || bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).Id != Guid.Empty;
 
         }
         public bool CanSend
         {
-            get => bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).NotificationId != Guid.Empty && bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).NotificationStatus == NotificationStatus.ReadyToPublish;
+            get => bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).Id != Guid.Empty && bsNotification.Current != null && (bsNotification.Current as NotificationViewModel).NotificationStatus == NotificationStatus.ReadyToPublish;
 
         }
         public NewNotification(IToastService toastService, IActiveDirectoryService activeDirectoryService, IMapper mapper) : base(toastService)
@@ -77,7 +78,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             }
         }
 
-        public Notification SelectedNotification { get; private set; }
+        public NotificationDto SelectedNotification { get; private set; }
         public ObservableCollection<NotificationViewModel> NotificationList { get; private set; } = new ObservableCollection<NotificationViewModel>();
 
         protected override void ShowMessage(string message, ToastType toastType)
@@ -116,20 +117,20 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             if (IsValid(false))
             {
-                SelectedNotification = _mapper.Map<NotificationViewModel, Notification>((bsNotification.Current as NotificationViewModel));
+                SelectedNotification = _mapper.Map<NotificationViewModel, NotificationDto>((bsNotification.Current as NotificationViewModel));
                 //SelectedNotification.PossibleActionId = 1; // Set to public Messages
                 //SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
                 //SelectedNotification.NotificationStatus = (NotificationStatus)cmbStatus.SelectedIndex;
-                NotificationViewModel result = _mapper.Map<Notification, NotificationViewModel>(await _presenter.SaveNotification(SelectedNotification));
+                NotificationViewModel result = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.SaveNotification(SelectedNotification));
                 if (result != null)
                 {
-                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.NotificationId == result.NotificationId))
+                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result.Id))
                     {
                         bsNotification.RemoveCurrent();
                     }
 
                     bsNotification.Add(result);
-                    bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(bsNotification.List.Cast<NotificationViewModel>().Where(x => x.NotificationId != Guid.Empty));
+                    bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(bsNotification.List.Cast<NotificationViewModel>().Where(x => x.Id != Guid.Empty));
                     var ind = bsNotification.IndexOf(result);
                     bsNotification.Position = ind;
 
@@ -176,7 +177,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 erpNewNotification.SetError(cmbStatus, "برای ارسال وضعیت پیام باید ReadyToPublish باشد ");
                 return false;
             }
-            if (isSend && (bsNotification.Current as NotificationViewModel).NotificationId == Guid.Empty)
+            if (isSend && (bsNotification.Current as NotificationViewModel).Id == Guid.Empty)
             {
                 erpNewNotification.SetError(btnSend, "قبل از ارسال پیام جدید آن را ذخیره کنید");
                 return false;
@@ -190,7 +191,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             {
                 if (MessageBox.Show("آیا از حذف این مورد اطمینان دارید؟", "حذف", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    int result = await _presenter.RemoveNotification((bsNotification.Current as NotificationViewModel).NotificationId);
+                    int result = await _presenter.RemoveNotification((bsNotification.Current as NotificationViewModel).Id);
                     if (result > 0)
                     {
                         bsNotification.RemoveCurrent();
@@ -206,9 +207,9 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            if (bsNotification.List.Cast<NotificationViewModel>().Any(x => Guid.Empty == x.NotificationId))
+            if (bsNotification.List.Cast<NotificationViewModel>().Any(x => Guid.Empty == x.Id))
             {
-                bsNotification.RemoveAt(bsNotification.IndexOf(bsNotification.List.Cast<NotificationViewModel>().FirstOrDefault(x => Guid.Empty == x.NotificationId)));
+                bsNotification.RemoveAt(bsNotification.IndexOf(bsNotification.List.Cast<NotificationViewModel>().FirstOrDefault(x => Guid.Empty == x.Id)));
 
             }
             bsNotification.AddNew();
@@ -217,9 +218,9 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (bsNotification.List.Cast<NotificationViewModel>().Any(x => Guid.Empty == x.NotificationId))
+            if (bsNotification.List.Cast<NotificationViewModel>().Any(x => Guid.Empty == x.Id))
             {
-                bsNotification.RemoveAt(bsNotification.IndexOf(bsNotification.List.Cast<NotificationViewModel>().FirstOrDefault(x => Guid.Empty == x.NotificationId)));
+                bsNotification.RemoveAt(bsNotification.IndexOf(bsNotification.List.Cast<NotificationViewModel>().FirstOrDefault(x => Guid.Empty == x.Id)));
 
             }
         }
@@ -229,7 +230,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void NewNotification_Load(object sender, EventArgs e)
         {
 
-            NotificationList = new ObservableCollection<NotificationViewModel>(_mapper.Map<List<Notification>, List<NotificationViewModel>>(await _presenter.GetAllNotifications()));
+            NotificationList = new ObservableCollection<NotificationViewModel>(_mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _presenter.GetAllNotifications()));
             cmbPriority.DataSource = Enum.GetValues(typeof(NotificationPriority));
             cmbStatus.DataSource = Enum.GetValues(typeof(NotificationStatus));
             bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(NotificationList); //);
@@ -261,14 +262,14 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             if (IsValid(true))
             {
-                SelectedNotification = _mapper.Map<NotificationViewModel, Notification>((bsNotification.Current as NotificationViewModel));
+                SelectedNotification = _mapper.Map<NotificationViewModel, NotificationDto>((bsNotification.Current as NotificationViewModel));
 
 
                 SelectedNotification.ChangeStatus(NotificationStatus.New);
-                NotificationViewModel result = _mapper.Map<Notification, NotificationViewModel>(await _presenter.SaveNotification(SelectedNotification));
+                NotificationViewModel result = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.SaveNotification(SelectedNotification));
                 if (result != null)
                 {
-                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.NotificationId == result.NotificationId))
+                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result.Id))
                     {
                         bsNotification.RemoveCurrent();
                     }

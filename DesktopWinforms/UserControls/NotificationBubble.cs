@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSPublicMessagingAPI.Domain.Notifications;
 using AutoMapper;
+using DesktopWinforms.Models;
 
 namespace DesktopWinforms.UserControls
 {
@@ -59,19 +60,19 @@ namespace DesktopWinforms.UserControls
             return GetAllControls(container, new List<Control>());
         }
 
-        private void btnMarkAsRead_Click(object sender, EventArgs e)
+        private async void btnMarkAsRead_Click(object sender, EventArgs e)
         {
-            var notif = _communicationService.SetNotificationStatus(this.Notification.NotificationId, _activeDirectoryService.CurrentUser, NotificationStatus.Read);
+            var notif = await _communicationService.SetNotificationStatus(this.Notification.Id, _activeDirectoryService.CurrentUser, NotificationStatus.Read);
             this.Notification = mapToViewModel(notif);
             btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
         }
 
-        private void btnVisit_Click(object sender, EventArgs e)
+        private async void btnVisit_Click(object sender, EventArgs e)
         {
 
 
             //Presenter.GetType().GetMethod(Notification.PossibleActionMethodToCall).Invoke(Presenter, new object[] { parent, Notification.MethodParameter });
-            var notif = _communicationService.SetNotificationStatus(this.Notification.NotificationId, _activeDirectoryService.CurrentUser, NotificationStatus.Read);
+            var notif = await _communicationService.SetNotificationStatus(this.Notification.Id, _activeDirectoryService.CurrentUser, NotificationStatus.Read);
             this.Notification = mapToViewModel(notif);
             btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
             var msg = new PSPublicMessagingAPI.Desktop.Views.Message(this.Notification, _communicationService, _activeDirectoryService, _mapper, _fontService);
@@ -108,9 +109,9 @@ namespace DesktopWinforms.UserControls
 
             }
         }
-        private NotificationViewModel mapToViewModel(Notification notif)
+        private NotificationViewModel mapToViewModel(NotificationDto notif)
         {
-            return _mapper.Map<Notification, NotificationViewModel>(notif);
+            return _mapper.Map<NotificationDto, NotificationViewModel>(notif);
 
         }
     }

@@ -35,7 +35,7 @@ namespace DesktopWinforms.Services
             System.Windows.Forms.Application.SetHighDpiMode(HighDpiMode.SystemAware);
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            System.Windows.Forms.Application.Run(new MyCustomApplicationContext());
+            System.Windows.Forms.Application.Run(new MyCustomApplicationContext(_services));
 
             return Task.CompletedTask;
         }

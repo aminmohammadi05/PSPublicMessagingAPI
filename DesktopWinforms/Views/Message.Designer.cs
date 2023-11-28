@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.svgLogo = new DevExpress.XtraEditors.SvgImageBox();
+            //this.svgLogo = new DevExpress.XtraEditors.SvgImageBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
@@ -40,8 +40,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblPriority = new System.Windows.Forms.Label();
-            this.svgStstus = new DevExpress.XtraEditors.SvgImageBox();
-            this.svgPriority = new DevExpress.XtraEditors.SvgImageBox();
+            //this.svgStstus = new DevExpress.XtraEditors.SvgImageBox();
+            //this.svgPriority = new DevExpress.XtraEditors.SvgImageBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lblSender = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -49,11 +49,11 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.svgLogo)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.svgLogo)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.svgStstus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.svgPriority)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.svgStstus)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.svgPriority)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.svgLogo, 2, 1);
+            //this.tableLayoutPanel1.Controls.Add(this.svgLogo, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 4);
@@ -85,18 +85,18 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // svgLogo
-            // 
-            this.svgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.svgLogo.Location = new System.Drawing.Point(327, 23);
-            this.svgLogo.Name = "svgLogo";
-            this.tableLayoutPanel1.SetRowSpan(this.svgLogo, 2);
-            this.svgLogo.Size = new System.Drawing.Size(146, 92);
-            this.svgLogo.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
-            this.svgLogo.SvgImage = global::DesktopWinforms.Properties.Resources.LOGO;
-            this.svgLogo.TabIndex = 0;
-            this.svgLogo.Text = "svgImageBox1";
+            //// 
+            //// svgLogo
+            //// 
+            //this.svgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            //this.svgLogo.Location = new System.Drawing.Point(327, 23);
+            //this.svgLogo.Name = "svgLogo";
+            //this.tableLayoutPanel1.SetRowSpan(this.svgLogo, 2);
+            //this.svgLogo.Size = new System.Drawing.Size(146, 92);
+            //this.svgLogo.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
+            //this.svgLogo.SvgImage = global::PSPublicMessagingAPI.DesktopWinforms.Properties.Resources.LOGO;
+            //this.svgLogo.TabIndex = 0;
+            //this.svgLogo.Text = "svgImageBox1";
             // 
             // tableLayoutPanel2
             // 
@@ -165,8 +165,8 @@
             this.tableLayoutPanel3.Controls.Add(this.label4, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.lblStatus, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.lblPriority, 2, 1);
-            this.tableLayoutPanel3.Controls.Add(this.svgStstus, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.svgPriority, 0, 1);
+            //this.tableLayoutPanel3.Controls.Add(this.svgStstus, 0, 0);
+            //this.tableLayoutPanel3.Controls.Add(this.svgPriority, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label6, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.lblSender, 2, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -223,24 +223,24 @@
             this.lblPriority.TabIndex = 3;
             this.lblPriority.Text = "label6";
             this.lblPriority.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // svgStstus
-            // 
-            this.svgStstus.Location = new System.Drawing.Point(129, 3);
-            this.svgStstus.Name = "svgStstus";
-            this.svgStstus.Size = new System.Drawing.Size(34, 40);
-            this.svgStstus.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
-            this.svgStstus.TabIndex = 4;
-            this.svgStstus.Text = "svgImageBox1";
-            // 
-            // svgPriority
-            // 
-            this.svgPriority.Location = new System.Drawing.Point(129, 49);
-            this.svgPriority.Name = "svgPriority";
-            this.svgPriority.Size = new System.Drawing.Size(34, 40);
-            this.svgPriority.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
-            this.svgPriority.TabIndex = 5;
-            this.svgPriority.Text = "svgImageBox2";
+            //// 
+            //// svgStstus
+            //// 
+            //this.svgStstus.Location = new System.Drawing.Point(129, 3);
+            //this.svgStstus.Name = "svgStstus";
+            //this.svgStstus.Size = new System.Drawing.Size(34, 40);
+            //this.svgStstus.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
+            //this.svgStstus.TabIndex = 4;
+            //this.svgStstus.Text = "svgImageBox1";
+            //// 
+            //// svgPriority
+            //// 
+            //this.svgPriority.Location = new System.Drawing.Point(129, 49);
+            //this.svgPriority.Name = "svgPriority";
+            //this.svgPriority.Size = new System.Drawing.Size(34, 40);
+            //this.svgPriority.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
+            //this.svgPriority.TabIndex = 5;
+            //this.svgPriority.Text = "svgImageBox2";
             // 
             // label6
             // 
@@ -327,13 +327,13 @@
             this.Load += new System.EventHandler(this.NotificationBubble_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.svgLogo)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.svgLogo)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.svgStstus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.svgPriority)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.svgStstus)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.svgPriority)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
@@ -343,7 +343,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DevExpress.XtraEditors.SvgImageBox svgLogo;
+        //private DevExpress.XtraEditors.SvgImageBox svgLogo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDate;
@@ -354,8 +354,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblPriority;
-        private DevExpress.XtraEditors.SvgImageBox svgStstus;
-        private DevExpress.XtraEditors.SvgImageBox svgPriority;
+        //private DevExpress.XtraEditors.SvgImageBox svgStstus;
+        //private DevExpress.XtraEditors.SvgImageBox svgPriority;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblTitle;

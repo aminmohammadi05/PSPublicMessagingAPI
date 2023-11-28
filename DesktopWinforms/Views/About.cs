@@ -19,7 +19,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         public About(IFontService fontService, IConfigurationManagerService configurationManagerService)
         {
             InitializeComponent();
-            svgLogo.SvgImage = global::DesktopWinforms.Properties.Resources.LOGO;
+            svgLogo.SvgImage = global::PSPublicMessagingAPI.DesktopWinforms.Properties.Resources.LOGO;
             _fontService = fontService;
             _configurationManagerService = configurationManagerService;
             List<Control> allControls = GetAllControls(this);

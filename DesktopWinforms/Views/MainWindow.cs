@@ -18,11 +18,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using AutoMapper;
+using DesktopWinforms.Models;
 using DesktopWinforms.UserControls;
 using PSPublicMessagingAPI.Domain.Notifications;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using static DevExpress.Data.Filtering.Helpers.SubExprHelper.ThreadHoppingFiltering;
+using PSPublicMessagingAPI.Desktop.Consumers;
+using MassTransit;
+using PSPublicMessagingAPI.Contract;
 
 namespace PSPublicMessagingAPI.Desktop.Views
 {
@@ -33,12 +37,12 @@ namespace PSPublicMessagingAPI.Desktop.Views
         Read,
         All
     }
-    public partial class MainWindow : ViewBase, IMainView
+    public partial class MainWindow : ViewBase, IMainView, IConsumer<NotificationCreatedEvent>
     {
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
-        private EventingBasicConsumer _consumer;
+        
 
 
         private IMainViewPresenter _presenter;
@@ -55,13 +59,17 @@ namespace PSPublicMessagingAPI.Desktop.Views
         // ShellViewModel shellViewModel;
         IFontService _fontService;
         IConfigurationManagerService _configurationManagerService;
-        public MainWindow(ICommunicationApplicationController communicationAppController, IToastService toastService, IActiveDirectoryService activeDirectoryService, IMapper mapper, IFontService fontService, IConfigurationManagerService configurationManagerService, Dispatcher dispatcher) : base(toastService)
+        NotificationCreatedConsumer _consumer;
+        public MainWindow(ICommunicationApplicationController communicationAppController, IToastService toastService, IActiveDirectoryService activeDirectoryService, IMapper mapper, NotificationCreatedConsumer consumer, IFontService fontService, IConfigurationManagerService configurationManagerService, Dispatcher dispatcher) : base(toastService)
         {
             InitializeComponent();
+            _uiSyncContext = SynchronizationContext.Current;
+            _consumer = consumer;
+            //_consumer.MessageReceived += _consumer_MessageReceived;
             _configurationManagerService = configurationManagerService;
             SilentMode = _configurationManagerService.Silent;
             btnSilent.Checked = SilentMode;
-            this.svgLogo.SvgImage = global::DesktopWinforms.Properties.Resources.LOGO;
+            this.svgLogo.SvgImage = global::PSPublicMessagingAPI.DesktopWinforms.Properties.Resources.LOGO;
             _fontService = fontService;
             List<Control> allControls = GetAllControls(this);
 
@@ -80,6 +88,8 @@ namespace PSPublicMessagingAPI.Desktop.Views
             _activeDirectoryService = activeDirectoryService;
         }
 
+       
+
         private List<Control> GetAllControls(Control container, List<Control> list)
         {
             foreach (Control c in container.Controls)
@@ -97,8 +107,16 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             return GetAllControls(container, new List<Control>());
         }
-        private void ShellViewModel_MessageReceived(object sender, DateTime dateTime, NotificationViewModel message)
+        public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
         {
+            NotificationDto notifi = _communicationAppController.GetNotificationById(context.Message.Id); ;
+            //message = await _communicationAppController.GetNotificationById(context.Message.Id);
+            if (notifi.Id == Guid.Empty)
+            {
+
+                return;
+            }
+            NotificationViewModel message = _mapper.Map<NotificationViewModel>(notifi);
             if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
             {
                 return;
@@ -108,7 +126,9 @@ namespace PSPublicMessagingAPI.Desktop.Views
             {
                 if (SilentMode)
                 {
-                    Dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info));
+                    Dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info), DispatcherPriority.Render);
+                   
+
                 }
                 else
                 {
@@ -117,10 +137,11 @@ namespace PSPublicMessagingAPI.Desktop.Views
                         var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
                         msg.TopMost = true;
                         msg.Show();
-                    });
+                    }, DispatcherPriority.Render);
+
                 }
 
-                Dispatcher.Invoke(() => AddNewNotification(dateTime, _activeDirectoryService.CurrentUser, message));
+                //Dispatcher.Invoke(() => AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message));
                 //if (message.LastModifierUser != _activeDirectoryService.CurrentUser)
                 //{
                 //    Dispatcher.Invoke(() => AddNewNotification(dateTime, _activeDirectoryService.CurrentUser, message));
@@ -187,9 +208,9 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private void AddNewNotification(DateTime dateTime, string user, NotificationViewModel notif)
         {
-            if (NotificationList.Any(x => x.NotificationId == notif.NotificationId))
+            if (NotificationList.Any(x => x.Id == notif.Id))
             {
-                NotificationList = NotificationList.Where(x => x.NotificationId != notif.NotificationId).ToList();
+                NotificationList = NotificationList.Where(x => x.Id != notif.Id).ToList();
 
             }
             NotificationList.Add(notif);
@@ -223,7 +244,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 mnuCreateMessage.Visibility = roles != null && roles.Any() ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 mainContainer.IsSplitterFixed = true;
                 mainContainer.FixedPanel = SplitFixedPanel.Panel2;
-                NotificationList = _mapper.Map<List<Notification>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotifications(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
+                NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotifications(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
                 LoadNotifications(_activeDirectoryService.CurrentUser);
             }
             else
@@ -286,7 +307,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void mnuAllMessages_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             CurrentStatus = MessagesListStatus.All;
-            NotificationList = _mapper.Map<List<Notification>, List<NotificationViewModel>>(await _communicationAppController.GetAllNotifications(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
+            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetAllNotifications(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
             this.mainContainer.Panel2.Controls.Find("flpNotification", false)[0].Controls.Clear();
             foreach (var item in NotificationList)
             {
@@ -304,7 +325,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void mnuReadMessages_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             CurrentStatus = MessagesListStatus.Read;
-            NotificationList = _mapper.Map<List<Notification>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatus(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU, NotificationStatus.Read));
+            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatus(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU, NotificationStatus.Read));
             this.mainContainer.Panel2.Controls.Find("flpNotification", false)[0].Controls.Clear();
             foreach (var item in NotificationList)
             {
@@ -322,7 +343,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void mnuNewMessages_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             CurrentStatus = MessagesListStatus.New;
-            NotificationList = _mapper.Map<List<Notification>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatus(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU, NotificationStatus.New));
+            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatus(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU, NotificationStatus.New));
             this.mainContainer.Panel2.Controls.Find("flpNotification", false)[0].Controls.Clear();
             foreach (var item in NotificationList)
             {

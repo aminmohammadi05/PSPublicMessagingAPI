@@ -10,9 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DesktopWinforms.Properties;
+
 using PSPublicMessagingAPI.Desktop.Services;
 using DevExpress.XtraEditors;
+using PSPublicMessagingAPI.DesktopWinforms.Properties;
 
 namespace Desktop.Views.Shared
 {

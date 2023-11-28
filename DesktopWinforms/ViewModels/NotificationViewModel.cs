@@ -9,7 +9,7 @@ public class NotificationViewModel : ObservableObject
     private Guid notificationId = Guid.Empty;
     private string notificationTitle;
     private string notificationText;
-    private int possibleActionId;
+    private Guid possibleActionId;
     private string clientUserName;
     private string clientGroup;
     private string targetClientUserName;
@@ -35,13 +35,13 @@ public class NotificationViewModel : ObservableObject
     private bool sendToAll;
 
     
-    public Guid NotificationId
+    public Guid Id
     {
         get => notificationId;
         set
         {
             notificationId = value;
-            OnPropertyChanged(nameof(NotificationId));
+            OnPropertyChanged(nameof(Id));
 
         }
     }
@@ -65,7 +65,7 @@ public class NotificationViewModel : ObservableObject
         }
     }
     
-    public int PossibleActionId
+    public Guid PossibleActionId
     {
         get => possibleActionId; set
         {

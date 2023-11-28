@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DesktopWinforms.Properties {
+namespace PSPublicMessagingAPI.DesktopWinforms.Properties {
     using System;
     
     

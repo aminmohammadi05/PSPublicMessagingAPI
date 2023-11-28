@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DesktopWinforms.Models;
 using PSPublicMessagingAPI.Desktop.Presenter.View;
 using PSPublicMessagingAPI.Domain.Notifications;
 
@@ -25,7 +26,7 @@ public class NewNotificationPresenter : INewNotificationPresenter
 
     }
 
-    public async Task<List<Notification>> GetAllNotifications()
+    public async Task<List<NotificationDto>> GetAllNotifications()
     {
         return await _communicationAppController.GetAllNotifications();
     }
@@ -40,7 +41,7 @@ public class NewNotificationPresenter : INewNotificationPresenter
         _view.Run();
     }
 
-    public async Task<Notification> SaveNotification(Notification selectedNotification)
+    public async Task<NotificationDto> SaveNotification(NotificationDto selectedNotification)
     {
         return await _communicationAppController.SaveNotification(selectedNotification);
     }

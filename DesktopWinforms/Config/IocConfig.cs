@@ -3,10 +3,12 @@ using System.Configuration;
 using System.Windows.Threading;
 using AutoMapper;
 using Desktop.Views;
-using DesktopWinforms.Controllers;
+using DesktopWinforms.Models;
+using DesktopWinforms.Services;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using PersianDate.Standard;
+using PSPublicMessagingAPI.Contract;
 using PSPublicMessagingAPI.Desktop.Consumers;
 using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.Desktop.Presenter.Presenter;
@@ -14,21 +16,22 @@ using PSPublicMessagingAPI.Desktop.Presenter.View;
 using PSPublicMessagingAPI.Desktop.Services;
 using PSPublicMessagingAPI.Desktop.ViewModels;
 using PSPublicMessagingAPI.Desktop.Views;
+using PSPublicMessagingAPI.DesktopWinforms.Controllers;
 using PSPublicMessagingAPI.Domain.Notifications;
-using SuperSimpleTcp;
+
 
 
 namespace PSPublicMessagingAPI.Desktop.Config;
 
 public class IocConfig
 {
-    public static IServiceProvider CreateServiceProvider()
+    public static IServiceProvider CreateServiceProvider(IServiceCollection _services)
     {
       
 
         var mapperConfiguration = CreateConfiguration();
 
-        IServiceCollection services = new ServiceCollection();
+        IServiceCollection services = _services;
         //services.AddMassTransit(busConfigurator =>
         //{
         //    busConfigurator.SetKebabCaseEndpointNameFormatter();
@@ -44,10 +47,23 @@ public class IocConfig
         //    });
 
         //});
-        services.AddSingleton<SimpleTcpServer>();
-        services.AddSingleton<IMapper>(c => new Mapper(mapperConfiguration));
-        services.AddSingleton<IToastService, ToastService>();
-        services.AddSingleton<IFontService, FontService>();
+        services.AddSingleton<Worker>(s =>
+        {
+            return new Worker(s);
+        });
+        services.AddScoped<IMapper>(c => new Mapper(mapperConfiguration));
+        services.AddScoped<IToastService, ToastService>();
+        services.AddScoped<NotificationCreatedConsumer>(s =>
+        {
+            return new NotificationCreatedConsumer(s.GetRequiredService<ICommunicationApplicationController>(),
+                s.GetRequiredService<IToastService>(),
+                s.GetRequiredService<IActiveDirectoryService>(),
+                s.GetRequiredService<IMapper>(),
+                s.GetRequiredService<IFontService>(),
+                s.GetRequiredService<IConfigurationManagerService>(),
+                Dispatcher.CurrentDispatcher);
+        });
+        services.AddScoped<IFontService, FontService>();
         services.AddSingleton<IMainView, MainWindow>();
         services.AddSingleton<INewNotification>(s =>
         {
@@ -60,8 +76,8 @@ public class IocConfig
             return new MainViewPresenter(new MainWindow(s.GetRequiredService<ICommunicationApplicationController>(),
                                                            s.GetRequiredService<IToastService>(),
                                                            s.GetRequiredService<IActiveDirectoryService>(),
-                                                          
                                                            s.GetRequiredService<IMapper>(),
+                                                           s.GetRequiredService<NotificationCreatedConsumer>(),
                                                            s.GetRequiredService<IFontService>(),
                                                            s.GetRequiredService<IConfigurationManagerService>(),
                                                            Dispatcher.CurrentDispatcher)
@@ -70,25 +86,26 @@ public class IocConfig
 
         services.AddSingleton<IConfigurationManagerService, ConfigurationManagerService>();
 
-        services.AddSingleton<ICommunicationApplicationController>(service =>
-        {
-            return new CommunicationApplicationController(service.GetRequiredService<IToastService>(), service);
-        });
+        services.AddScoped<ICommunicationApplicationController, CommunicationApplicationController>();
         services.AddSingleton<IActiveDirectoryService>(s =>
         {
             return new ActiveDirectoryService(s.GetRequiredService<IConfigurationManagerService>()
                                              , s.GetRequiredService<ICommunicationApplicationController>());
         });
-        //services.AddSingleton<IPSMessangerMainController>(s =>
-        //{
-        //    return new PSMessangerMainController(s.GetRequiredService<ICommunicationApplicationController>(),
-        //                                                   s.GetRequiredService<IToastService>(),
-        //                                                   s.GetRequiredService<IActiveDirectoryService>(),
-        //                                                   s.GetRequiredService<IMapper>(),
-        //                                                   s.GetRequiredService<IFontService>(),
-        //                                                   s.GetRequiredService<IConfigurationManagerService>(),
-        //                                                   Dispatcher.CurrentDispatcher);
-        //});
+        
+      
+
+        services.AddSingleton<IPSMessangerMainController>(s =>
+        {
+            return new PSMessangerMainController(s.GetRequiredService<ICommunicationApplicationController>(),
+                                                           s.GetRequiredService<IToastService>(),
+                                                           s.GetRequiredService<IActiveDirectoryService>(),
+                                                            s.GetRequiredService<NotificationCreatedConsumer>(),
+                                                           s.GetRequiredService<IMapper>(),
+                                                           s.GetRequiredService<IFontService>(),
+                                                           s.GetRequiredService<IConfigurationManagerService>(),
+                                                           Dispatcher.CurrentDispatcher);
+        });
 
         //services.AddSingleton<IAuthenticationService>(service =>
         //{
@@ -104,6 +121,7 @@ public class IocConfig
                                                            s.GetRequiredService<IActiveDirectoryService>(),
                                                           
                                                            s.GetRequiredService<IMapper>(),
+                                                           s.GetRequiredService<NotificationCreatedConsumer>(),
                                                            s.GetRequiredService<IFontService>(),
                                                            s.GetRequiredService<IConfigurationManagerService>(),
                                                            Dispatcher.CurrentDispatcher));
@@ -147,8 +165,8 @@ public class IocConfig
     {
         var config = new MapperConfiguration(cfg => {
             #region Notification
-            cfg.CreateMap<NotificationViewModel, Notification>();
-            cfg.CreateMap<Notification, NotificationViewModel>()
+            cfg.CreateMap<NotificationViewModel, NotificationDto>();
+            cfg.CreateMap<NotificationDto, NotificationViewModel>()
             .ForMember(dest => dest.NotificationStatusText, opt => opt.MapFrom(src => src.NotificationStatus == NotificationStatus.Expired ? "منقضی شده" :
                                   src.NotificationStatus == NotificationStatus.Read ? "خوانده شده" :
                                   src.NotificationStatus == NotificationStatus.ReadyToPublish ? "آماده ارسال" :
@@ -173,7 +191,7 @@ public class IocConfig
             .ForMember(dest => dest.ClientFullName, opt => opt.MapFrom(src => src.ClientFullName))
             .ForMember(dest => dest.ClientUserName, opt => opt.MapFrom(src => src.ClientUserName))
             .ForMember(dest => dest.NotificationDate, opt => opt.MapFrom(src => src.NotificationDate))
-            .ForMember(dest => dest.NotificationId, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
 
             .ForMember(dest => dest.TargetGroup, opt => opt.MapFrom(src => src.TargetGroup))
             .ForMember(dest => dest.TargetClientUserName, opt => opt.MapFrom(src => src.TargetClientUserName))

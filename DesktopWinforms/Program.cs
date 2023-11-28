@@ -1,4 +1,4 @@
-﻿using DesktopWinforms.Properties;
+﻿
 using DevExpress.LookAndFeel;
 using DevExpress.Skins;
 using DevExpress.UserSkins;
@@ -25,6 +25,7 @@ using DesktopWinforms.Services;
 using Microsoft.Extensions.Hosting;
 using PSPublicMessagingAPI.Desktop.Consumers;
 using MassTransit;
+using PSPublicMessagingAPI.DesktopWinforms.Properties;
 using SuperSimpleTcp;
 
 
@@ -61,6 +62,8 @@ namespace DesktopWinforms
         //}
         private static async Task Main()
         {
+            
+           
             await CreateHostBuilder().Build().RunAsync();
         }
         private static IHostBuilder CreateHostBuilder()
@@ -68,12 +71,19 @@ namespace DesktopWinforms
             return Host.CreateDefaultBuilder()
                 .ConfigureServices(services =>
                 {
+                    IocConfig.CreateServiceProvider(services);
                     services.AddMassTransit(x =>
                     {
                         // elided...
                         x.AddConsumer<NotificationCreatedConsumer>();
+                        x.AddConsumer<MainWindow>();
                         x.UsingRabbitMq((context, cfg) =>
                         {
+
+                            cfg.ReceiveEndpoint("NotificationCreated", e =>
+                            {
+                                e.ConfigureConsumer<NotificationCreatedConsumer>(context);
+                            });
                             cfg.Host("localhost", "/", h =>
                             {
                                 h.Username("guest");
@@ -93,25 +103,15 @@ namespace DesktopWinforms
     public class MyCustomApplicationContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
-        IServiceProvider serviceProvider;
-        private SimpleTcpServer server = new SimpleTcpServer("127.0.0.1:13000");
+        
+        IPSMessangerMainController appController;
+        IServiceProvider _serviceProvider;
+
         IConfigurationManagerService configurationManagerService;
-        public MyCustomApplicationContext()
+        public MyCustomApplicationContext(IServiceProvider serviceProvider)
         {
-            serviceProvider = IocConfig.CreateServiceProvider();
-         
-            configurationManagerService = serviceProvider.GetService<IConfigurationManagerService>();
-            var encryptedUsername = configurationManagerService.UserName;
-            var encryptedPassword = configurationManagerService.Password;
-            if (!string.IsNullOrEmpty(encryptedUsername) && !string.IsNullOrEmpty(encryptedPassword))
-            {
-                LDAPUser user = serviceProvider.GetRequiredService<IActiveDirectoryService>().LoginToActiveDirectoryUser(encryptedUsername, encryptedPassword);
-                if (user != null)
-                {
-                    
-                }
-                //LoginCommand.Execute(encryptedPassword);
-            }
+            
+            _serviceProvider = serviceProvider;
             // Initialize Tray Icon
          
             
@@ -145,12 +145,12 @@ namespace DesktopWinforms
             // Hide tray icon, otherwise it will remain shown until user mouses over it
 
 
-            MainWindow window = serviceProvider.GetRequiredService<MainWindow>();
+            MainWindow window = _serviceProvider.GetRequiredService<MainWindow>();
             window.Height = Screen.PrimaryScreen.WorkingArea.Height;
             window.StartPosition = FormStartPosition.Manual;
             window.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - window.Width,
                                    Screen.PrimaryScreen.WorkingArea.Height - window.Height);
-            window.Presenter = serviceProvider.GetRequiredService<IMainViewPresenter>();
+            window.Presenter = _serviceProvider.GetRequiredService<IMainViewPresenter>();
             window.ShowDialog();
         }
         void ShowAbout(object sender, EventArgs e)
@@ -158,7 +158,7 @@ namespace DesktopWinforms
             // Hide tray icon, otherwise it will remain shown until user mouses over it
 
 
-            About window = new About(serviceProvider.GetRequiredService<IFontService>(), serviceProvider.GetRequiredService<IConfigurationManagerService>());
+            About window = new About(_serviceProvider.GetRequiredService<IFontService>(), _serviceProvider.GetRequiredService<IConfigurationManagerService>());
             window.Show();
         }
     }
