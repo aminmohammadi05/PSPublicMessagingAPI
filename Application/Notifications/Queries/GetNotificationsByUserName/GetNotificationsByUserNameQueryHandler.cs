@@ -6,7 +6,7 @@ using PSPublicMessagingAPI.Domain.Abstractions;
 
 namespace PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserName;
 
-public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNotificationsByUserNameQuery, NotificationResponse>
+public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNotificationsByUserNameQuery, List<NotificationResponse>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
@@ -15,7 +15,7 @@ public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNo
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<NotificationResponse>> Handle(GetNotificationsByUserNameQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<NotificationResponse>>> Handle(GetNotificationsByUserNameQuery request, CancellationToken cancellationToken)
     {
         using var connection = _sqlConnectionFactory.CreateConnection();
 
@@ -26,13 +26,13 @@ public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNo
                            WHERE targetClientUserName = @username
                            """;
 
-        var notification = await connection.QueryFirstOrDefaultAsync<NotificationResponse>(
+        var notification = await connection.QueryAsync<NotificationResponse>(
             sql,
             new
             {
                 request.username
             });
 
-        return notification;
+        return notification.ToList();
     }
 }

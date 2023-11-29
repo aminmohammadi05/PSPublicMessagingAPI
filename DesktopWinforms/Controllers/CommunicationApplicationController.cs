@@ -42,7 +42,11 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonSerializer.Deserialize<List<NotificationDto>>(await response.Content.ReadAsStringAsync());
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t,new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -72,7 +76,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<NotificationDto>(t);
+                var data = JsonSerializer.Deserialize<NotificationDto>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -99,7 +106,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<NotificationDto>(t);
+                var data = JsonSerializer.Deserialize<NotificationDto>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -125,7 +135,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = response.Content.ReadAsStringAsync().Result;
-                var data = JsonSerializer.Deserialize<NotificationDto>(t);
+                var data = JsonSerializer.Deserialize<NotificationDto>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -152,7 +165,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t);
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -179,7 +195,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t);
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -209,7 +228,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<NotificationDto>(t);
+                var data = JsonSerializer.Deserialize<NotificationDto>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -236,7 +258,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t);
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
@@ -263,7 +288,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonSerializer.Deserialize<List<UserRole>>(await response.Content.ReadAsStringAsync());
+                var data = JsonSerializer.Deserialize<List<UserRole>>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
                 return data;
 
             }
