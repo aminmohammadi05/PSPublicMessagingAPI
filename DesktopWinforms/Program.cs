@@ -60,6 +60,7 @@ namespace DesktopWinforms
         //    System.Windows.Forms.Application.Run(new MyCustomApplicationContext());
 
         //}
+        [STAThread]
         private static async Task Main()
         {
             

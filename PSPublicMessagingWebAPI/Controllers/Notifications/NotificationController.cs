@@ -1,8 +1,11 @@
-﻿using Application.Notifications.Queries.GetNotificationById;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 using PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
+using PSPublicMessagingAPI.Application.Notifications.Commands.UpdateNotification;
+using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
+using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsAll;
+using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserName;
 
 namespace PSPublicMessagingWebAPI.Controllers.Notifications;
 
@@ -21,13 +24,13 @@ public class NotificationController : ControllerBase
     public async Task<IActionResult> GetNotifications(
         CancellationToken cancellationToken)
     {
-        var query = new GetClientActionQuery();
+        var query = new GetNotificationsAllQuery();
 
         var result = await _sender.Send(query, cancellationToken);
 
         return Ok(result.Value);
     }
-    [HttpGet("{id}")]
+    [HttpGet("{id:Guid}")]
     public async Task<IActionResult> GetNotification(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetNotificationByIdQuery(id);
@@ -36,6 +39,16 @@ public class NotificationController : ControllerBase
 
         return result.IsSuccess ? Ok(result.Value) : NotFound();
     }
+    [HttpGet( "{username}")]
+    public async Task<IActionResult> GetNotificationsByUserName(string username, CancellationToken cancellationToken)
+    {
+        var query = new GetNotificationsByUserNameQuery(username);
+
+        var result = await _sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : NotFound();
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> CreateNotification(
@@ -57,6 +70,38 @@ public class NotificationController : ControllerBase
              request.notificationPriority,
              request.methodParameter,
              request.lastModifiedUser);
+
+        var result = await _sender.Send(command, cancellationToken);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return CreatedAtAction(nameof(GetNotification), new { id = result.Value }, result.Value);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateNotificationStatus(
+        UpdateNotificationRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateNotificationCommand(
+            request.Id, 
+            request.possibleActionId,
+            request.notificationTitle,
+            request.notificationText,
+            request.clientUserName,
+            request.clientGroup,
+            request.targetClientUserName,
+            request.targetClientGroup,
+            request.targetGroup,
+            request.clientFullName,
+            request.targetClientFullName,
+            request.notificationStatus,
+            request.notificationPriority,
+            request.methodParameter,
+            request.lastModifiedUser);
 
         var result = await _sender.Send(command, cancellationToken);
 

@@ -13,20 +13,20 @@ public interface ICommunicationApplicationController
     IList<object> GetUserActions(string user);
     List<object> ClientActions { get; set; }
 
-    Task<List<NotificationDto>> GetUserUnreadNotifications(string user, string OU);
-    Task<NotificationDto> SetNotificationStatus(Guid notification, string lastModifierUser, NotificationStatus read);
+    Task<List<NotificationDto>> GetUserUnreadNotificationsAsync(string user, string OU);
+    Task<NotificationDto> SetNotificationStatusAsync(NotificationDto notification);
     Task<NotificationDto> GetNotificationByIdAsync(Guid notificationId);
     NotificationDto GetNotificationById(Guid notificationId);
-    Task<List<NotificationDto>> GetAllNotifications(string user, string OU);
-    Task<List<NotificationDto>> GetNotificationsByStatus(string user, string OU, NotificationStatus status);
-    Task<NotificationDto> SaveNotification(NotificationDto notification);
+    Task<List<NotificationDto>> GetAllNotificationsByUsernameAsync(string user, string OU);
+    Task<List<NotificationDto>> GetNotificationsByStatusAsync(string user, string OU, NotificationStatus status);
+    Task<NotificationDto> SaveNotificationAsync(NotificationDto notification);
 
 
     #region Notification
-    Task<List<NotificationDto>> GetAllNotifications();
-    Task<List<UserRole>> GetUserRole(string userName);
+    Task<List<NotificationDto>> GetAllNotificationsAsync();
+    Task<List<UserRole>> GetUserRoleAsync(string userName);
     void RunCreateNewNotification();
-    Task<int> RemoveNotification(Guid notificationId);
+    Task<Guid> RemoveNotificationAsync(Guid notificationId);
     #endregion
 
 

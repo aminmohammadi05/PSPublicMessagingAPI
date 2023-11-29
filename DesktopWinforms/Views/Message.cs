@@ -62,31 +62,31 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         lblTitle.Text = Notification.NotificationTitle;
 
-        //lblDate.Text = Notification.NotificationDatePersian;
-        //lblTime.Text = Notification.NotificationTimePersian;
-        //lblStatus.Text = Notification.NotificationStatusText;
-        //lblPriority.Text = Notification.NotificationPriorityText;
-        //txtMessage.Text = Notification.NotificationText;
-        //svgPriority.SvgImage = DevExpress.Images.ImageResourceCache.Default.GetSvgImage(Notification.NotificationPriorityIcon.ToLower());
+            lblDate.Text = Notification.NotificationDatePersian;
+            lblTime.Text = Notification.NotificationTimePersian;
+            lblStatus.Text = Notification.NotificationStatusText;
+            lblPriority.Text = Notification.NotificationPriorityText;
+            txtMessage.Text = Notification.NotificationText;
+            svgPriority.SvgImage = DevExpress.Images.ImageResourceCache.Default.GetSvgImage(Notification.NotificationPriorityIcon.ToLower());
 
-        //if (Notification.PossibleActionModuleName == "پیام عمومی")
-        //{
-        //    svgStstus.Visible = false;
-        //    lblStatus.Visible = false;
-        //    label2.Visible = false;
-        //    lblSender.Text = "پیام عمومی";
+            if (Notification.PossibleActionModuleName == "پیام عمومی")
+            {
+                svgStstus.Visible = false;
+                lblStatus.Visible = false;
+                label2.Visible = false;
+                lblSender.Text = "پیام عمومی";
 
-        //}
-        //else
-        //{
-        //    svgStstus.Visible = true;
-        //    lblStatus.Visible = true;
-        //    label2.Visible = true;
-        //    lblSender.Text = Notification.PossibleActionFormName;
-        //    svgStstus.SvgImage = DevExpress.Images.ImageResourceCache.Default.GetSvgImage(Notification.NotificationStatusIcon.ToLower());
+            }
+            else
+            {
+                svgStstus.Visible = true;
+                lblStatus.Visible = true;
+                label2.Visible = true;
+                lblSender.Text = Notification.PossibleActionFormName;
+                svgStstus.SvgImage = DevExpress.Images.ImageResourceCache.Default.GetSvgImage(Notification.NotificationStatusIcon.ToLower());
 
-        //}
-    }
+            }
+        }
     private NotificationViewModel mapToViewModel(Notification notif)
     {
         return _mapper.Map<Notification, NotificationViewModel>(notif);

@@ -2,6 +2,7 @@
 using System.DirectoryServices.ActiveDirectory;
 using PSPublicMessagingAPI.Desktop.Models;
 using PSPublicMessagingAPI.Desktop.Presenter.Presenter.Shared;
+using PSPublicMessagingAPI.SharedToastMessage.Models;
 
 namespace PSPublicMessagingAPI.Desktop.Presenter.View;
 

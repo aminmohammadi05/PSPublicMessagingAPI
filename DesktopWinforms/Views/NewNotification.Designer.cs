@@ -112,14 +112,14 @@
             tableLayoutPanel4.Controls.Add(btnSend, 4, 0);
             tableLayoutPanel4.Controls.Add(btnClose, 6, 0);
             tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel4.Location = new System.Drawing.Point(3, 631);
+            tableLayoutPanel4.Location = new System.Drawing.Point(3, 629);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(1131, 63);
+            tableLayoutPanel4.Size = new System.Drawing.Size(1131, 65);
             tableLayoutPanel4.TabIndex = 1;
             // 
             // btnCancel
@@ -127,7 +127,7 @@
             btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             btnCancel.Location = new System.Drawing.Point(678, 3);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(108, 57);
+            btnCancel.Size = new System.Drawing.Size(108, 59);
             btnCancel.TabIndex = 98;
             btnCancel.Text = "لغو   ";
             btnCancel.Click += btnCancel_Click;
@@ -137,7 +137,7 @@
             btnNew.Dock = System.Windows.Forms.DockStyle.Fill;
             btnNew.Location = new System.Drawing.Point(792, 3);
             btnNew.Name = "btnNew";
-            btnNew.Size = new System.Drawing.Size(108, 57);
+            btnNew.Size = new System.Drawing.Size(108, 59);
             btnNew.TabIndex = 97;
             btnNew.Text = "جدید   ";
             btnNew.Click += btnNew_Click;
@@ -147,7 +147,7 @@
             btnSaveNCRReport.Dock = System.Windows.Forms.DockStyle.Fill;
             btnSaveNCRReport.Location = new System.Drawing.Point(1020, 3);
             btnSaveNCRReport.Name = "btnSaveNCRReport";
-            btnSaveNCRReport.Size = new System.Drawing.Size(108, 57);
+            btnSaveNCRReport.Size = new System.Drawing.Size(108, 59);
             btnSaveNCRReport.TabIndex = 3;
             btnSaveNCRReport.Text = "ثبت تغییرات   ";
             btnSaveNCRReport.Click += btnSave_Click;
@@ -157,7 +157,7 @@
             btnDeleteNCRReport.Dock = System.Windows.Forms.DockStyle.Fill;
             btnDeleteNCRReport.Location = new System.Drawing.Point(906, 3);
             btnDeleteNCRReport.Name = "btnDeleteNCRReport";
-            btnDeleteNCRReport.Size = new System.Drawing.Size(108, 57);
+            btnDeleteNCRReport.Size = new System.Drawing.Size(108, 59);
             btnDeleteNCRReport.TabIndex = 4;
             btnDeleteNCRReport.Text = "حذف   ";
             btnDeleteNCRReport.Click += btnDelete_Click;
@@ -167,7 +167,7 @@
             btnSend.Dock = System.Windows.Forms.DockStyle.Fill;
             btnSend.Location = new System.Drawing.Point(564, 3);
             btnSend.Name = "btnSend";
-            btnSend.Size = new System.Drawing.Size(108, 57);
+            btnSend.Size = new System.Drawing.Size(108, 59);
             btnSend.TabIndex = 5;
             btnSend.Text = "ارسال   ";
             btnSend.Click += btnSend_Click;
@@ -177,7 +177,7 @@
             btnClose.Dock = System.Windows.Forms.DockStyle.Fill;
             btnClose.Location = new System.Drawing.Point(3, 3);
             btnClose.Name = "btnClose";
-            btnClose.Size = new System.Drawing.Size(108, 57);
+            btnClose.Size = new System.Drawing.Size(108, 59);
             btnClose.TabIndex = 6;
             btnClose.Text = "خروج   ";
             btnClose.Click += btnClose_Click;
@@ -185,10 +185,10 @@
             // gcNotification
             // 
             gcNotification.Dock = System.Windows.Forms.DockStyle.Fill;
-            gcNotification.Location = new System.Drawing.Point(3, 317);
+            gcNotification.Location = new System.Drawing.Point(3, 316);
             gcNotification.MainView = gvNotification;
             gcNotification.Name = "gcNotification";
-            gcNotification.Size = new System.Drawing.Size(1131, 308);
+            gcNotification.Size = new System.Drawing.Size(1131, 307);
             gcNotification.TabIndex = 0;
             gcNotification.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvNotification });
             // 
@@ -278,7 +278,7 @@
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(1131, 308);
+            tableLayoutPanel2.Size = new System.Drawing.Size(1131, 307);
             tableLayoutPanel2.TabIndex = 2;
             // 
             // label1
@@ -315,7 +315,7 @@
             txtMessageBody.Location = new System.Drawing.Point(3, 62);
             txtMessageBody.Name = "txtMessageBody";
             txtMessageBody.Options.DocumentSaveOptions.CurrentFormat = DevExpress.XtraRichEdit.DocumentFormat.PlainText;
-            txtMessageBody.Size = new System.Drawing.Size(1058, 223);
+            txtMessageBody.Size = new System.Drawing.Size(1058, 222);
             txtMessageBody.TabIndex = 3;
             // 
             // label3

@@ -123,6 +123,51 @@ public sealed class Notification : Entity
         return notification;
     }
 
+    public static Notification Update(
+        Guid id,
+        Guid possibleActionId,
+        NotificationTitle notificationTitle,
+        NotificationText notificationText,
+        UserName clientUserName,
+        ClientGroup clientGroup,
+        UserName targetClientUserName,
+        ClientGroup targetClientGroup,
+        ActiveDirectoryGroupName targetGroup,
+        ClientName clientFullName,
+        ClientName targetClientFullName,
+        NotificationStatus notificationStatus,
+        NotificationPriority notificationPriority,
+        DateTime notificationDate,
+        MethodParameter methodParameter,
+        UserName lastModifiedUser)
+    {
+
+
+        var notification = new Notification(
+            id,
+            possibleActionId,
+            notificationTitle,
+            notificationText,
+            clientUserName,
+            clientGroup,
+            targetClientUserName,
+            targetClientGroup,
+            targetGroup,
+            clientFullName,
+            targetClientFullName,
+            notificationStatus,
+            notificationPriority,
+            notificationDate,
+            methodParameter,
+            lastModifiedUser);
+
+        notification.RaiseDomainEvent(new NotificationCreatedDomainEvent(notification.Id));
+
+
+
+        return notification;
+    }
+
     public Result ChangeStatus(NotificationStatus newStatus)
     {
         NotificationStatus = newStatus;

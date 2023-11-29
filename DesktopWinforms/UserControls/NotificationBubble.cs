@@ -62,7 +62,8 @@ namespace DesktopWinforms.UserControls
 
         private async void btnMarkAsRead_Click(object sender, EventArgs e)
         {
-            var notif = await _communicationService.SetNotificationStatus(this.Notification.Id, _activeDirectoryService.CurrentUser, NotificationStatus.Read);
+            var notifToSave = _mapper.Map<NotificationViewModel, NotificationDto>(Notification);
+            var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
             this.Notification = mapToViewModel(notif);
             btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
         }
@@ -70,9 +71,9 @@ namespace DesktopWinforms.UserControls
         private async void btnVisit_Click(object sender, EventArgs e)
         {
 
-
+            var notifToSave = _mapper.Map<NotificationViewModel, NotificationDto>(Notification);
             //Presenter.GetType().GetMethod(Notification.PossibleActionMethodToCall).Invoke(Presenter, new object[] { parent, Notification.MethodParameter });
-            var notif = await _communicationService.SetNotificationStatus(this.Notification.Id, _activeDirectoryService.CurrentUser, NotificationStatus.Read);
+            var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
             this.Notification = mapToViewModel(notif);
             btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
             var msg = new PSPublicMessagingAPI.Desktop.Views.Message(this.Notification, _communicationService, _activeDirectoryService, _mapper, _fontService);

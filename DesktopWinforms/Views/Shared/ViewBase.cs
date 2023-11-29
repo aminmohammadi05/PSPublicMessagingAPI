@@ -14,6 +14,9 @@ using System.Windows.Forms;
 using PSPublicMessagingAPI.Desktop.Services;
 using DevExpress.XtraEditors;
 using PSPublicMessagingAPI.DesktopWinforms.Properties;
+using PSPublicMessagingAPI.SharedToastMessage;
+using PSPublicMessagingAPI.SharedToastMessage.Models;
+using PSPublicMessagingAPI.SharedToastMessage.Services;
 
 namespace Desktop.Views.Shared
 {

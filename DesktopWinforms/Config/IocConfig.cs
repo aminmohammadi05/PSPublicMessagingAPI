@@ -18,7 +18,7 @@ using PSPublicMessagingAPI.Desktop.ViewModels;
 using PSPublicMessagingAPI.Desktop.Views;
 using PSPublicMessagingAPI.DesktopWinforms.Controllers;
 using PSPublicMessagingAPI.Domain.Notifications;
-
+using PSPublicMessagingAPI.SharedToastMessage.Services;
 
 
 namespace PSPublicMessagingAPI.Desktop.Config;
@@ -32,37 +32,14 @@ public class IocConfig
         var mapperConfiguration = CreateConfiguration();
 
         IServiceCollection services = _services;
-        //services.AddMassTransit(busConfigurator =>
-        //{
-        //    busConfigurator.SetKebabCaseEndpointNameFormatter();
-        //    busConfigurator.AddConsumer<NotificationCreatedConsumer>();
-        //    busConfigurator.UsingRabbitMq((context, configurator) =>
-        //    {
-        //        configurator.Host("localhost", "/", h =>
-        //        {
-        //            h.Username(ConfigurationManager.AppSettings["rabbitusername"]);
-        //            h.Password(ConfigurationManager.AppSettings["rabbitpassword"]);
-        //        });
-        //        configurator.ConfigureEndpoints(context);
-        //    });
-
-        //});
+       
         services.AddSingleton<Worker>(s =>
         {
             return new Worker(s);
         });
         services.AddSingleton<IMapper>(c => new Mapper(mapperConfiguration));
         services.AddSingleton<IToastService, ToastService>();
-        services.AddSingleton<NotificationCreatedConsumer>(s =>
-        {
-            return new NotificationCreatedConsumer(s.GetRequiredService<ICommunicationApplicationController>(),
-                s.GetRequiredService<IToastService>(),
-                s.GetRequiredService<IActiveDirectoryService>(),
-                s.GetRequiredService<IMapper>(),
-                s.GetRequiredService<IFontService>(),
-                s.GetRequiredService<IConfigurationManagerService>(),
-                Dispatcher.CurrentDispatcher);
-        });
+        
         services.AddSingleton<IFontService, FontService>();
         services.AddSingleton<IMainView, MainWindow>();
         services.AddSingleton<INewNotification>(s =>
@@ -92,29 +69,18 @@ public class IocConfig
             return new ActiveDirectoryService(s.GetRequiredService<IConfigurationManagerService>()
                                              , s.GetRequiredService<ICommunicationApplicationController>());
         });
-        
-      
 
-        services.AddSingleton<IPSMessangerMainController>(s =>
+        services.AddSingleton<NotificationCreatedConsumer>(s =>
         {
-            return new PSMessangerMainController(s.GetRequiredService<ICommunicationApplicationController>(),
-                                                           s.GetRequiredService<IToastService>(),
-                                                           s.GetRequiredService<IActiveDirectoryService>(),
-                                                            s.GetRequiredService<NotificationCreatedConsumer>(),
-                                                           s.GetRequiredService<IMapper>(),
-                                                           s.GetRequiredService<IFontService>(),
-                                                           s.GetRequiredService<IConfigurationManagerService>(),
-                                                           Dispatcher.CurrentDispatcher);
+            return new NotificationCreatedConsumer(s.GetRequiredService<ICommunicationApplicationController>(),
+                s.GetRequiredService<IToastService>(),
+                s.GetRequiredService<IActiveDirectoryService>(),
+                s.GetRequiredService<IMapper>(),
+                s.GetRequiredService<IFontService>(),
+                s.GetRequiredService<IConfigurationManagerService>(),
+                Dispatcher.CurrentDispatcher);
         });
 
-        //services.AddSingleton<IAuthenticationService>(service =>
-        //{
-        //    return new AuthenticationService(service.GetRequiredService<IToastService>());
-        //});
-        //services.AddSingleton<INotificationService>(service =>
-        //{
-        //    return new NotificationService();
-        //});
 
         services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<ICommunicationApplicationController>(),
                                                            s.GetRequiredService<IToastService>(),
@@ -126,37 +92,7 @@ public class IocConfig
                                                            s.GetRequiredService<IConfigurationManagerService>(),
                                                            Dispatcher.CurrentDispatcher));
 
-        //services.AddScoped<Message>();
-        //services.AddScoped<About>();
-        //services.AddScoped<LoginViewModel>();
-        //services.AddScoped<HomeViewModel>();
-        //services.AddScoped<ShellViewModel>(s => new ShellViewModel(s.GetRequiredService<ICommunicationApplicationController>(),
-        //                                                            s.GetRequiredService<IMapper>(),
-        //                                                            s.GetRequiredService<IConfigurationManagerService>()));
-        ////services.AddScoped<MainViewModel>();
-
-        //services.AddSingleton<CreateViewModel<LoginViewModel>>(service =>
-        //{
-        //    return () => new LoginViewModel(service.GetRequiredService<INavigator>());
-        //});
-        //services.AddSingleton<CreateViewModel<ShellViewModel>>(service =>
-        //{
-        //    return () => new ShellViewModel(service.GetRequiredService<IDispatcher>(), service.GetRequiredService<INotificationService>());
-        //});
-        //services.AddSingleton<CreateViewModel<HomeViewModel>>(service =>
-        //{
-        //    return () => new HomeViewModel(service.GetRequiredService<IAuthenticator>(), service.GetRequiredService<INotificationService>(),
-        //        service.GetRequiredService<INavigator>(), service.GetRequiredService<ShellViewModel>());
-        //});
-        //services.AddSingleton<CreateViewModel<AboutViewModel>>(service =>
-        //{
-        //    return () => new AboutViewModel();
-        //});
-        //services.AddSingleton<CreateViewModel<MessageViewModel>>(service =>
-        //{
-        //    return () => new MessageViewModel(service.GetRequiredService<IAuthenticator>(), service.GetRequiredService<INotificationService>(),
-        //        service.GetRequiredService<INavigator>());
-        //});
+        
 
 
         return services.BuildServiceProvider();

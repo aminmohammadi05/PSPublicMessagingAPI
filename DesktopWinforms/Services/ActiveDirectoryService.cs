@@ -86,6 +86,6 @@ public class ActiveDirectoryService : IActiveDirectoryService
     }
     public async Task<List<UserRole>> GetUserRoles(string userName)
     {
-        return await _applicationController.GetUserRole(userName);
+        return await _applicationController.GetUserRoleAsync(userName);
     }
 }

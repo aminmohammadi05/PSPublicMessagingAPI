@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\SharedToastMessage\SharedToastMessage.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,9 +46,6 @@
     <Compile Update="Views\MainWindow.cs" />
     <Compile Update="Views\Message.cs" />
     <Compile Update="Views\NewNotification.cs" />
-    <Compile Update="Views\Shared\ToastMessageView.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Views\Shared\ViewBase.cs" />
   </ItemGroup>
 

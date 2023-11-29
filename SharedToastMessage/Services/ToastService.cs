@@ -1,8 +1,11 @@
-﻿using PSPublicMessagingAPI.Desktop.Models;
-using PSPublicMessagingAPI.Desktop.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PSPublicMessagingAPI.SharedToastMessage.Models;
 
-namespace PSPublicMessagingAPI.Desktop.Services;
-
+namespace PSPublicMessagingAPI.SharedToastMessage.Services;
 public class ToastService : ObservableObject, IToastService
 {
     private Toast _toastMessage;

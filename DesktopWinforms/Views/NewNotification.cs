@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoMapper;
 using DesktopWinforms.Models;
+using PSPublicMessagingAPI.SharedToastMessage;
+using PSPublicMessagingAPI.SharedToastMessage.Models;
+using PSPublicMessagingAPI.SharedToastMessage.Services;
 
 namespace PSPublicMessagingAPI.Desktop.Views
 {
@@ -191,8 +194,8 @@ namespace PSPublicMessagingAPI.Desktop.Views
             {
                 if (MessageBox.Show("آیا از حذف این مورد اطمینان دارید؟", "حذف", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    int result = await _presenter.RemoveNotification((bsNotification.Current as NotificationViewModel).Id);
-                    if (result > 0)
+                    Guid result = await _presenter.RemoveNotification((bsNotification.Current as NotificationViewModel).Id);
+                    if (result != Guid.Empty)
                     {
                         bsNotification.RemoveCurrent();
                         ShowMessage("عملیات با موفقیت انجام شد", ToastType.Success);

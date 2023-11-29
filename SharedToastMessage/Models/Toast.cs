@@ -1,14 +1,6 @@
-﻿using PSPublicMessagingAPI.Desktop.ViewModels;
+﻿namespace PSPublicMessagingAPI.SharedToastMessage.Models;
 
-namespace PSPublicMessagingAPI.Desktop.Models;
 
-public enum ToastType
-{
-    Success,
-    Error,
-    Info,
-    Warning
-}
 public class Toast : ObservableObject
 {
     private ToastType _toastType;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Notifications.Queries.GetNotificationById;
+
 using Dapper;
 using PSPublicMessagingAPI.Application.Abstractions.Messaging;
 using PSPublicMessagingAPI.Domain.Abstractions;

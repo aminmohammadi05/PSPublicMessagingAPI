@@ -36,13 +36,17 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
         {
             var result = await base.SaveChangesAsync(cancellationToken);
 
-            await PublishDomainEventsAsync();
+            //await PublishDomainEventsAsync();
 
             return result;
         }
         catch (DbUpdateConcurrencyException ex)
         {
             throw new ConcurrencyException("Concurrency exception occurred.", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("exception occurred.", ex);
         }
     }
 

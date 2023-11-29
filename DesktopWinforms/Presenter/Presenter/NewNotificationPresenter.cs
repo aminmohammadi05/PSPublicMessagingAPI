@@ -28,12 +28,12 @@ public class NewNotificationPresenter : INewNotificationPresenter
 
     public async Task<List<NotificationDto>> GetAllNotifications()
     {
-        return await _communicationAppController.GetAllNotifications();
+        return await _communicationAppController.GetAllNotificationsAsync();
     }
 
-    public async Task<int> RemoveNotification(Guid notificationId)
+    public async Task<Guid> RemoveNotification(Guid notificationId)
     {
-        return await _communicationAppController.RemoveNotification(notificationId);
+        return await _communicationAppController.RemoveNotificationAsync(notificationId);
     }
 
     public void Run()
@@ -43,6 +43,6 @@ public class NewNotificationPresenter : INewNotificationPresenter
 
     public async Task<NotificationDto> SaveNotification(NotificationDto selectedNotification)
     {
-        return await _communicationAppController.SaveNotification(selectedNotification);
+        return await _communicationAppController.SaveNotificationAsync(selectedNotification);
     }
 }

@@ -4,6 +4,7 @@
 
 using PSPublicMessagingAPI.Desktop.Presenter.Presenter;
 using PSPublicMessagingAPI.Desktop.Services;
+using PSPublicMessagingAPI.SharedToastMessage.Services;
 
 namespace PSPublicMessagingAPI.Desktop.Presenter.View;
 

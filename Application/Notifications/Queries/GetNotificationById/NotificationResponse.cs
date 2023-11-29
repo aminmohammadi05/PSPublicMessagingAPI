@@ -1,7 +1,7 @@
 ﻿using PSPublicMessagingAPI.Domain.Notifications;
 using PSPublicMessagingAPI.Domain.Shared;
 
-namespace Application.Notifications.Queries.GetNotificationById;
+namespace PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
 
 public sealed class NotificationResponse
 {

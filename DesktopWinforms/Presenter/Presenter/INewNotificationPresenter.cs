@@ -12,6 +12,6 @@ namespace PSPublicMessagingAPI.Desktop.Presenter.Presenter;
 public interface INewNotificationPresenter : IPresenter<INewNotification>
 {
     Task<List<NotificationDto>> GetAllNotifications();
-    Task<int> RemoveNotification(Guid notificationId);
+    Task<Guid> RemoveNotification(Guid notificationId);
     Task<NotificationDto> SaveNotification(NotificationDto selectedNotification);
 }

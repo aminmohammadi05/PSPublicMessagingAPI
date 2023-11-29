@@ -5,12 +5,15 @@ using System;
 using System.Threading.Tasks;
 using PSPublicMessagingAPI.Domain.Notifications;
 using PSPublicMessagingAPI.Domain.UserRoles;
-using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Text;
 using PSPublicMessagingAPI.Desktop.ViewModels;
 using DesktopWinforms.Models;
+using PSPublicMessagingAPI.SharedToastMessage.Services;
+using DevExpress.Utils.MVVM.Services;
+using System.Text.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PSPublicMessagingAPI.DesktopWinforms.Controllers;
 
@@ -23,7 +26,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
     }
 
     public List<object> ClientActions { get; set; }
-    public async Task<List<NotificationDto>> GetUserUnreadNotifications(string user, string OU)
+    public async Task<List<NotificationDto>> GetUserUnreadNotificationsAsync(string user, string OU)
     {
         using (var client = new HttpClient())
         {
@@ -34,12 +37,12 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = await client.GetAsync("api/notifications");
+            var response = await client.GetAsync($"api/notifications/{user}");
 
 
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonConvert.DeserializeObject<List<NotificationDto>>(await response.Content.ReadAsStringAsync());
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(await response.Content.ReadAsStringAsync());
                 return data;
 
             }
@@ -49,9 +52,34 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public Task<NotificationDto> SetNotificationStatus(Guid notification, string lastModifierUser, NotificationStatus read)
+    public async Task<NotificationDto> SetNotificationStatusAsync(NotificationDto notification)
     {
-        throw new NotImplementedException();
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            using StringContent jsonContent = new (
+                JsonSerializer.Serialize(notification),
+                Encoding.UTF8,
+                "application/json");
+
+
+            var response = await client.PostAsync($"api/notifications", jsonContent);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<NotificationDto>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
     }
 
     public async  Task<NotificationDto> GetNotificationByIdAsync(Guid notificationId)
@@ -71,7 +99,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<NotificationDto>(t);
+                var data = JsonSerializer.Deserialize<NotificationDto>(t);
                 return data;
 
             }
@@ -97,7 +125,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
             if (response.IsSuccessStatusCode)
             {
                 var t = response.Content.ReadAsStringAsync().Result;
-                var data = JsonConvert.DeserializeObject<NotificationDto>(t);
+                var data = JsonSerializer.Deserialize<NotificationDto>(t);
                 return data;
 
             }
@@ -107,27 +135,118 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public Task<List<NotificationDto>> GetAllNotifications(string user, string OU)
+    public async Task<List<NotificationDto>> GetAllNotificationsByUsernameAsync(string user, string OU)
     {
-        throw new NotImplementedException();
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+            var response = await client.GetAsync($"api/notifications/{user}");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
     }
 
-    public Task<List<NotificationDto>> GetNotificationsByStatus(string user, string OU, NotificationStatus status)
+    public async Task<List<NotificationDto>> GetNotificationsByStatusAsync(string user, string OU, NotificationStatus status)
     {
-        throw new NotImplementedException();
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+            var response = await client.GetAsync($"api/notifications/{user}/{(int)status}");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
     }
 
-    public Task<NotificationDto> SaveNotification(NotificationDto notification)
+    public async Task<NotificationDto> SaveNotificationAsync(NotificationDto notification)
     {
-        throw new NotImplementedException();
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            using StringContent jsonContent = new(
+                JsonSerializer.Serialize(notification),
+                Encoding.UTF8,
+                "application/json");
+
+
+            var response = await client.PostAsync($"api/notifications", jsonContent);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<NotificationDto>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
     }
 
-    public Task<List<NotificationDto>> GetAllNotifications()
+    public async Task<List<NotificationDto>> GetAllNotificationsAsync()
     {
-        throw new NotImplementedException();
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+            var response = await client.GetAsync($"api/notifications/");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var t = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t);
+                return data;
+
+            }
+
+        }
+
+        return null;
     }
 
-    public async Task<List<UserRole>> GetUserRole(string userName)
+    public async Task<List<UserRole>> GetUserRoleAsync(string userName)
     {
 
         using (var client = new HttpClient())
@@ -144,7 +263,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonConvert.DeserializeObject<List<UserRole>>(await response.Content.ReadAsStringAsync());
+                var data = JsonSerializer.Deserialize<List<UserRole>>(await response.Content.ReadAsStringAsync());
                 return data;
 
             }
@@ -159,9 +278,30 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         throw new NotImplementedException();
     }
 
-    public Task<int> RemoveNotification(Guid notificationId)
+    public async Task<Guid> RemoveNotificationAsync(Guid notificationId)
     {
-        throw new NotImplementedException();
+        using (var client = new HttpClient())
+        {
+
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+           
+
+
+            var response = await client.DeleteAsync($"api/notifications/{notificationId}");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                
+                return notificationId;
+
+            }
+
+        }
+
+        return Guid.Empty;
     }
 
     IToastService _toastService;
