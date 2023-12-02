@@ -63,7 +63,10 @@ public class IocConfig
 
         services.AddSingleton<IConfigurationManagerService, ConfigurationManagerService>();
 
-        services.AddSingleton<ICommunicationApplicationController, CommunicationApplicationController>();
+        services.AddSingleton<ICommunicationApplicationController>(s =>
+        {
+            return new CommunicationApplicationController(s.GetRequiredService<IToastService>(), s);
+        });
         services.AddSingleton<IActiveDirectoryService>(s =>
         {
             return new ActiveDirectoryService(s.GetRequiredService<IConfigurationManagerService>()

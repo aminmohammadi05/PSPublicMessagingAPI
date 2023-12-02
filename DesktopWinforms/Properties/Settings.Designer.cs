@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PSPublicMessagingAPI.DesktopWinforms.Properties {
+namespace DesktopWinforms.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -134,7 +134,7 @@ namespace PSPublicMessagingAPI.DesktopWinforms.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("amqp://localhost:5672")]
+        [global::System.Configuration.DefaultSettingValueAttribute("amqp://backup-server.parsswitch.net:5672")]
         public string hostname {
             get {
                 return ((string)(this["hostname"]));

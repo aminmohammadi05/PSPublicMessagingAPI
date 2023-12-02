@@ -28,401 +28,364 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.MessengerBar = new DevExpress.XtraBars.BarManager(this.components);
-            this.mnuMainMenu = new DevExpress.XtraBars.Bar();
-            this.mnuMessageActions = new DevExpress.XtraBars.BarSubItem();
-            this.mnuCreateMessage = new DevExpress.XtraBars.BarButtonItem();
-            this.mnuAllMessages = new DevExpress.XtraBars.BarButtonItem();
-            this.mnuReadMessages = new DevExpress.XtraBars.BarButtonItem();
-            this.mnuNewMessages = new DevExpress.XtraBars.BarButtonItem();
-            this.mnuExit = new DevExpress.XtraBars.BarButtonItem();
-            this.mnuAbout = new DevExpress.XtraBars.BarButtonItem();
-            this.btnSilent = new DevExpress.XtraBars.BarToggleSwitchItem();
-            this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
-            this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
-            this.mainContainer = new DevExpress.XtraEditors.SplitContainerControl();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblUserName = new System.Windows.Forms.Label();
-            this.txtUserName = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnLogin = new DevExpress.XtraEditors.SimpleButton();
-            this.btnExit = new DevExpress.XtraEditors.SimpleButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.svgLogo = new DevExpress.XtraEditors.SvgImageBox();
-            this.flpNotification = new System.Windows.Forms.FlowLayoutPanel();
-            this.erpMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.MessengerBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer.Panel1)).BeginInit();
-            this.mainContainer.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer.Panel2)).BeginInit();
-            this.mainContainer.Panel2.SuspendLayout();
-            this.mainContainer.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.svgLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpMain)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            MessengerBar = new DevExpress.XtraBars.BarManager(components);
+            mnuMainMenu = new DevExpress.XtraBars.Bar();
+            mnuMessageActions = new DevExpress.XtraBars.BarSubItem();
+            mnuCreateMessage = new DevExpress.XtraBars.BarButtonItem();
+            mnuAllMessages = new DevExpress.XtraBars.BarButtonItem();
+            mnuReadMessages = new DevExpress.XtraBars.BarButtonItem();
+            mnuNewMessages = new DevExpress.XtraBars.BarButtonItem();
+            mnuExit = new DevExpress.XtraBars.BarButtonItem();
+            mnuAbout = new DevExpress.XtraBars.BarButtonItem();
+            btnSilent = new DevExpress.XtraBars.BarToggleSwitchItem();
+            barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+            barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+            barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+            barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+            barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            mainContainer = new DevExpress.XtraEditors.SplitContainerControl();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            lblUserName = new System.Windows.Forms.Label();
+            txtUserName = new System.Windows.Forms.TextBox();
+            txtPassword = new System.Windows.Forms.TextBox();
+            lblPassword = new System.Windows.Forms.Label();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            btnLogin = new DevExpress.XtraEditors.SimpleButton();
+            btnExit = new DevExpress.XtraEditors.SimpleButton();
+            label1 = new System.Windows.Forms.Label();
+            svgLogo = new DevExpress.XtraEditors.SvgImageBox();
+            flpNotification = new System.Windows.Forms.FlowLayoutPanel();
+            erpMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)MessengerBar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)mainContainer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)mainContainer.Panel1).BeginInit();
+            mainContainer.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)mainContainer.Panel2).BeginInit();
+            mainContainer.Panel2.SuspendLayout();
+            mainContainer.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)svgLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)erpMain).BeginInit();
+            SuspendLayout();
             // 
             // MessengerBar
             // 
-            this.MessengerBar.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
-            this.mnuMainMenu});
-            this.MessengerBar.DockControls.Add(this.barDockControlTop);
-            this.MessengerBar.DockControls.Add(this.barDockControlBottom);
-            this.MessengerBar.DockControls.Add(this.barDockControlLeft);
-            this.MessengerBar.DockControls.Add(this.barDockControlRight);
-            this.MessengerBar.Form = this;
-            this.MessengerBar.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.mnuMessageActions,
-            this.mnuAbout,
-            this.mnuAllMessages,
-            this.mnuReadMessages,
-            this.mnuNewMessages,
-            this.mnuExit,
-            this.barButtonItem1,
-            this.btnSilent,
-            this.mnuCreateMessage});
-            this.MessengerBar.MainMenu = this.mnuMainMenu;
-            this.MessengerBar.MaxItemId = 16;
+            MessengerBar.Bars.AddRange(new DevExpress.XtraBars.Bar[] { mnuMainMenu });
+            MessengerBar.DockControls.Add(barDockControlTop);
+            MessengerBar.DockControls.Add(barDockControlBottom);
+            MessengerBar.DockControls.Add(barDockControlLeft);
+            MessengerBar.DockControls.Add(barDockControlRight);
+            MessengerBar.Form = this;
+            MessengerBar.Items.AddRange(new DevExpress.XtraBars.BarItem[] { mnuMessageActions, mnuAbout, mnuAllMessages, mnuReadMessages, mnuNewMessages, mnuExit, barButtonItem1, btnSilent, mnuCreateMessage });
+            MessengerBar.MainMenu = mnuMainMenu;
+            MessengerBar.MaxItemId = 16;
             // 
             // mnuMainMenu
             // 
-            this.mnuMainMenu.BarName = "جعبه ابزار";
-            this.mnuMainMenu.DockCol = 0;
-            this.mnuMainMenu.DockRow = 0;
-            this.mnuMainMenu.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
-            this.mnuMainMenu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuMessageActions),
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuAbout),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnSilent)});
-            this.mnuMainMenu.OptionsBar.AllowQuickCustomization = false;
-            this.mnuMainMenu.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None;
-            this.mnuMainMenu.OptionsBar.DisableClose = true;
-            this.mnuMainMenu.OptionsBar.DisableCustomization = true;
-            this.mnuMainMenu.OptionsBar.DrawBorder = false;
-            this.mnuMainMenu.OptionsBar.DrawDragBorder = false;
-            this.mnuMainMenu.OptionsBar.MultiLine = true;
-            this.mnuMainMenu.OptionsBar.UseWholeRow = true;
-            this.mnuMainMenu.Text = "Custom 2";
+            mnuMainMenu.BarName = "جعبه ابزار";
+            mnuMainMenu.DockCol = 0;
+            mnuMainMenu.DockRow = 0;
+            mnuMainMenu.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+            mnuMainMenu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(mnuMessageActions), new DevExpress.XtraBars.LinkPersistInfo(mnuAbout), new DevExpress.XtraBars.LinkPersistInfo(btnSilent) });
+            mnuMainMenu.OptionsBar.AllowQuickCustomization = false;
+            mnuMainMenu.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None;
+            mnuMainMenu.OptionsBar.DisableClose = true;
+            mnuMainMenu.OptionsBar.DisableCustomization = true;
+            mnuMainMenu.OptionsBar.DrawBorder = false;
+            mnuMainMenu.OptionsBar.DrawDragBorder = false;
+            mnuMainMenu.OptionsBar.MultiLine = true;
+            mnuMainMenu.OptionsBar.UseWholeRow = true;
+            mnuMainMenu.Text = "Custom 2";
             // 
             // mnuMessageActions
             // 
-            this.mnuMessageActions.Caption = "پیامها";
-            this.mnuMessageActions.Id = 7;
-            this.mnuMessageActions.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuMessageActions.ImageOptions.Image")));
-            this.mnuMessageActions.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuMessageActions.ImageOptions.LargeImage")));
-            this.mnuMessageActions.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuCreateMessage),
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuAllMessages),
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuReadMessages),
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuNewMessages),
-            new DevExpress.XtraBars.LinkPersistInfo(this.mnuExit)});
-            this.mnuMessageActions.MenuDrawMode = DevExpress.XtraBars.MenuDrawMode.SmallImagesText;
-            this.mnuMessageActions.Name = "mnuMessageActions";
-            this.mnuMessageActions.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            mnuMessageActions.Caption = "پیامها";
+            mnuMessageActions.Id = 7;
+            mnuMessageActions.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(mnuCreateMessage), new DevExpress.XtraBars.LinkPersistInfo(mnuAllMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuReadMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuNewMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuExit) });
+            mnuMessageActions.MenuDrawMode = DevExpress.XtraBars.MenuDrawMode.SmallImagesText;
+            mnuMessageActions.Name = "mnuMessageActions";
+            mnuMessageActions.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
             // mnuCreateMessage
             // 
-            this.mnuCreateMessage.Caption = "ایجاد پیام";
-            this.mnuCreateMessage.Id = 15;
-            this.mnuCreateMessage.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuCreateMessage.ImageOptions.Image")));
-            this.mnuCreateMessage.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuCreateMessage.ImageOptions.LargeImage")));
-            this.mnuCreateMessage.Name = "mnuCreateMessage";
-            this.mnuCreateMessage.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.mnuCreateMessage_ItemClick);
+            mnuCreateMessage.Caption = "ایجاد پیام";
+            mnuCreateMessage.Id = 15;
+            mnuCreateMessage.Name = "mnuCreateMessage";
+            mnuCreateMessage.ItemClick += mnuCreateMessage_ItemClick;
             // 
             // mnuAllMessages
             // 
-            this.mnuAllMessages.Caption = "همه پیامها";
-            this.mnuAllMessages.Id = 9;
-            this.mnuAllMessages.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuAllMessages.ImageOptions.Image")));
-            this.mnuAllMessages.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuAllMessages.ImageOptions.LargeImage")));
-            this.mnuAllMessages.Name = "mnuAllMessages";
-            this.mnuAllMessages.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.mnuAllMessages_ItemClick);
+            mnuAllMessages.Caption = "همه پیامها";
+            mnuAllMessages.Id = 9;
+            mnuAllMessages.Name = "mnuAllMessages";
+            mnuAllMessages.ItemClick += mnuAllMessages_ItemClick;
             // 
             // mnuReadMessages
             // 
-            this.mnuReadMessages.Caption = "پیامهای خوانده شده";
-            this.mnuReadMessages.Id = 10;
-            this.mnuReadMessages.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuReadMessages.ImageOptions.Image")));
-            this.mnuReadMessages.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuReadMessages.ImageOptions.LargeImage")));
-            this.mnuReadMessages.Name = "mnuReadMessages";
-            this.mnuReadMessages.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.mnuReadMessages_ItemClick);
+            mnuReadMessages.Caption = "پیامهای خوانده شده";
+            mnuReadMessages.Id = 10;
+            mnuReadMessages.Name = "mnuReadMessages";
+            mnuReadMessages.ItemClick += mnuReadMessages_ItemClick;
             // 
             // mnuNewMessages
             // 
-            this.mnuNewMessages.Caption = "پیامهای جدید";
-            this.mnuNewMessages.Id = 11;
-            this.mnuNewMessages.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuNewMessages.ImageOptions.Image")));
-            this.mnuNewMessages.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuNewMessages.ImageOptions.LargeImage")));
-            this.mnuNewMessages.Name = "mnuNewMessages";
-            this.mnuNewMessages.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.mnuNewMessages_ItemClick);
+            mnuNewMessages.Caption = "پیامهای جدید";
+            mnuNewMessages.Id = 11;
+            mnuNewMessages.Name = "mnuNewMessages";
+            mnuNewMessages.ItemClick += mnuNewMessages_ItemClick;
             // 
             // mnuExit
             // 
-            this.mnuExit.Caption = "خروج";
-            this.mnuExit.Id = 12;
-            this.mnuExit.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuExit.ImageOptions.Image")));
-            this.mnuExit.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuExit.ImageOptions.LargeImage")));
-            this.mnuExit.Name = "mnuExit";
-            this.mnuExit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.mnuExit_ItemClick);
+            mnuExit.Caption = "خروج";
+            mnuExit.Id = 12;
+            mnuExit.Name = "mnuExit";
+            mnuExit.ItemClick += mnuExit_ItemClick;
             // 
             // mnuAbout
             // 
-            this.mnuAbout.Caption = "درباره این برنامه";
-            this.mnuAbout.Id = 8;
-            this.mnuAbout.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("mnuAbout.ImageOptions.Image")));
-            this.mnuAbout.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("mnuAbout.ImageOptions.LargeImage")));
-            this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-            this.mnuAbout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.mnuAbout_ItemClick);
+            mnuAbout.Caption = "درباره این برنامه";
+            mnuAbout.Id = 8;
+            mnuAbout.Name = "mnuAbout";
+            mnuAbout.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            mnuAbout.ItemClick += mnuAbout_ItemClick;
             // 
             // btnSilent
             // 
-            this.btnSilent.Caption = "حالت ساکت";
-            this.btnSilent.Id = 14;
-            this.btnSilent.Name = "btnSilent";
-            this.btnSilent.CheckedChanged += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSilent_CheckedChanged);
+            btnSilent.Caption = "حالت ساکت";
+            btnSilent.Id = 14;
+            btnSilent.Name = "btnSilent";
+            btnSilent.CheckedChanged += btnSilent_CheckedChanged;
             // 
             // barDockControlTop
             // 
-            this.barDockControlTop.CausesValidation = false;
-            this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-            this.barDockControlTop.Manager = this.MessengerBar;
-            this.barDockControlTop.Size = new System.Drawing.Size(368, 24);
+            barDockControlTop.CausesValidation = false;
+            barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            barDockControlTop.Location = new System.Drawing.Point(0, 0);
+            barDockControlTop.Manager = MessengerBar;
+            barDockControlTop.Size = new System.Drawing.Size(414, 20);
             // 
             // barDockControlBottom
             // 
-            this.barDockControlBottom.CausesValidation = false;
-            this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 790);
-            this.barDockControlBottom.Manager = this.MessengerBar;
-            this.barDockControlBottom.Size = new System.Drawing.Size(368, 0);
+            barDockControlBottom.CausesValidation = false;
+            barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            barDockControlBottom.Location = new System.Drawing.Point(0, 790);
+            barDockControlBottom.Manager = MessengerBar;
+            barDockControlBottom.Size = new System.Drawing.Size(414, 0);
             // 
             // barDockControlLeft
             // 
-            this.barDockControlLeft.CausesValidation = false;
-            this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.barDockControlLeft.Location = new System.Drawing.Point(0, 24);
-            this.barDockControlLeft.Manager = this.MessengerBar;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 766);
+            barDockControlLeft.CausesValidation = false;
+            barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            barDockControlLeft.Location = new System.Drawing.Point(0, 20);
+            barDockControlLeft.Manager = MessengerBar;
+            barDockControlLeft.Size = new System.Drawing.Size(0, 770);
             // 
             // barDockControlRight
             // 
-            this.barDockControlRight.CausesValidation = false;
-            this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(368, 24);
-            this.barDockControlRight.Manager = this.MessengerBar;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 766);
+            barDockControlRight.CausesValidation = false;
+            barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+            barDockControlRight.Location = new System.Drawing.Point(414, 20);
+            barDockControlRight.Manager = MessengerBar;
+            barDockControlRight.Size = new System.Drawing.Size(0, 770);
             // 
             // barButtonItem1
             // 
-            this.barButtonItem1.Caption = "barButtonItem1";
-            this.barButtonItem1.Id = 13;
-            this.barButtonItem1.Name = "barButtonItem1";
+            barButtonItem1.Caption = "barButtonItem1";
+            barButtonItem1.Id = 13;
+            barButtonItem1.Name = "barButtonItem1";
             // 
             // mainContainer
             // 
-            this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainContainer.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.Panel2;
-            this.mainContainer.Location = new System.Drawing.Point(0, 24);
-            this.mainContainer.Name = "mainContainer";
+            mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            mainContainer.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.Panel2;
+            mainContainer.Location = new System.Drawing.Point(0, 20);
+            mainContainer.Name = "mainContainer";
             // 
             // mainContainer.Panel1
             // 
-            this.mainContainer.Panel1.Controls.Add(this.tableLayoutPanel1);
-            this.mainContainer.Panel1.Text = "Panel1";
+            mainContainer.Panel1.Controls.Add(tableLayoutPanel1);
+            mainContainer.Panel1.Text = "Panel1";
             // 
             // mainContainer.Panel2
             // 
-            this.mainContainer.Panel2.Controls.Add(this.flpNotification);
-            this.mainContainer.Panel2.Text = "Panel2";
-            this.mainContainer.Size = new System.Drawing.Size(368, 766);
-            this.mainContainer.SplitterPosition = 380;
-            this.mainContainer.TabIndex = 4;
+            mainContainer.Panel2.Controls.Add(flpNotification);
+            mainContainer.Panel2.Text = "Panel2";
+            mainContainer.Size = new System.Drawing.Size(414, 770);
+            mainContainer.SplitterPosition = 404;
+            mainContainer.TabIndex = 4;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.lblUserName, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtUserName, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtPassword, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lblPassword, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.svgLogo, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 9;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.55557F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(0, 0);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(lblUserName, 1, 3);
+            tableLayoutPanel1.Controls.Add(txtUserName, 2, 3);
+            tableLayoutPanel1.Controls.Add(txtPassword, 2, 4);
+            tableLayoutPanel1.Controls.Add(lblPassword, 1, 4);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 7);
+            tableLayoutPanel1.Controls.Add(label1, 1, 5);
+            tableLayoutPanel1.Controls.Add(svgLogo, 1, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 9;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.55557F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(0, 0);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // lblUserName
             // 
-            this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(92, -121);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(53, 13);
-            this.lblUserName.TabIndex = 0;
-            this.lblUserName.Text = "نام کاربری";
+            lblUserName.AutoSize = true;
+            lblUserName.Location = new System.Drawing.Point(92, -121);
+            lblUserName.Name = "lblUserName";
+            lblUserName.Size = new System.Drawing.Size(53, 13);
+            lblUserName.TabIndex = 0;
+            lblUserName.Text = "نام کاربری";
             // 
             // txtUserName
             // 
-            this.txtUserName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUserName.Location = new System.Drawing.Point(-147, -118);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(233, 21);
-            this.txtUserName.TabIndex = 1;
+            txtUserName.Dock = System.Windows.Forms.DockStyle.Fill;
+            txtUserName.Location = new System.Drawing.Point(-147, -118);
+            txtUserName.Name = "txtUserName";
+            txtUserName.Size = new System.Drawing.Size(233, 21);
+            txtUserName.TabIndex = 1;
             // 
             // txtPassword
             // 
-            this.txtPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPassword.Location = new System.Drawing.Point(-147, -91);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(233, 21);
-            this.txtPassword.TabIndex = 2;
-            this.txtPassword.UseSystemPasswordChar = true;
+            txtPassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            txtPassword.Location = new System.Drawing.Point(-147, -91);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new System.Drawing.Size(233, 21);
+            txtPassword.TabIndex = 2;
+            txtPassword.UseSystemPasswordChar = true;
             // 
             // lblPassword
             // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(93, -94);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(52, 13);
-            this.lblPassword.TabIndex = 3;
-            this.lblPassword.Text = "کلمه عبور";
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new System.Drawing.Point(93, -94);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new System.Drawing.Size(52, 13);
+            lblPassword.TabIndex = 3;
+            lblPassword.Text = "کلمه عبور";
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.AutoSize = true;
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 2);
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.btnLogin, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnExit, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(-147, 6);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(292, 45);
-            this.tableLayoutPanel2.TabIndex = 7;
+            tableLayoutPanel2.AutoSize = true;
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel1.SetColumnSpan(tableLayoutPanel2, 2);
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(btnLogin, 0, 0);
+            tableLayoutPanel2.Controls.Add(btnExit, 1, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(-147, 6);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(292, 45);
+            tableLayoutPanel2.TabIndex = 7;
             // 
             // btnLogin
             // 
-            this.btnLogin.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLogin.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnLogin.ImageOptions.Image")));
-            this.btnLogin.Location = new System.Drawing.Point(149, 3);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(140, 39);
-            this.btnLogin.TabIndex = 5;
-            this.btnLogin.Text = "ورود";
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            btnLogin.Dock = System.Windows.Forms.DockStyle.Top;
+            btnLogin.Location = new System.Drawing.Point(149, 3);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new System.Drawing.Size(140, 39);
+            btnLogin.TabIndex = 5;
+            btnLogin.Text = "ورود";
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnExit
             // 
-            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExit.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.ImageOptions.Image")));
-            this.btnExit.Location = new System.Drawing.Point(3, 3);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(140, 39);
-            this.btnExit.TabIndex = 4;
-            this.btnExit.Text = "خروج";
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnExit.Dock = System.Windows.Forms.DockStyle.Top;
+            btnExit.Location = new System.Drawing.Point(3, 3);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new System.Drawing.Size(140, 39);
+            btnExit.TabIndex = 4;
+            btnExit.Text = "خروج";
+            btnExit.Click += btnExit_Click;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.label1, 2);
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(-146, -67);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(291, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "برای ورود از نام کاربری و کلمه عبور ورود به ویندوز استفاده کنید";
+            label1.AutoSize = true;
+            tableLayoutPanel1.SetColumnSpan(label1, 2);
+            label1.ForeColor = System.Drawing.Color.Red;
+            label1.Location = new System.Drawing.Point(-146, -67);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(291, 13);
+            label1.TabIndex = 9;
+            label1.Text = "برای ورود از نام کاربری و کلمه عبور ورود به ویندوز استفاده کنید";
             // 
             // svgLogo
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.svgLogo, 2);
-            this.svgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.svgLogo.Location = new System.Drawing.Point(-147, -127);
-            this.svgLogo.Name = "svgLogo";
-            this.svgLogo.Size = new System.Drawing.Size(292, 1);
-            this.svgLogo.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
-            this.svgLogo.TabIndex = 10;
-            this.svgLogo.Text = "svgImageBox1";
+            tableLayoutPanel1.SetColumnSpan(svgLogo, 2);
+            svgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            svgLogo.Location = new System.Drawing.Point(-147, -127);
+            svgLogo.Name = "svgLogo";
+            svgLogo.Size = new System.Drawing.Size(292, 1);
+            svgLogo.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
+            svgLogo.TabIndex = 10;
+            svgLogo.Text = "svgImageBox1";
             // 
             // flpNotification
             // 
-            this.flpNotification.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpNotification.Location = new System.Drawing.Point(0, 0);
-            this.flpNotification.Name = "flpNotification";
-            this.flpNotification.Size = new System.Drawing.Size(358, 766);
-            this.flpNotification.TabIndex = 0;
+            flpNotification.Dock = System.Windows.Forms.DockStyle.Fill;
+            flpNotification.Location = new System.Drawing.Point(0, 0);
+            flpNotification.Name = "flpNotification";
+            flpNotification.Size = new System.Drawing.Size(404, 770);
+            flpNotification.TabIndex = 0;
             // 
             // erpMain
             // 
-            this.erpMain.ContainerControl = this;
+            erpMain.ContainerControl = this;
             // 
             // MainWindow
             // 
-            this.AcceptButton = this.btnLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(368, 790);
-            this.Controls.Add(this.mainContainer);
-            this.Controls.Add(this.barDockControlLeft);
-            this.Controls.Add(this.barDockControlRight);
-            this.Controls.Add(this.barDockControlBottom);
-            this.Controls.Add(this.barDockControlTop);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.IconOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("MainWindow.IconOptions.LargeImage")));
-            this.MaximizeBox = false;
-            this.Name = "MainWindow";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.RightToLeftLayout = true;
-            this.Text = "پیام رسان پارس سویچ";
-            this.Load += new System.EventHandler(this.MainWindow_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.MessengerBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer.Panel1)).EndInit();
-            this.mainContainer.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer.Panel2)).EndInit();
-            this.mainContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.mainContainer)).EndInit();
-            this.mainContainer.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.svgLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpMain)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AcceptButton = btnLogin;
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            CancelButton = btnExit;
+            ClientSize = new System.Drawing.Size(414, 790);
+            Controls.Add(mainContainer);
+            Controls.Add(barDockControlLeft);
+            Controls.Add(barDockControlRight);
+            Controls.Add(barDockControlBottom);
+            Controls.Add(barDockControlTop);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "MainWindow";
+            RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            RightToLeftLayout = true;
+            Text = "پیام رسان پارس سویچ";
+            Load += MainWindow_Load;
+            ((System.ComponentModel.ISupportInitialize)MessengerBar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)mainContainer.Panel1).EndInit();
+            mainContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)mainContainer.Panel2).EndInit();
+            mainContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)mainContainer).EndInit();
+            mainContainer.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)svgLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)erpMain).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

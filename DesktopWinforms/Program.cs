@@ -72,7 +72,7 @@ namespace DesktopWinforms
             return Host.CreateDefaultBuilder()
                 .ConfigureServices(services =>
                 {
-                    IocConfig.CreateServiceProvider(services);
+                    IServiceProvider serviceProvider = IocConfig.CreateServiceProvider(services);
                     services.AddMassTransit(x =>
                     {
                         // elided...
@@ -85,7 +85,9 @@ namespace DesktopWinforms
                             {
                                 e.ConfigureConsumer<NotificationCreatedConsumer>(context);
                             });
-                            cfg.Host("localhost", "/", h =>
+                            var configurationManager = serviceProvider.GetRequiredService<IConfigurationManagerService>();
+                            
+                            cfg.Host(configurationManager.Host, "/", h =>
                             {
                                 h.Username("guest");
                                 h.Password("guest");

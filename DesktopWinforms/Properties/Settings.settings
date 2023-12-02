@@ -30,7 +30,7 @@
       <Value Profile="(Default)">guest</Value>
     </Setting>
     <Setting Name="hostname" Type="System.String" Scope="User">
-      <Value Profile="(Default)">amqp://localhost:5672</Value>
+      <Value Profile="(Default)">amqp://backup-server.parsswitch.net:5672</Value>
     </Setting>
   </Settings>
 </SettingsFile>

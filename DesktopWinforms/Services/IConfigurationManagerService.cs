@@ -9,5 +9,6 @@ public interface IConfigurationManagerService
     string Domain { get; set; }
     string AboutTitle { get; set; }
     string AboutText { get; set; }
+    string Host { get; set; }
     string ConnectionString { get; set; }
 }

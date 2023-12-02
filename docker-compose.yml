@@ -31,6 +31,12 @@ services:
         volumes:
             - ./.containers/queue/data/:/var/lib/rabbitmq
             - ./.containers/queue/log/:/var/log/rabbitmq
+        command:
+            [
+                "bash",
+                "-c",
+                "chmod 400 /var/lib/rabbitmq/.erlang.cookie; rabbitmq-server"
+            ]
         environment:
             RABBITMQ_DEFAULT_USER: guest
             RABBITMQ_DEFAULT_PASS: guest

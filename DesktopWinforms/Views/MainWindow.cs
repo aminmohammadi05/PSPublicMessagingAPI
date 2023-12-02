@@ -46,7 +46,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
-        
+
 
 
         private IMainViewPresenter _presenter;
@@ -92,7 +92,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             _activeDirectoryService = activeDirectoryService;
         }
 
-      
+
 
         private List<Control> GetAllControls(Control container, List<Control> list)
         {
@@ -114,13 +114,13 @@ namespace PSPublicMessagingAPI.Desktop.Views
         public void _consumer_MessageReceived(object sender, PropertyChangedEventArgs e)
         {
             NotificationViewModel message = _consumer.Notification;
-            
+
             if (message.Id == Guid.Empty)
             {
 
                 return;
             }
-          
+
             if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
             {
                 return;
@@ -215,7 +215,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             {
                 return;
             }
-            if ( NotificationList.Any(x => x.Id == notif.Id))
+            if (NotificationList.Any(x => x.Id == notif.Id))
             {
                 NotificationList = NotificationList.Where(x => x.Id != notif.Id).ToList();
 
@@ -241,7 +241,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         }
         private async void MainWindow_Load(object sender, EventArgs e)
         {
-            
+
 
             mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);
 

@@ -13,6 +13,7 @@ public class ConfigurationManagerService : IConfigurationManagerService
     private string domain;
     private string aboutTitle;
     private string aboutText;
+    private string host;
 
     Configuration configuration { get; set; }
     public string UserName
@@ -97,6 +98,19 @@ public class ConfigurationManagerService : IConfigurationManagerService
         {
             aboutTitle = value;
             configuration.AppSettings.Settings["aboutTitle"].Value = aboutTitle;
+            configuration.Save();
+
+            // Reload app config file
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+    }
+    public string Host
+    {
+        get => configuration.AppSettings.Settings["host"].Value;
+        set
+        {
+            host = value;
+            configuration.AppSettings.Settings["host"].Value = host;
             configuration.Save();
 
             // Reload app config file

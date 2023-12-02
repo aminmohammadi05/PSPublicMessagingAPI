@@ -4,10 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using PSPublicMessagingAPI.Desktop.Models;
 using PSPublicMessagingAPI.Desktop.Presenter;
+using PSPublicMessagingAPI.Domain.Shared;
 using PSPublicMessagingAPI.Domain.UserRoles;
+using RabbitMQ.Client;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PSPublicMessagingAPI.Desktop.Services;
 
@@ -42,6 +46,13 @@ public class ActiveDirectoryService : IActiveDirectoryService
         _configurationManagerService = configurationManagerService;
         using (var context = new PrincipalContext(ContextType.Domain, _configurationManagerService.Domain))
         {
+            if (!String.IsNullOrEmpty(_configurationManagerService.UserName) &&
+                !String.IsNullOrEmpty(_configurationManagerService.Password) &&
+                context.ValidateCredentials(_configurationManagerService.UserName, _configurationManagerService.Password))
+            {
+                CurrentUser = _configurationManagerService.UserName;
+            }
+            
             using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
             {
 

@@ -13,7 +13,11 @@ using DesktopWinforms.Models;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
 using DevExpress.Utils.MVVM.Services;
 using System.Text.Json;
+using AutoMapper;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using PSPublicMessagingAPI.Desktop.Presenter.Presenter;
+using PSPublicMessagingAPI.Desktop.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PSPublicMessagingAPI.DesktopWinforms.Controllers;
 
@@ -31,7 +35,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -61,7 +65,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using StringContent jsonContent = new (
@@ -94,7 +98,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -123,7 +127,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -153,7 +157,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -183,7 +187,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -213,7 +217,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using StringContent jsonContent = new(
@@ -246,7 +250,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -277,7 +281,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -303,7 +307,10 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
     public void RunCreateNewNotification()
     {
-        throw new NotImplementedException();
+        var view = new NewNotification(_toastService, _services.GetRequiredService<IActiveDirectoryService>(), _services.GetRequiredService<IMapper>());
+
+        var presenter = new NewNotificationPresenter(view, this);
+        presenter.Run();
     }
 
     public async Task<Guid> RemoveNotificationAsync(Guid notificationId)
@@ -311,7 +318,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
            
@@ -333,11 +340,15 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
     }
 
     IToastService _toastService;
+    private readonly IServiceProvider _services;
+    public IConfigurationManagerService _configurationManager;
 
-    public CommunicationApplicationController(IToastService toastService)
+    public CommunicationApplicationController(IToastService toastService, IServiceProvider services)
     {
         _toastService = toastService;
-       
+        _services = services;
+        _configurationManager = _services.GetRequiredService<IConfigurationManagerService>();
+
         #region Dispatcher Config
 
         // Ignore unhandled exceptions
