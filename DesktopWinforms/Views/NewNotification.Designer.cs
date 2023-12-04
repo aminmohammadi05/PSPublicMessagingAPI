@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewNotification));
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             btnCancel = new DevExpress.XtraEditors.SimpleButton();
@@ -53,12 +54,12 @@
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
-            txtNotificationDateTime = new FarsiLibrary.Win.Controls.FADatePicker();
             cmbStatus = new System.Windows.Forms.ComboBox();
             cmbPriority = new System.Windows.Forms.ComboBox();
             label6 = new System.Windows.Forms.Label();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             cmbGroup = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            txtNotificationDateTime = new DevExpress.XtraEditors.DateEdit();
             bsNotification = new System.Windows.Forms.BindingSource(components);
             erpNewNotification = new System.Windows.Forms.ErrorProvider(components);
             tableLayoutPanel1.SuspendLayout();
@@ -68,6 +69,8 @@
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbGroup.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties.CalendarTimeProperties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsNotification).BeginInit();
             ((System.ComponentModel.ISupportInitialize)erpNewNotification).BeginInit();
             SuspendLayout();
@@ -83,14 +86,9 @@
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.9999924F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0000038F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new System.Drawing.Size(1137, 697);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -112,72 +110,72 @@
             tableLayoutPanel4.Controls.Add(btnSend, 4, 0);
             tableLayoutPanel4.Controls.Add(btnClose, 6, 0);
             tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel4.Location = new System.Drawing.Point(3, 629);
+            tableLayoutPanel4.Location = new System.Drawing.Point(3, 637);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(1131, 65);
+            tableLayoutPanel4.Size = new System.Drawing.Size(1131, 57);
             tableLayoutPanel4.TabIndex = 1;
             // 
             // btnCancel
             // 
-            btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnCancel.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnCancel.ImageOptions.Image");
             btnCancel.Location = new System.Drawing.Point(678, 3);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(108, 59);
+            btnCancel.Size = new System.Drawing.Size(108, 50);
             btnCancel.TabIndex = 98;
             btnCancel.Text = "لغو   ";
             btnCancel.Click += btnCancel_Click;
             // 
             // btnNew
             // 
-            btnNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnNew.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnNew.ImageOptions.Image");
             btnNew.Location = new System.Drawing.Point(792, 3);
             btnNew.Name = "btnNew";
-            btnNew.Size = new System.Drawing.Size(108, 59);
+            btnNew.Size = new System.Drawing.Size(108, 50);
             btnNew.TabIndex = 97;
             btnNew.Text = "جدید   ";
             btnNew.Click += btnNew_Click;
             // 
             // btnSaveNCRReport
             // 
-            btnSaveNCRReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnSaveNCRReport.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnSaveNCRReport.ImageOptions.Image");
             btnSaveNCRReport.Location = new System.Drawing.Point(1020, 3);
             btnSaveNCRReport.Name = "btnSaveNCRReport";
-            btnSaveNCRReport.Size = new System.Drawing.Size(108, 59);
+            btnSaveNCRReport.Size = new System.Drawing.Size(108, 50);
             btnSaveNCRReport.TabIndex = 3;
             btnSaveNCRReport.Text = "ثبت تغییرات   ";
             btnSaveNCRReport.Click += btnSave_Click;
             // 
             // btnDeleteNCRReport
             // 
-            btnDeleteNCRReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnDeleteNCRReport.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnDeleteNCRReport.ImageOptions.Image");
             btnDeleteNCRReport.Location = new System.Drawing.Point(906, 3);
             btnDeleteNCRReport.Name = "btnDeleteNCRReport";
-            btnDeleteNCRReport.Size = new System.Drawing.Size(108, 59);
+            btnDeleteNCRReport.Size = new System.Drawing.Size(108, 50);
             btnDeleteNCRReport.TabIndex = 4;
             btnDeleteNCRReport.Text = "حذف   ";
             btnDeleteNCRReport.Click += btnDelete_Click;
             // 
             // btnSend
             // 
-            btnSend.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnSend.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnSend.ImageOptions.Image");
             btnSend.Location = new System.Drawing.Point(564, 3);
             btnSend.Name = "btnSend";
-            btnSend.Size = new System.Drawing.Size(108, 59);
+            btnSend.Size = new System.Drawing.Size(108, 50);
             btnSend.TabIndex = 5;
             btnSend.Text = "ارسال   ";
             btnSend.Click += btnSend_Click;
             // 
             // btnClose
             // 
-            btnClose.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnClose.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnClose.ImageOptions.Image");
             btnClose.Location = new System.Drawing.Point(3, 3);
             btnClose.Name = "btnClose";
-            btnClose.Size = new System.Drawing.Size(108, 59);
+            btnClose.Size = new System.Drawing.Size(108, 50);
             btnClose.TabIndex = 6;
             btnClose.Text = "خروج   ";
             btnClose.Click += btnClose_Click;
@@ -185,10 +183,10 @@
             // gcNotification
             // 
             gcNotification.Dock = System.Windows.Forms.DockStyle.Fill;
-            gcNotification.Location = new System.Drawing.Point(3, 316);
+            gcNotification.Location = new System.Drawing.Point(3, 320);
             gcNotification.MainView = gvNotification;
             gcNotification.Name = "gcNotification";
-            gcNotification.Size = new System.Drawing.Size(1131, 307);
+            gcNotification.Size = new System.Drawing.Size(1131, 311);
             gcNotification.TabIndex = 0;
             gcNotification.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvNotification });
             // 
@@ -265,11 +263,11 @@
             tableLayoutPanel2.Controls.Add(label3, 0, 1);
             tableLayoutPanel2.Controls.Add(label4, 2, 1);
             tableLayoutPanel2.Controls.Add(label5, 4, 1);
-            tableLayoutPanel2.Controls.Add(txtNotificationDateTime, 5, 1);
             tableLayoutPanel2.Controls.Add(cmbStatus, 1, 1);
             tableLayoutPanel2.Controls.Add(cmbPriority, 3, 1);
             tableLayoutPanel2.Controls.Add(label6, 6, 1);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 7, 1);
+            tableLayoutPanel2.Controls.Add(txtNotificationDateTime, 5, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -278,7 +276,7 @@
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(1131, 307);
+            tableLayoutPanel2.Size = new System.Drawing.Size(1131, 311);
             tableLayoutPanel2.TabIndex = 2;
             // 
             // label1
@@ -315,7 +313,7 @@
             txtMessageBody.Location = new System.Drawing.Point(3, 62);
             txtMessageBody.Name = "txtMessageBody";
             txtMessageBody.Options.DocumentSaveOptions.CurrentFormat = DevExpress.XtraRichEdit.DocumentFormat.PlainText;
-            txtMessageBody.Size = new System.Drawing.Size(1058, 222);
+            txtMessageBody.Size = new System.Drawing.Size(1058, 226);
             txtMessageBody.TabIndex = 3;
             // 
             // label3
@@ -344,17 +342,6 @@
             label5.Size = new System.Drawing.Size(48, 13);
             label5.TabIndex = 6;
             label5.Text = "تاریخ پیام";
-            // 
-            // txtNotificationDateTime
-            // 
-            txtNotificationDateTime.Dock = System.Windows.Forms.DockStyle.Top;
-            txtNotificationDateTime.FormatInfo = FarsiLibrary.Win.Enums.FormatInfoTypes.FullDateTime;
-            txtNotificationDateTime.Location = new System.Drawing.Point(267, 30);
-            txtNotificationDateTime.Name = "txtNotificationDateTime";
-            txtNotificationDateTime.Size = new System.Drawing.Size(222, 26);
-            txtNotificationDateTime.TabIndex = 11;
-            txtNotificationDateTime.TabStop = false;
-            txtNotificationDateTime.Text = "[Empty Value]";
             // 
             // cmbStatus
             // 
@@ -409,6 +396,20 @@
             cmbGroup.Size = new System.Drawing.Size(219, 20);
             cmbGroup.TabIndex = 288;
             // 
+            // txtNotificationDateTime
+            // 
+            txtNotificationDateTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            txtNotificationDateTime.EditValue = null;
+            txtNotificationDateTime.Location = new System.Drawing.Point(267, 30);
+            txtNotificationDateTime.Name = "txtNotificationDateTime";
+            txtNotificationDateTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtNotificationDateTime.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            txtNotificationDateTime.Properties.CalendarTimeProperties.MaskSettings.Set("culture", "fa-IR");
+            txtNotificationDateTime.Properties.CalendarView = DevExpress.XtraEditors.Repository.CalendarView.Classic;
+            txtNotificationDateTime.Properties.VistaDisplayMode = DevExpress.Utils.DefaultBoolean.False;
+            txtNotificationDateTime.Size = new System.Drawing.Size(222, 20);
+            txtNotificationDateTime.TabIndex = 17;
+            // 
             // bsNotification
             // 
             bsNotification.CurrentChanged += bsNotification_CurrentChanged;
@@ -437,6 +438,8 @@
             tableLayoutPanel2.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)cmbGroup.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties.CalendarTimeProperties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsNotification).EndInit();
             ((System.ComponentModel.ISupportInitialize)erpNewNotification).EndInit();
             ResumeLayout(false);
@@ -459,7 +462,7 @@
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraRichEdit.RichEditControl txtMessageBody;
-        private FarsiLibrary.Win.Controls.FADatePicker txtNotificationDateTime;
+
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -476,5 +479,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraEditors.DateEdit txtNotificationDateTime;
     }
 }

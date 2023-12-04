@@ -4,24 +4,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using AutoMapper;
-using Desktop.Views.Shared;
 using DesktopWinforms.Models;
-using DesktopWinforms.Services;
-using DevExpress.Utils.MVVM.Services;
 using MassTransit;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Logging;
 using PSPublicMessagingAPI.Contract;
-using PSPublicMessagingAPI.Desktop.Models;
 using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.Desktop.Services;
 using PSPublicMessagingAPI.Desktop.ViewModels;
 using PSPublicMessagingAPI.Desktop.Views;
-using PSPublicMessagingAPI.Domain.Notifications;
 using PSPublicMessagingAPI.SharedToastMessage;
 using PSPublicMessagingAPI.SharedToastMessage.Models;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
-using Notification = PSPublicMessagingAPI.Domain.Notifications.Notification;
 
 namespace PSPublicMessagingAPI.Desktop.Consumers;
 

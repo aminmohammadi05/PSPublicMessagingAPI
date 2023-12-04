@@ -76,7 +76,7 @@ namespace DesktopWinforms
                     services.AddMassTransit(x =>
                     {
                         // elided...
-                        x.AddConsumer<NotificationCreatedConsumer>().ExcludeFromConfigureEndpoints();
+                        x.AddConsumer<NotificationCreatedConsumer>();
                         //x.AddConsumer<MainWindow>();
                         x.UsingRabbitMq((context, cfg) =>
                         {
@@ -87,10 +87,11 @@ namespace DesktopWinforms
                             });
                             var configurationManager = serviceProvider.GetRequiredService<IConfigurationManagerService>();
                             
-                            cfg.Host(configurationManager.Host, "/", h =>
+                            cfg.Host(configurationManager.Host ,"/", h =>
                             {
-                                h.Username("guest");
-                                h.Password("guest");
+                                
+                                h.Username("parsswitch");
+                                h.Password("parsswitch");
                             });
 
                             cfg.ConfigureEndpoints(context);

@@ -14,5 +14,5 @@ public interface IActiveDirectoryService
     List<LDAPUser> ActiveDirectoryUsers { get; set; }
     LDAPUser GetActiveDirectoryUser(string userName);
     LDAPUser LoginToActiveDirectoryUser(string userName, string password);
-    Task<List<UserRole>> GetUserRoles(string userName);
+    Task<UserRole> GetUserRoles(string userName);
 }

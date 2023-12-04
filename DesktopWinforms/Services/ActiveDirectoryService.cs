@@ -95,7 +95,7 @@ public class ActiveDirectoryService : IActiveDirectoryService
     {
         return ActiveDirectoryUsers.FirstOrDefault(x => x.AccountName == userName);
     }
-    public async Task<List<UserRole>> GetUserRoles(string userName)
+    public async Task<UserRole> GetUserRoles(string userName)
     {
         return await _applicationController.GetUserRoleAsync(userName);
     }

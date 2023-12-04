@@ -20,6 +20,7 @@ using DesktopWinforms.Models;
 using PSPublicMessagingAPI.SharedToastMessage;
 using PSPublicMessagingAPI.SharedToastMessage.Models;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
+using System.Threading;
 
 namespace PSPublicMessagingAPI.Desktop.Views
 {
@@ -84,20 +85,20 @@ namespace PSPublicMessagingAPI.Desktop.Views
         public NotificationDto SelectedNotification { get; private set; }
         public ObservableCollection<NotificationViewModel> NotificationList { get; private set; } = new ObservableCollection<NotificationViewModel>();
 
-        protected override void ShowMessage(string message, ToastType toastType)
-        {
-            _toastService.ToastMessage = new Toast()
-            {
-                Message = message,
-                ToastType = toastType
-            };
-            var notify = new ToastMessageView(_toastService);
-            notify.Show();
-        }
+
 
         public void Run()
         {
-            ShowDialog();
+            var t = new Thread(o =>
+            {
+                ShowDialog();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+
         }
         private void BindToControls()
         {

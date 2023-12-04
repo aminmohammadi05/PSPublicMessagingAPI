@@ -49,5 +49,4 @@ app.UseHttpsRedirection();
 app.UseCustomExceptionHandler();
 
 app.MapControllers();
-
 app.Run();

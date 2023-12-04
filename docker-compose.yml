@@ -2,14 +2,17 @@ version: '3.4'
 
 services:
     pspublicmessagingweb-api:
-        image: pspublicmessagingwebapi:v1.0.16
+        image: pspublicmessagingwebapi:v1.0.26
         container_name: ps-messaging-api
         build:
             context: .
             dockerfile: PSPublicMessagingWebAPI/Dockerfile
         ports:
-            - 5000:80
-            - 5001:443
+            - 8181:80
+            - 8182:443
+        depends_on:
+            - pspublicmessaging-mq
+            - pspublicmessaging-db
     pspublicmessaging-db:
         image: mcr.microsoft.com/mssql/server:2019-latest
         container_name: ps-messaging-db
@@ -28,6 +31,7 @@ services:
         ports:
             - 5672:5672
             - 15672:15672
+
         volumes:
             - ./.containers/queue/data/:/var/lib/rabbitmq
             - ./.containers/queue/log/:/var/log/rabbitmq

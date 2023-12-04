@@ -24,7 +24,7 @@ public interface ICommunicationApplicationController
 
     #region Notification
     Task<List<NotificationDto>> GetAllNotificationsAsync();
-    Task<List<UserRole>> GetUserRoleAsync(string userName);
+    Task<UserRole> GetUserRoleAsync(string userName);
     void RunCreateNewNotification();
     Task<Guid> RemoveNotificationAsync(Guid notificationId);
     #endregion

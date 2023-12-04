@@ -6,7 +6,7 @@ using PSPublicMessagingAPI.Application.UserRoles.Queries;
 namespace PSPublicMessagingWebAPI.Controllers.UserRoles;
 
 [ApiController]
-[Route("api/userroles")]
+[Route("api/user-roles")]
 public class UserRoleController : ControllerBase
 {
     private readonly ISender _sender;
@@ -16,11 +16,11 @@ public class UserRoleController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetUserRoles(
+    [HttpGet("{username}")]
+    public async Task<IActionResult> GetUserRoles(string username,
         CancellationToken cancellationToken)
     {
-        var query = new GetUserRolesQuery();
+        var query = new GetUserRolesQuery(username);
 
         var result = await _sender.Send(query, cancellationToken);
 

@@ -17,6 +17,7 @@ using PSPublicMessagingAPI.DesktopWinforms.Properties;
 using PSPublicMessagingAPI.SharedToastMessage;
 using PSPublicMessagingAPI.SharedToastMessage.Models;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
+using System.Threading;
 
 namespace Desktop.Views.Shared
 {
@@ -42,15 +43,30 @@ namespace Desktop.Views.Shared
         {
 
         }
+        protected virtual void StaThreadWrapper(Action action)
+        {
+            var t = new Thread(o =>
+            {
+                action();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+           // t.Join();
+        }
         protected virtual void ShowMessage(string message, ToastType toastType)
         {
-            _toastService.ToastMessage = new Toast()
+            StaThreadWrapper(() =>
             {
-                Message = message,
-                ToastType = toastType
-            };
-            var notify = new ToastMessageView(_toastService);
-            notify.Show();
+                _toastService.ToastMessage = new Toast()
+                {
+                    Message = message,
+                    ToastType = toastType
+                };
+                var notify = new ToastMessageView(_toastService);
+                notify.Show();
+            });
+            
         }
         public ViewBase()
         {

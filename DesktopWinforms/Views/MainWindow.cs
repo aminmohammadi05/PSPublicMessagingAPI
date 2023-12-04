@@ -248,7 +248,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             if (!String.IsNullOrEmpty(_activeDirectoryService.CurrentUser))
             {
                 var roles = await _activeDirectoryService.GetUserRoles(_activeDirectoryService.CurrentUser);
-                mnuCreateMessage.Visibility = roles != null && roles.Any() ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
+                mnuCreateMessage.Visibility = roles != null  ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 mainContainer.IsSplitterFixed = true;
                 mainContainer.FixedPanel = SplitFixedPanel.Panel2;
                 NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotificationsAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
@@ -282,7 +282,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 mainContainer.FixedPanel = SplitFixedPanel.Panel2;
                 mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);
                 var roles = await _activeDirectoryService.GetUserRoles(_activeDirectoryService.CurrentUser);
-                mnuCreateMessage.Visibility = roles != null && roles.Any() ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
+                mnuCreateMessage.Visibility = roles != null ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotificationsAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
                 LoadNotifications(_activeDirectoryService.CurrentUser);
                 //mnuCreateMessage.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;

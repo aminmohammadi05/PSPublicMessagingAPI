@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 using PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
+using PSPublicMessagingAPI.Application.Notifications.Commands.DeleteNotification;
 using PSPublicMessagingAPI.Application.Notifications.Commands.UpdateNotification;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsAll;
@@ -111,5 +112,22 @@ public class NotificationController : ControllerBase
         }
 
         return CreatedAtAction(nameof(GetNotification), new { id = result.Value }, result.Value);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteNotification(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteNotificationCommand(id);
+
+        var result = await _sender.Send(command, cancellationToken);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.Error);
+        }
+
+        return Ok(result);
     }
 }

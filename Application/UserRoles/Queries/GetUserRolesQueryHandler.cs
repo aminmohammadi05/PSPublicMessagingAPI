@@ -2,11 +2,12 @@
 using PSPublicMessagingAPI.Application.Abstractions.Data;
 using PSPublicMessagingAPI.Application.Abstractions.Messaging;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
+using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
 using PSPublicMessagingAPI.Domain.Abstractions;
 
 namespace PSPublicMessagingAPI.Application.UserRoles.Queries;
 
-internal sealed class GetUserRolesQueryHandler : IQueryHandler<GetUserRolesQuery, IReadOnlyList<UserRoleResponse>>
+internal sealed class GetUserRolesQueryHandler : IQueryHandler<GetUserRolesQuery, UserRoleResponse>
 {
 
 
@@ -17,7 +18,7 @@ internal sealed class GetUserRolesQueryHandler : IQueryHandler<GetUserRolesQuery
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<IReadOnlyList<UserRoleResponse>>> Handle(GetUserRolesQuery request, CancellationToken cancellationToken)
+    public async Task<Result<UserRoleResponse>> Handle(GetUserRolesQuery request, CancellationToken cancellationToken)
     {
 
 
@@ -27,14 +28,18 @@ internal sealed class GetUserRolesQueryHandler : IQueryHandler<GetUserRolesQuery
                            SELECT
                                *
                            FROM UserRole
-
+                           WHERE userName = @username
                            """;
 
-        var apartments = await connection
-            .QueryAsync<UserRoleResponse>(
-                sql
+        var userRole = await connection
+            .QueryFirstOrDefaultAsync<UserRoleResponse>(
+                sql,
+                new
+                {
+                    request.username
+                }
             );
 
-        return apartments.ToList();
+        return userRole;
     }
 }

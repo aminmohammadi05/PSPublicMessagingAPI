@@ -35,7 +35,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -65,7 +65,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using StringContent jsonContent = new (
@@ -98,7 +98,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -127,7 +127,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -157,7 +157,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -187,7 +187,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -217,7 +217,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             using StringContent jsonContent = new(
@@ -250,7 +250,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -275,24 +275,24 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public async Task<List<UserRole>> GetUserRoleAsync(string userName)
+    public async Task<UserRole> GetUserRoleAsync(string userName)
     {
 
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
            
           
-            var response = await client.GetAsync("api/userroles");
+            var response = await client.GetAsync($"api/user-roles/{userName}");
 
 
             if (response.IsSuccessStatusCode)
             {
-                var data = JsonSerializer.Deserialize<List<UserRole>>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions
+                var data = JsonSerializer.Deserialize<UserRole>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
@@ -318,7 +318,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         using (var client = new HttpClient())
         {
 
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:5000/");
+            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:9696/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
            
