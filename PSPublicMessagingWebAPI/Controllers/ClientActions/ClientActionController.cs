@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
+using PSPublicMessagingAPI.Application.ClientActions.Queries.ClientActionByUsername;
 
 namespace PSPublicMessagingWebAPI.Controllers.ClientActions;
 
@@ -21,6 +22,17 @@ public class ClientActionController : ControllerBase
         CancellationToken cancellationToken)
     {
         var query = new GetClientActionQuery();
+
+        var result = await _sender.Send(query, cancellationToken);
+
+        return Ok(result.Value);
+    }
+
+    [HttpGet("{user}")]
+    public async Task<IActionResult> GetClientActionsByUsername(string user,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetClientActionsByUsernameQuery(user);
 
         var result = await _sender.Send(query, cancellationToken);
 
