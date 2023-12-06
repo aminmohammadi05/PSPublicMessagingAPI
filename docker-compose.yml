@@ -2,14 +2,14 @@ version: '3.4'
 
 services:
     pspublicmessagingweb-api:
-        image: pspublicmessagingwebapi:v1.0.26
+        image: pspublicmessagingwebapi:v1.0.27
         container_name: ps-messaging-api
         build:
             context: .
             dockerfile: PSPublicMessagingWebAPI/Dockerfile
         ports:
-            - 8181:80
-            - 8182:443
+            - 9595:80
+            - 9596:443
         depends_on:
             - pspublicmessaging-mq
             - pspublicmessaging-db

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesktopWinforms.Models
 {
-    public class NotificationDto
+    public sealed class NotificationDto
     {
 
 
@@ -31,41 +31,25 @@ namespace DesktopWinforms.Models
         public string TargetGroup { get; set; }
 
         public NotificationStatus NotificationStatus { get; set; }
-
-        public string NotificationStatusText { get; set; }
-
-        public string NotificationStatusIcon { get; set; }
+       
 
         public NotificationPriority NotificationPriority { get; set; }
 
-        public string NotificationPriorityText { get; set; }
-
-        public string NotificationPriorityIcon { get; set; }
-
         public DateTime NotificationDate { get; set; }
 
-        public string NotificationDatePersian { get; set; }
-
-        public string NotificationTimePersian { get; set; }
-
         public string MethodParameter { get; set; }
-
-        public string PossibleActionName { get; set; }
-
-        public string PossibleActionModuleName { get; set; }
 
         public string ClientFullName { get; set; }
 
         public string TargetClientFullName { get; set; }
 
-        public string LastModifierUser { get; set; }
-
-        public string PossibleActionMethodToCall { get; set; }
-        public string PossibleActionFormName { get; set; }
+        public string LastModifiedUser { get; set; }
 
         internal void ChangeStatus(NotificationStatus @new)
         {
             NotificationStatus = @new;
         }
+
+        
     }
 }

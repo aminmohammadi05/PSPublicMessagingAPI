@@ -7,6 +7,8 @@ public class ConfigurationManagerService : IConfigurationManagerService
 {
     private string userName;
     private string password;
+    private string rbuserName;
+    private string rbpassword;
     private string ou;
     private string connectionString;
     private bool silent;
@@ -16,6 +18,32 @@ public class ConfigurationManagerService : IConfigurationManagerService
     private string host;
 
     Configuration configuration { get; set; }
+    public string RBUserName
+    {
+        get => configuration.AppSettings.Settings["rabbitusername"].Value;
+        set
+        {
+            rbuserName = value;
+            configuration.AppSettings.Settings["rabbitusername"].Value = rbuserName;
+            configuration.Save();
+
+            // Reload app config file
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+    }
+    public string RBPassword
+    {
+        get => configuration.AppSettings.Settings["rabbitpassword"].Value;
+        set
+        {
+            rbpassword = value;
+            configuration.AppSettings.Settings["rabbitpassword"].Value = rbpassword;
+            configuration.Save();
+
+            // Reload app config file
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+    }
     public string UserName
     {
         get => configuration.AppSettings.Settings["username"].Value;

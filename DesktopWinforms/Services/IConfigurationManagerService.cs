@@ -4,6 +4,8 @@ public interface IConfigurationManagerService
 {
     string UserName { get; set; }
     string Password { get; set; }
+    string RBUserName { get; set; }
+    string RBPassword { get; set; }
     string OU { get; set; }
     bool Silent { get; set; }
     string Domain { get; set; }

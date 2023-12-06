@@ -65,7 +65,7 @@ public class IocConfig
 
         services.AddSingleton<ICommunicationApplicationController>(s =>
         {
-            return new CommunicationApplicationController(s.GetRequiredService<IToastService>(), s);
+            return new CommunicationApplicationController(s.GetRequiredService<IToastService>(), s, Dispatcher.CurrentDispatcher);
         });
         services.AddSingleton<IActiveDirectoryService>(s =>
         {
@@ -144,7 +144,7 @@ public class IocConfig
             .ForMember(dest => dest.NotificationPriority, opt => opt.MapFrom(src => src.NotificationPriority))
             .ForMember(dest => dest.NotificationText, opt => opt.MapFrom(src => src.NotificationText))
             .ForMember(dest => dest.NotificationTitle, opt => opt.MapFrom(src => src.NotificationTitle))
-            .ForMember(dest => dest.LastModifierUser, opt => opt.MapFrom(src => src.LastModifierUser))
+            .ForMember(dest => dest.LastModifiedUser, opt => opt.MapFrom(src => src.LastModifiedUser))
             .ForMember(dest => dest.NotificationStatus, opt => opt.MapFrom(src => src.NotificationStatus));
             #endregion
 

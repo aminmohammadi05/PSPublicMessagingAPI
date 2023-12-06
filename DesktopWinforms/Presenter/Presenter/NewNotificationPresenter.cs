@@ -25,24 +25,38 @@ public class NewNotificationPresenter : INewNotificationPresenter
         }
 
     }
+    #region Notification
 
     public async Task<List<NotificationDto>> GetAllNotifications()
     {
         return await _communicationAppController.GetAllNotificationsAsync();
+    }
+    public async Task<NotificationDto> GetNotificationById(Guid id)
+    {
+        return await _communicationAppController.GetNotificationByIdAsync(id);
     }
 
     public async Task<Guid> RemoveNotification(Guid notificationId)
     {
         return await _communicationAppController.RemoveNotificationAsync(notificationId);
     }
+    public async Task<Guid> SaveNotification(NotificationDto selectedNotification)
+    {
+        return await _communicationAppController.SaveNotificationAsync(selectedNotification);
+    }
+    #endregion
+
+    #region Possible Action
+    public async Task<List<PossibleActionDto>> GetAllPossibleActions()
+    {
+        return await _communicationAppController.GetAllPossibleActionsAsync();
+    }
+    #endregion
 
     public void Run()
     {
         _view.Run();
     }
 
-    public async Task<NotificationDto> SaveNotification(NotificationDto selectedNotification)
-    {
-        return await _communicationAppController.SaveNotificationAsync(selectedNotification);
-    }
+
 }

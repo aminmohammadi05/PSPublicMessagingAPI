@@ -27,6 +27,8 @@ using PSPublicMessagingAPI.Desktop.Consumers;
 using MassTransit;
 using PSPublicMessagingAPI.DesktopWinforms.Properties;
 using SuperSimpleTcp;
+using Topshelf;
+using Host = Microsoft.Extensions.Hosting.Host;
 
 
 namespace DesktopWinforms
@@ -61,11 +63,10 @@ namespace DesktopWinforms
 
         //}
         [STAThread]
-        private static async Task Main()
+        private static void  Main()
         {
             
-           
-            await CreateHostBuilder().Build().RunAsync();
+            CreateHostBuilder().Build().Run();
         }
         private static IHostBuilder CreateHostBuilder()
         {
@@ -90,8 +91,8 @@ namespace DesktopWinforms
                             cfg.Host(configurationManager.Host ,"/", h =>
                             {
                                 
-                                h.Username("parsswitch");
-                                h.Password("parsswitch");
+                                h.Username(configurationManager.RBUserName);
+                                h.Password(configurationManager.RBPassword);
                             });
 
                             cfg.ConfigureEndpoints(context);

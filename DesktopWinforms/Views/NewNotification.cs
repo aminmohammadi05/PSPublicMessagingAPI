@@ -84,19 +84,14 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         public NotificationDto SelectedNotification { get; private set; }
         public ObservableCollection<NotificationViewModel> NotificationList { get; private set; } = new ObservableCollection<NotificationViewModel>();
+        public ObservableCollection<PossibleActionDto> PossibleActionList { get; private set; } = new ObservableCollection<PossibleActionDto>();
+        public ObservableCollection<ClientActionDto> ClientActionList { get; private set; } = new ObservableCollection<ClientActionDto>();
 
 
 
         public void Run()
         {
-            var t = new Thread(o =>
-            {
-                ShowDialog();
-                System.Windows.Threading.Dispatcher.Run();
-            });
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            t.Join();
+            Show();
 
 
         }
@@ -122,20 +117,31 @@ namespace PSPublicMessagingAPI.Desktop.Views
             if (IsValid(false))
             {
                 SelectedNotification = _mapper.Map<NotificationViewModel, NotificationDto>((bsNotification.Current as NotificationViewModel));
-                //SelectedNotification.PossibleActionId = 1; // Set to public Messages
-                //SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
-                //SelectedNotification.NotificationStatus = (NotificationStatus)cmbStatus.SelectedIndex;
-                NotificationViewModel result = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.SaveNotification(SelectedNotification));
-                if (result != null)
+                SelectedNotification.PossibleActionId = PossibleActionList.FirstOrDefault(x => x.PossibleActionName.ToLower() == "publicmessage").Id; // Set to public Messages
+                SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
+                SelectedNotification.NotificationStatus = (NotificationStatus)cmbStatus.SelectedIndex;
+                SelectedNotification.ClientGroup = "-";
+                SelectedNotification.ClientFullName = "-";
+                SelectedNotification.ClientUserName = "-";
+                SelectedNotification.LastModifiedUser = "-";
+                SelectedNotification.MethodParameter = "{}";
+                SelectedNotification.TargetClientFullName = "-";
+                SelectedNotification.TargetClientUserName = "-";
+                SelectedNotification.TargetClientGroup = "-";
+                SelectedNotification.Id = Guid.NewGuid();
+
+                Guid result = await _presenter.SaveNotification(SelectedNotification);
+                if (result != Guid.Empty)
                 {
-                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result.Id))
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.GetNotificationById(result));
+                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
                     {
                         bsNotification.RemoveCurrent();
                     }
 
-                    bsNotification.Add(result);
+                    bsNotification.Add(newNotification);
                     bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(bsNotification.List.Cast<NotificationViewModel>().Where(x => x.Id != Guid.Empty));
-                    var ind = bsNotification.IndexOf(result);
+                    var ind = bsNotification.IndexOf(newNotification);
                     bsNotification.Position = ind;
 
                     ShowMessage("عملیات با موفقیت انجام شد", ToastType.Success);
@@ -149,13 +155,14 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private bool IsValid(bool isSend)
         {
+
             erpNewNotification.Clear();
             //if (String.IsNullOrEmpty(txtReportNumber.Text.Trim()))
             //{
             //    erpNonConformity.SetError(txtReportNumber, "لطفا شماره گزارش را وارد کنید ");
             //    return false;
             //}
-            if (txtNotificationDateTime.Text.Trim().Count(x => Char.IsDigit(x)) < 8)
+            if (!DateTime.TryParse(txtNotificationDateTime.DateTime.ToString(), out DateTime date))
             {
                 erpNewNotification.SetError(txtNotificationDateTime, "لطفا تاریخ را وارد کنید ");
                 return false;
@@ -233,10 +240,17 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private async void NewNotification_Load(object sender, EventArgs e)
         {
-
+            var statusList = Enum.GetValues(typeof(NotificationStatus)).Cast<NotificationStatus>().ToList();
+            statusList.Insert(0, 0);
+            var priorityList = Enum.GetValues(typeof(NotificationPriority)).Cast<NotificationPriority>().ToList();
+            priorityList.Insert(0, 0);
+            PossibleActionList = new ObservableCollection<PossibleActionDto>(await _presenter.GetAllPossibleActions());
             NotificationList = new ObservableCollection<NotificationViewModel>(_mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _presenter.GetAllNotifications()));
-            cmbPriority.DataSource = Enum.GetValues(typeof(NotificationPriority));
-            cmbStatus.DataSource = Enum.GetValues(typeof(NotificationStatus));
+            cmbPriority.DataSource = priorityList;
+
+            cmbStatus.DataSource = statusList;
+
+
             bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(NotificationList); //);
             bsNotification.Sort = "NotificationDate DESC";
             cmbGroup.Properties.DataSource = _activeDirectoryService.ActiveDirectoryUsers.GroupBy(x => x.OUName).OrderBy(x => x.Key).Select((x, i) => new { OUName = x.Key, OUID = i + 1 }).ToList();
@@ -270,16 +284,17 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
 
                 SelectedNotification.ChangeStatus(NotificationStatus.New);
-                NotificationViewModel result = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.SaveNotification(SelectedNotification));
-                if (result != null)
+                Guid result = await _presenter.SaveNotification(SelectedNotification);
+                if (result != Guid.Empty)
                 {
-                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result.Id))
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.GetNotificationById(result));
+                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
                     {
                         bsNotification.RemoveCurrent();
                     }
 
-                    bsNotification.Add(result);
-                    var ind = bsNotification.IndexOf(result);
+                    bsNotification.Add(newNotification);
+                    var ind = bsNotification.IndexOf(newNotification);
                     bsNotification.Position = ind;
 
                     ShowMessage("عملیات با موفقیت انجام شد", ToastType.Success);
