@@ -4,6 +4,7 @@ services:
     pspublicmessagingweb-api:
         image: pspublicmessagingwebapi:v1.0.27
         container_name: ps-messaging-api
+        restart: always
         build:
             context: .
             dockerfile: PSPublicMessagingWebAPI/Dockerfile
@@ -28,6 +29,7 @@ services:
         image: rabbitmq:management
         container_name: ps-messaging-rabbitmq
         hostname: psmessaging-mq
+        restart: always
         ports:
             - 5672:5672
             - 15672:15672
