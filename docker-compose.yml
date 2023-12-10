@@ -2,9 +2,8 @@ version: '3.4'
 
 services:
     pspublicmessagingweb-api:
-        image: pspublicmessagingwebapi:v1.0.27
+        image: pspublicmessagingwebapi:v1.0.34
         container_name: ps-messaging-api
-        restart: always
         build:
             context: .
             dockerfile: PSPublicMessagingWebAPI/Dockerfile
@@ -29,7 +28,11 @@ services:
         image: rabbitmq:management
         container_name: ps-messaging-rabbitmq
         hostname: psmessaging-mq
-        restart: always
+        healthcheck:
+            test: rabbitmq-diagnostics -q ping
+            interval: 5s
+            timeout: 15s
+            retries: 3
         ports:
             - 5672:5672
             - 15672:15672

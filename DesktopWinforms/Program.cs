@@ -79,11 +79,14 @@ namespace DesktopWinforms
                         // elided...
                         x.AddConsumer<NotificationCreatedConsumer>();
                         //x.AddConsumer<MainWindow>();
+                        
                         x.UsingRabbitMq((context, cfg) =>
                         {
 
                             cfg.ReceiveEndpoint("NotificationCreated", e =>
                             {
+                                e.PrefetchCount = 16;
+                                e.UseMessageRetry(r => r.Interval(2, 10));
                                 e.ConfigureConsumer<NotificationCreatedConsumer>(context);
                             });
                             var configurationManager = serviceProvider.GetRequiredService<IConfigurationManagerService>();

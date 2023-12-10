@@ -73,7 +73,7 @@ public class IocConfig
                                              , s.GetRequiredService<ICommunicationApplicationController>());
         });
 
-        services.AddSingleton<NotificationCreatedConsumer>(s =>
+        services.AddTransient<NotificationCreatedConsumer>(s =>
         {
             return new NotificationCreatedConsumer(s.GetRequiredService<ICommunicationApplicationController>(),
                 s.GetRequiredService<IToastService>(),

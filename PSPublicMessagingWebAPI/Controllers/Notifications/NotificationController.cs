@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PSPublicMessagingAPI.Application.ClientActions.Queries;
 using PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
@@ -7,6 +8,7 @@ using PSPublicMessagingAPI.Application.Notifications.Commands.UpdateNotification
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsAll;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserName;
+using PSPublicMessagingAPI.Contract;
 
 namespace PSPublicMessagingWebAPI.Controllers.Notifications;
 
@@ -15,10 +17,12 @@ namespace PSPublicMessagingWebAPI.Controllers.Notifications;
 public class NotificationController : ControllerBase
 {
     private readonly ISender _sender;
+    
 
-    public NotificationController(ISender sender)
+    public NotificationController(ISender sender, IPublishEndpoint publishEndpoint)
     {
         _sender = sender;
+        
     }
 
     [HttpGet]
@@ -78,7 +82,7 @@ public class NotificationController : ControllerBase
         {
             return BadRequest(result.Error);
         }
-
+        
         return CreatedAtAction(nameof(GetNotification), new { id = result.Value }, result.Value);
     }
 

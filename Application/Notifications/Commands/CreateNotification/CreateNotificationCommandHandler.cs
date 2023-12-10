@@ -56,10 +56,10 @@ internal sealed class CreateNotificationCommandHandler : ICommandHandler<CreateN
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _publishEndpoint.Publish(
-                new NotificationCreatedEvent( 
-                newNotification.Id,
-                newNotification.NotificationTitle.Value,
-                newNotification.NotificationDate)
+                new NotificationCreatedEvent(
+                    newNotification.Id,
+                    newNotification.NotificationTitle.Value,
+                    newNotification.NotificationDate)
                 , cancellationToken);
 
             return newNotification.Id;
