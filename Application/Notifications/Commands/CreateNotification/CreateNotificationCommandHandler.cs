@@ -68,5 +68,9 @@ internal sealed class CreateNotificationCommandHandler : ICommandHandler<CreateN
         {
             return Result.Failure<Guid>(NotificationErrors.NotReserved);
         }
+        catch (Exception ex)
+        {
+            return Result.Failure<Guid>(NotificationErrors.NotReserved);
+        }
     }
 }
