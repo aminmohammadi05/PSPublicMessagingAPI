@@ -1,7 +1,9 @@
 using MassTransit;
 using PSPublicMessagingAPI.Application;
 using PSPublicMessagingAPI.Infrastructure;
+using PSPublicMessagingAPI.Infrastructure.BackgroundJobs;
 using PSPublicMessagingWebAPI.Extensions;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,21 @@ builder.Services.AddMassTransit(busConfigurator =>
     });
     
 });
+
+builder.Services.AddQuartz(configure =>
+{
+    var jobKey = new JobKey(nameof(ProcessOutboxMessegaesJob));
+
+    configure.AddJob<ProcessOutboxMessegaesJob>(jobKey)
+        .AddTrigger(
+            trigger =>
+                trigger.ForJob(jobKey)
+                    .WithSimpleSchedule(
+                        schedule => schedule.WithIntervalInSeconds(10)
+                            .RepeatForever()));
+    configure.UseMicrosoftDependencyInjectionJobFactory();
+});
+builder.Services.AddQuartzHostedService();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\Base\" />
-    <Folder Include="UserRoles\" />
     <Folder Include="Primitives\" />
+    <Folder Include="UserRoles\" />
   </ItemGroup>
 
   <ItemGroup>

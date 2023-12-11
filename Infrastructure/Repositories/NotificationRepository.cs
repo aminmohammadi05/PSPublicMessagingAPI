@@ -16,6 +16,21 @@ internal sealed class NotificationRepository : Repository<Notification>, INotifi
     {
     }
 
+    public async Task<Notification> GetNotificationByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var notification =
+            await DbContext.Set<Notification>().FirstOrDefaultAsync(x => x.Id == id);
+        if (notification == null)
+        {
+            throw new ArgumentException("Notification cannot be deleted");
+
+        }
+
+
+        return notification;
+
+    }
+
     public async Task<Notification> DeleteById(Guid id, CancellationToken cancellationToken)
     {
         var notificationToDelete =

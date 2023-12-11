@@ -12,6 +12,7 @@ using PSPublicMessagingAPI.Domain.PossibleActions;
 using PSPublicMessagingAPI.Domain.UserRoles;
 using PSPublicMessagingAPI.Infrastructure.Clock;
 using PSPublicMessagingAPI.Infrastructure.Data;
+using PSPublicMessagingAPI.Infrastructure.Interceptors;
 using PSPublicMessagingAPI.Infrastructure.Repositories;
 
 namespace PSPublicMessagingAPI.Infrastructure;
@@ -30,10 +31,13 @@ public static class DependencyInjection
             configuration.GetConnectionString("Database") ??
             throw new ArgumentNullException(nameof(configuration));
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddDbContext<ApplicationDbContext>((sp,options) =>
         {
-            options.UseSqlServer(connectionString);
+            var interceptor = sp.GetService<ConvertDomainEventsToOutboxMessageInterceptor>();
+            options.UseSqlServer(connectionString)
+                .AddInterceptors(interceptor);
         });
+        services.AddSingleton<ConvertDomainEventsToOutboxMessageInterceptor>();
 
         services.AddScoped<INotificationRepository, NotificationRepository>();
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PSPublicMessagingAPI.Domain.PossibleActions;
 using PSPublicMessagingAPI.Domain.Shared;
 
-namespace Infrastructure.Configurations;
+namespace PSPublicMessagingAPI.Infrastructure.Configurations;
 
 internal sealed class PossibleActionConfiguration : IEntityTypeConfiguration<PossibleAction>
 {

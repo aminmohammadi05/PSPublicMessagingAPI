@@ -55,12 +55,12 @@ internal sealed class CreateNotificationCommandHandler : ICommandHandler<CreateN
             _notificationRepository.Add(newNotification);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            await _publishEndpoint.Publish(
-                new NotificationCreatedEvent(
-                    newNotification.Id,
-                    newNotification.NotificationTitle.Value,
-                    newNotification.NotificationDate)
-                , cancellationToken);
+            //await _publishEndpoint.Publish(
+            //    new NotificationCreatedEvent(
+            //        newNotification.Id,
+            //        newNotification.NotificationTitle.Value,
+            //        newNotification.NotificationDate)
+            //    , cancellationToken);
 
             return newNotification.Id;
         }
