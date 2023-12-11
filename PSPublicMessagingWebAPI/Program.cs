@@ -25,8 +25,8 @@ builder.Services.AddMassTransit(busConfigurator =>
     busConfigurator.UsingRabbitMq((context, configurator) =>
     {
 
-        configurator.PrefetchCount = 16;
-        configurator.UseMessageRetry(r => r.Interval(2, 10));
+        //configurator.PrefetchCount = 16;
+        //configurator.UseMessageRetry(r => r.Interval(2, 10));
         //configurator.Host(new Uri("amqp://guest:guest@localhost:5672"), h => { }
         configurator.Host(new Uri(builder.Configuration["MessageBroker:Host"]!), h =>
     {
