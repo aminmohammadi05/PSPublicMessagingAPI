@@ -19,11 +19,12 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddMassTransit(busConfigurator =>
 {
-    busConfigurator.SetKebabCaseEndpointNameFormatter();
+    busConfigurator.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter(prefix: "PS", includeNamespace: false));
     //busConfigurator.AddConsumer<NotificationCreatedConsumer>();
     
     busConfigurator.UsingRabbitMq((context, configurator) =>
     {
+
         configurator.PrefetchCount = 16;
         configurator.UseMessageRetry(r => r.Interval(2, 10));
         //configurator.Host(new Uri("amqp://guest:guest@localhost:5672"), h => { }
@@ -32,7 +33,7 @@ builder.Services.AddMassTransit(busConfigurator =>
         
         h.Username(builder.Configuration["MessageBroker:Username"]);
         h.Password(builder.Configuration["MessageBroker:Password"]);
-        h.Heartbeat(TimeSpan.FromSeconds(300));
+        //h.Heartbeat(TimeSpan.FromSeconds(300));
         
 
     }
