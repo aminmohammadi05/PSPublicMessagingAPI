@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
     pspublicmessagingweb-api:
-        image: pspublicmessagingwebapi:v1.0.34
+        image: pspublicmessagingwebapi:v1.0.49
         container_name: ps-messaging-api
         build:
             context: .

@@ -282,9 +282,13 @@ namespace PSPublicMessagingAPI.Desktop.Views
             {
                 SelectedNotification = _mapper.Map<NotificationViewModel, NotificationDto>((bsNotification.Current as NotificationViewModel));
 
-
+                SelectedNotification.Id = (bsNotification.Current as NotificationViewModel).Id;
                 SelectedNotification.ChangeStatus(NotificationStatus.New);
-                Guid result = await _presenter.SaveNotification(SelectedNotification);
+                SelectedNotification.LastModifiedUser = "-";
+                SelectedNotification.MethodParameter = "{}";
+                //SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
+               
+                Guid result = await _presenter.SetNotificationStatus(SelectedNotification);
                 if (result != Guid.Empty)
                 {
                     NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.GetNotificationById(result));

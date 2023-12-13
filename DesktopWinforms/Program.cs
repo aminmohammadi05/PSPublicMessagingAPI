@@ -21,11 +21,15 @@ using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
+using AutoMapper;
 using DesktopWinforms.Services;
 using Microsoft.Extensions.Hosting;
 using PSPublicMessagingAPI.Desktop.Consumers;
 using MassTransit;
+using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.DesktopWinforms.Properties;
+using PSPublicMessagingAPI.SharedToastMessage.Services;
 using SuperSimpleTcp;
 using Topshelf;
 using Host = Microsoft.Extensions.Hosting.Host;
@@ -63,10 +67,18 @@ namespace DesktopWinforms
 
         //}
         [STAThread]
-        private static void  Main()
+        private static async Task  Main()
         {
-            
-            CreateHostBuilder().Build().Run();
+
+            var host = CreateHostBuilder().Build();
+
+
+            using (host)
+            {
+                //host.Run();
+                await host.StartAsync();
+                await host.StopAsync();
+            }
         }
         private static IHostBuilder CreateHostBuilder()
         {
@@ -78,16 +90,27 @@ namespace DesktopWinforms
                     {
                         // elided...
                         x.AddConsumer<NotificationCreatedConsumer>();
-                        //x.AddConsumer<MainWindow>();
-                        
+                        x.AddConsumer<MainWindow>();
+
                         x.UsingRabbitMq((context, cfg) =>
                         {
 
                             cfg.ReceiveEndpoint("ps-notification-created", e =>
                             {
-                                e.PrefetchCount = 16;
-                                e.UseMessageRetry(r => r.Interval(2, 10));
-                                e.ConfigureConsumer<NotificationCreatedConsumer>(context);
+                                //e.PrefetchCount = 16;
+                                //e.UseMessageRetry(r => r.Interval(2, 10));
+                                e.ConfigureConsumer<MainWindow>(context, c =>
+                                {
+                                    c.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
+                                    c.UseMessageRetry(r => r.Immediate(5));
+                                    c.UseInMemoryOutbox();
+                                });
+                                e.ConfigureConsumer<NotificationCreatedConsumer>(context, c =>
+                                {
+                                    c.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
+                                    c.UseMessageRetry(r => r.Immediate(5));
+                                    c.UseInMemoryOutbox();
+                                });
                             });
                             var configurationManager = serviceProvider.GetRequiredService<IConfigurationManagerService>();
                             
@@ -153,13 +176,21 @@ namespace DesktopWinforms
             // Hide tray icon, otherwise it will remain shown until user mouses over it
 
 
-            MainWindow window = _serviceProvider.GetRequiredService<MainWindow>();
+            MainWindow window = //_serviceProvider.GetRequiredService<MainWindow>();
+                new MainWindow(_serviceProvider.GetRequiredService<ICommunicationApplicationController>(),
+                _serviceProvider.GetRequiredService<IToastService>(),
+                _serviceProvider.GetRequiredService<IActiveDirectoryService>(),
+                _serviceProvider.GetRequiredService<IMapper>(),
+                _serviceProvider.GetRequiredService<NotificationCreatedConsumer>(),
+                _serviceProvider.GetRequiredService<IFontService>(),
+                _serviceProvider.GetRequiredService<IConfigurationManagerService>(),
+                Dispatcher.CurrentDispatcher);
             window.Height = Screen.PrimaryScreen.WorkingArea.Height;
             window.StartPosition = FormStartPosition.Manual;
             window.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - window.Width,
                                    Screen.PrimaryScreen.WorkingArea.Height - window.Height);
             window.Presenter = _serviceProvider.GetRequiredService<IMainViewPresenter>();
-            window.ShowDialog();
+            window.Show();
         }
         void ShowAbout(object sender, EventArgs e)
         {

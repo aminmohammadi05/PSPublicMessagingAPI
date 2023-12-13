@@ -28,7 +28,7 @@ public interface ICommunicationApplicationController
     void RunCreateNewNotification();
     Task<Guid> RemoveNotificationAsync(Guid notificationId);
     Task<List<NotificationDto>> GetUserUnreadNotificationsAsync(string user, string OU);
-    Task<NotificationDto> SetNotificationStatusAsync(NotificationDto notification);
+    Task<Guid> SetNotificationStatusAsync(NotificationDto notification);
     Task<NotificationDto> GetNotificationByIdAsync(Guid notificationId);
     NotificationDto GetNotificationById(Guid notificationId);
     Task<List<NotificationDto>> GetAllNotificationsByUsernameAsync(string user, string OU);

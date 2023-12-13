@@ -8,6 +8,7 @@ public interface IConfigurationManagerService
     string RBPassword { get; set; }
     string OU { get; set; }
     bool Silent { get; set; }
+    bool MainWindowIsOpen { get; set; }
     string Domain { get; set; }
     string AboutTitle { get; set; }
     string AboutText { get; set; }

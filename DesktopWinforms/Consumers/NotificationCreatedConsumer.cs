@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using AutoMapper;
 using DesktopWinforms.Models;
 using MassTransit;
+using Microsoft.Toolkit.Uwp.Notifications;
 using PSPublicMessagingAPI.Contract;
 using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.Desktop.Services;
@@ -62,6 +64,11 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
     
     public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
     {
+        if (_configurationManagerService.MainWindowIsOpen)
+        {
+            return;
+        }
+
         NotificationDto notifi = await _communicationAppController.GetNotificationByIdAsync(context.Message.Id);
         if (notifi == null)
         {
@@ -71,35 +78,34 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
 
         NotificationViewModel notification = _mapper.Map<NotificationViewModel>(notifi);
         Notification = notification;
-        if ((notification.TargetGroup == "All") ||
-            (!string.IsNullOrEmpty(notification.TargetGroup) && notification.TargetGroup == _activeDirectoryService.OU) ||
-            (string.IsNullOrEmpty(notification.TargetGroup) && notification.TargetClientUserName == _activeDirectoryService.CurrentUser))
+        if ((!string.IsNullOrEmpty(notification.TargetGroup) && notification.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Count() > 0) ||
+            (!string.IsNullOrEmpty(notification.TargetGroup) && notification.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Any(x => x.ToLower() == _activeDirectoryService.OU.ToLower())))
         {
-            StaThreadWrapper(() =>
-            {
-                ShowMessage(notification.NotificationText, ToastType.Info);
-            });
+
             //_dispatcher.Invoke(() => ShowMessage(notification.NotificationText, ToastType.Info), DispatcherPriority.Background);
             if (_configurationManagerService.Silent)
             {
-                StaThreadWrapper(() =>
-                {
-                    ShowMessage(notification.NotificationText, ToastType.Info);
-                });
-                
-            } else
+                new ToastContentBuilder()
+                    .AddArgument(notification.Id.ToString(), 9813)
+                    .AddHeader(notification.Id.ToString(), notification.NotificationTitle, new ToastArguments())
+                    .AddText(notification.NotificationText)
+                    .Show();
+
+            }
+            else
             {
-                _dispatcher.Invoke(() =>
+                StaThreadWrapper(() =>
                 {
                     var msg = new Message(notification, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
                     msg.TopMost = true;
                     msg.Show();
-                }, DispatcherPriority.Background);
+                });
+
 
             }
 
         }
-
+       
 
     }
     public void StaThreadWrapper(Action action)
@@ -111,6 +117,7 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
         });
         t.SetApartmentState(ApartmentState.STA);
         t.Start();
+        t.Join();
     }
     private void OnMessageReceived(string propertyName)
     {
@@ -119,14 +126,5 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
     }
 
 
-    protected void ShowMessage(string message, ToastType toastType)
-    {
-        _toastService.ToastMessage = new Toast()
-        {
-            Message = message,
-            ToastType = toastType
-        };
-        var notify = new ToastMessageView(_toastService);
-        notify.Show();
-    }
+   
 }

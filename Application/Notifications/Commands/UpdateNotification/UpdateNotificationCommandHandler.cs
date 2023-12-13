@@ -68,5 +68,9 @@ public class UpdateNotificationCommandHandler : ICommandHandler<UpdateNotificati
         {
             return Result.Failure<Guid>(NotificationErrors.NotReserved);
         }
+        catch (Exception ex)
+        {
+            return Result.Failure<Guid>(NotificationErrors.NotReserved);
+        }
     }
 }

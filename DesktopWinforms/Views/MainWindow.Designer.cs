@@ -57,6 +57,7 @@
             svgLogo = new DevExpress.XtraEditors.SvgImageBox();
             flpNotification = new System.Windows.Forms.FlowLayoutPanel();
             erpMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(components);
+            baseToastManager = new DevExpress.XtraBars.ToastNotifications.ToastNotificationsManager(components);
             ((System.ComponentModel.ISupportInitialize)MessengerBar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)mainContainer).BeginInit();
             ((System.ComponentModel.ISupportInitialize)mainContainer.Panel1).BeginInit();
@@ -68,6 +69,7 @@
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)svgLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)erpMain).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)baseToastManager).BeginInit();
             SuspendLayout();
             // 
             // MessengerBar
@@ -353,6 +355,11 @@
             // 
             erpMain.ContainerControl = this;
             // 
+            // baseToastManager
+            // 
+            baseToastManager.ApplicationId = "dc549d39-213d-4439-9fde-c56461f6006f";
+            baseToastManager.Notifications.AddRange(new DevExpress.XtraBars.ToastNotifications.IToastNotificationProperties[] { new DevExpress.XtraBars.ToastNotifications.ToastNotification("cdfd44d5-ddc2-4e38-8248-d972126fba52", null, null, null, null, null, null, "", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "", null, DevExpress.XtraBars.ToastNotifications.ToastNotificationSound.Default, DevExpress.XtraBars.ToastNotifications.ToastNotificationDuration.Default, null, DevExpress.XtraBars.ToastNotifications.AppLogoCrop.Default, DevExpress.XtraBars.ToastNotifications.ToastNotificationTemplate.Generic) });
+            // 
             // MainWindow
             // 
             AcceptButton = btnLogin;
@@ -371,6 +378,7 @@
             RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             RightToLeftLayout = true;
             Text = "پیام رسان پارس سویچ";
+            FormClosing += MainWindow_FormClosing;
             Load += MainWindow_Load;
             ((System.ComponentModel.ISupportInitialize)MessengerBar).EndInit();
             ((System.ComponentModel.ISupportInitialize)mainContainer.Panel1).EndInit();
@@ -384,6 +392,7 @@
             tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)svgLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)erpMain).EndInit();
+            ((System.ComponentModel.ISupportInitialize)baseToastManager).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -418,5 +427,6 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarToggleSwitchItem btnSilent;
         private DevExpress.XtraBars.BarButtonItem mnuCreateMessage;
+        private DevExpress.XtraBars.ToastNotifications.ToastNotificationsManager baseToastManager;
     }
 }

@@ -44,6 +44,10 @@ public class NewNotificationPresenter : INewNotificationPresenter
     {
         return await _communicationAppController.SaveNotificationAsync(selectedNotification);
     }
+    public async Task<Guid> SetNotificationStatus(NotificationDto selectedNotification)
+    {
+        return await _communicationAppController.SetNotificationStatusAsync(selectedNotification);
+    }
     #endregion
 
     #region Possible Action

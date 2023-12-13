@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using AutoMapper;
 using DesktopWinforms.Models;
 using DesktopWinforms.UserControls;
+using DevExpress.Data;
 using PSPublicMessagingAPI.Domain.Notifications;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
@@ -31,6 +32,9 @@ using DevExpress.Utils.MVVM.Services;
 using PSPublicMessagingAPI.SharedToastMessage;
 using PSPublicMessagingAPI.SharedToastMessage.Models;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace PSPublicMessagingAPI.Desktop.Views
 {
@@ -41,7 +45,10 @@ namespace PSPublicMessagingAPI.Desktop.Views
         Read,
         All
     }
-    public partial class MainWindow : ViewBase, IMainView//, IConsumer<NotificationCreatedEvent>
+    [CallbackBehavior(
+        ConcurrencyMode = System.ServiceModel.ConcurrencyMode.Single,
+        UseSynchronizationContext = false)]
+    public partial class MainWindow : ViewBase, IMainView, IConsumer<NotificationCreatedEvent>
     {
         private ConnectionFactory _factory;
         private IConnection _connection;
@@ -67,7 +74,15 @@ namespace PSPublicMessagingAPI.Desktop.Views
         public MainWindow(ICommunicationApplicationController communicationAppController, IToastService toastService, IActiveDirectoryService activeDirectoryService, IMapper mapper, NotificationCreatedConsumer consumer, IFontService fontService, IConfigurationManagerService configurationManagerService, Dispatcher dispatcher) : base(toastService)
         {
             InitializeComponent();
-            _uiSyncContext = SynchronizationContext.Current;
+            //if (!ShellHelper.IsApplicationShortcutExist("سیستم پیامرسان عمومی"))
+            //{
+            //    ShellHelper.TryCreateShortcut(
+            //        exePath: System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"),
+            //        applicationId: baseToastManager.ApplicationId,
+            //        name: "سیستم پیامرسان عمومی");
+
+            //}
+            _uiSyncContext = WindowsFormsSynchronizationContext.Current;
             _consumer = consumer;
             _consumer.MessageReceived += _consumer_MessageReceived; ;
             _configurationManagerService = configurationManagerService;
@@ -111,6 +126,62 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             return GetAllControls(container, new List<Control>());
         }
+        public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
+        {
+            if (!_configurationManagerService.MainWindowIsOpen)
+            {
+                return;
+            }
+
+            NotificationDto notifi = await _communicationAppController.GetNotificationByIdAsync(context.Message.Id);
+            if (notifi == null)
+            {
+
+                return;
+            }
+
+            NotificationViewModel message = _mapper.Map<NotificationViewModel>(notifi);
+
+            if (message.Id == Guid.Empty)
+            {
+                return;
+            }
+
+            if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
+            {
+                return;
+            }
+            if ((!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Count() > 0) ||
+            (!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Any(x => x.ToLower() == _activeDirectoryService.OU.ToLower())))
+            {
+
+                if (_configurationManagerService.Silent)
+                {
+                    new ToastContentBuilder()
+                        .AddArgument(message.Id.ToString(), 9813)
+                        .AddHeader(message.Id.ToString(), message.NotificationTitle, new ToastArguments())
+                        .AddText(message.NotificationText)
+                        .Show();
+                    //_dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info));
+                }
+                else
+                {
+                    _uiSyncContext.Post((object state) =>
+                    {
+                        var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
+                        msg.TopMost = true;
+                        msg.Show();
+                    }, null);
+
+                }
+                _uiSyncContext.Post((object state) =>
+                {
+                    AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message);
+                }, null);
+            }
+
+
+        }
         public void _consumer_MessageReceived(object sender, PropertyChangedEventArgs e)
         {
             NotificationViewModel message = _consumer.Notification;
@@ -131,23 +202,29 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
                 if (_configurationManagerService.Silent)
                 {
-                    _consumer.StaThreadWrapper(() =>
+                    _uiSyncContext.Post((object state) =>
                     {
-                        ShowMessage(message.NotificationText, ToastType.Info);
-                    });
+                        baseToastManager.Notifications[0].Header = _consumer.Notification.NotificationTitle;
+                        baseToastManager.Notifications[0].Body = _consumer.Notification.NotificationText;
+                        baseToastManager.ShowNotification(baseToastManager.Notifications[0]);
+                    }, null);
                     //_dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info));
                 }
                 else
                 {
-                    _dispatcher.Invoke(() =>
+                    _uiSyncContext.Post((object state) =>
                     {
                         var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
                         msg.TopMost = true;
                         msg.Show();
-                    }, DispatcherPriority.Render);
+                    }, null);
 
                 }
-                _dispatcher.Invoke(() => AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message));
+                _uiSyncContext.Post((object state) =>
+                {
+                    AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message);
+                }, null);
+
 
 
             }
@@ -241,14 +318,14 @@ namespace PSPublicMessagingAPI.Desktop.Views
         }
         private async void MainWindow_Load(object sender, EventArgs e)
         {
-
+            _configurationManagerService.MainWindowIsOpen = true;
 
             mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);
 
             if (!String.IsNullOrEmpty(_activeDirectoryService.CurrentUser))
             {
                 var roles = await _activeDirectoryService.GetUserRoles(_activeDirectoryService.CurrentUser);
-                mnuCreateMessage.Visibility = roles != null  ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
+                mnuCreateMessage.Visibility = roles != null ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 mainContainer.IsSplitterFixed = true;
                 mainContainer.FixedPanel = SplitFixedPanel.Panel2;
                 NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotificationsAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
@@ -381,7 +458,26 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private void mnuCreateMessage_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            _presenter.RunCreateNewNotification();
+            StaThreadWrapper(() =>
+            {
+                _presenter.RunCreateNewNotification();
+
+            });
+
+        }
+        public void StaThreadWrapper(Action action)
+        {
+            var t = new Thread(o =>
+            {
+                action();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+        }
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _configurationManagerService.MainWindowIsOpen = false;
         }
     }
 }

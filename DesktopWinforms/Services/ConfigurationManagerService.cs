@@ -12,6 +12,7 @@ public class ConfigurationManagerService : IConfigurationManagerService
     private string ou;
     private string connectionString;
     private bool silent;
+    private bool mainWindowIsOpen;
     private string domain;
     private string aboutTitle;
     private string aboutText;
@@ -100,6 +101,21 @@ public class ConfigurationManagerService : IConfigurationManagerService
         {
             silent = value;
             configuration.AppSettings.Settings["silent"].Value = silent.ToString().ToLower();
+            configuration.Save();
+
+            // Reload app config file
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+    }
+    public bool MainWindowIsOpen
+    {
+        get => configuration.AppSettings.Settings["mainWindowIsOpen"].Value.ToString().ToLower() == "true" ||
+               configuration.AppSettings.Settings["mainWindowIsOpen"].Value.ToString().ToLower() == "false" ?
+            bool.Parse(configuration.AppSettings.Settings["mainWindowIsOpen"].Value.ToString().ToLower()) : false;
+        set
+        {
+            mainWindowIsOpen = value;
+            configuration.AppSettings.Settings["mainWindowIsOpen"].Value = mainWindowIsOpen.ToString().ToLower();
             configuration.Save();
 
             // Reload app config file

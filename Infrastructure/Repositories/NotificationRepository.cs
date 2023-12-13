@@ -54,9 +54,17 @@ internal sealed class NotificationRepository : Repository<Notification>, INotifi
         {
             throw new ArgumentException("Notification cannot be updated");
         }
-     
+        var ii = DbContext.Set<Notification>().ExecuteUpdate(s =>
+            s.SetProperty(e => e.NotificationStatus, e => notification.NotificationStatus)
+                .SetProperty(e => e.NotificationPriority, e => notification.NotificationPriority)
+                .SetProperty(e => e.NotificationDate, e => notification.NotificationDate)
+                .SetProperty(e => e.NotificationText, e => notification.NotificationText)
+                .SetProperty(e => e.NotificationTitle, e => notification.NotificationTitle)
+                .SetProperty(e => e.TargetGroup, e => notification.TargetGroup)
 
-        DbContext.Set<Notification>().Update(notification);
+        );
+
+       // DbContext.Set<Notification>().Update(notification);
 
         return notification;
     }

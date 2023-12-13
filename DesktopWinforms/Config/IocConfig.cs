@@ -33,15 +33,12 @@ public class IocConfig
 
         IServiceCollection services = _services;
        
-        services.AddSingleton<Worker>(s =>
-        {
-            return new Worker(s);
-        });
+        
         services.AddSingleton<IMapper>(c => new Mapper(mapperConfiguration));
         services.AddSingleton<IToastService, ToastService>();
         
         services.AddSingleton<IFontService, FontService>();
-        services.AddSingleton<IMainView, MainWindow>();
+        services.AddTransient<IMainView, MainWindow>();
         services.AddSingleton<INewNotification>(s =>
         {
             return new NewNotification(s.GetRequiredService<IToastService>(),

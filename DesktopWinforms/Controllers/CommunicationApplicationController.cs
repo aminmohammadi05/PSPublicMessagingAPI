@@ -64,7 +64,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public async Task<NotificationDto> SetNotificationStatusAsync(NotificationDto notification)
+    public async Task<Guid> SetNotificationStatusAsync(NotificationDto notification)
     {
         using (var client = new HttpClient())
         {
@@ -78,13 +78,13 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
                 "application/json");
 
 
-            var response = await client.PostAsync($"api/notifications", jsonContent);
+            var response = await client.PutAsync($"api/notifications", jsonContent);
 
 
             if (response.IsSuccessStatusCode)
             {
                 var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<NotificationDto>(t, new JsonSerializerOptions
+                var data = JsonSerializer.Deserialize<Guid>(t, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
@@ -94,7 +94,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
         }
 
-        return null;
+        return Guid.Empty;
     }
 
     public async Task<NotificationDto> GetNotificationByIdAsync(Guid notificationId)
