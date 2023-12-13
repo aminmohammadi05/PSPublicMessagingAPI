@@ -55,12 +55,12 @@ public class UpdateNotificationCommandHandler : ICommandHandler<UpdateNotificati
             Notification notifi = await _notificationRepository.UpdateNotification(notification);
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            await _publishEndpoint.Publish(
-                new NotificationUpdatedEvent(
-                    notifi.Id,
-                    notifi.NotificationTitle.Value,
-                    notifi.NotificationDate)
-                , cancellationToken);
+            //await _publishEndpoint.Publish(
+            //    new NotificationUpdatedEvent(
+            //        notifi.Id,
+            //        notifi.NotificationTitle.Value,
+            //        notifi.NotificationDate)
+            //    , cancellationToken);
 
             return notification.Id;
         }

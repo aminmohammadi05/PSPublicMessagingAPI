@@ -161,7 +161,7 @@ public sealed class Notification : Entity
             methodParameter,
             lastModifiedUser);
 
-        notification.RaiseDomainEvent(new NotificationCreatedDomainEvent(notification.Id));
+        notification.RaiseDomainEvent(new NotificationStateChangedDomainEvent(notification.Id));
 
 
 
