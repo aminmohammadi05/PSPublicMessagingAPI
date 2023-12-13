@@ -4,9 +4,9 @@ using PSPublicMessagingAPI.Contract;
 using PSPublicMessagingAPI.Domain.Notifications;
 using PSPublicMessagingAPI.Domain.Notifications.Events;
 
-namespace PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
+namespace PSPublicMessagingAPI.Application.Notifications.Commands.UpdateNotification;
 
-internal sealed class NotificationUpdatedDomainEventHandler : INotificationHandler<NotificationCreatedDomainEvent>
+internal sealed class NotificationUpdatedDomainEventHandler : INotificationHandler<NotificationStateChangedDomainEvent>
 {
     private readonly INotificationRepository _notificationRepository;
     private readonly IPublishEndpoint _publishEndpoint;
@@ -18,7 +18,7 @@ internal sealed class NotificationUpdatedDomainEventHandler : INotificationHandl
         _publishEndpoint = publishEndpoint;
     }
 
-    public async Task Handle(NotificationCreatedDomainEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(NotificationStateChangedDomainEvent notification, CancellationToken cancellationToken)
     {
         var notificationResult = await _notificationRepository.GetNotificationByIdAsync(notification.NotificationId, cancellationToken);
 
@@ -28,7 +28,7 @@ internal sealed class NotificationUpdatedDomainEventHandler : INotificationHandl
         }
 
         await _publishEndpoint.Publish(
-            new NotificationCreatedEvent(
+            new NotificationUpdatedEvent(
                 notificationResult.Id,
                 notificationResult.NotificationTitle.Value,
                 notificationResult.NotificationDate)

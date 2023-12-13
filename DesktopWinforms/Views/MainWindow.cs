@@ -48,7 +48,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
     [CallbackBehavior(
         ConcurrencyMode = System.ServiceModel.ConcurrencyMode.Single,
         UseSynchronizationContext = false)]
-    public partial class MainWindow : ViewBase, IMainView, IConsumer<NotificationCreatedEvent>
+    public partial class MainWindow : ViewBase, IMainView, IConsumer<NotificationUpdatedEvent>
     {
         private ConnectionFactory _factory;
         private IConnection _connection;
@@ -126,7 +126,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             return GetAllControls(container, new List<Control>());
         }
-        public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
+        public async Task Consume(ConsumeContext<NotificationUpdatedEvent> context)
         {
             if (!_configurationManagerService.MainWindowIsOpen)
             {
@@ -479,5 +479,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             _configurationManagerService.MainWindowIsOpen = false;
         }
+
+        
     }
 }
