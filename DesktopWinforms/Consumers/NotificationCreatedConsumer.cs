@@ -19,7 +19,7 @@ using PSPublicMessagingAPI.SharedToastMessage.Services;
 
 namespace PSPublicMessagingAPI.Desktop.Consumers;
 
-public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<NotificationUpdatedEvent>
+public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<NotificationCreatedEvent>
 {
     private readonly ICommunicationApplicationController _communicationAppController;
     private readonly IToastService _toastService;
@@ -62,7 +62,7 @@ public class NotificationCreatedConsumer :ViewModelBase,  IConsumer<Notification
         }
     }
     
-    public async Task Consume(ConsumeContext<NotificationUpdatedEvent> context)
+    public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
     {
         if (_configurationManagerService.MainWindowIsOpen)
         {

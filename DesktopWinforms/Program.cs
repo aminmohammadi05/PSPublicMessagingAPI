@@ -95,7 +95,7 @@ namespace DesktopWinforms
                         x.UsingRabbitMq((context, cfg) =>
                         {
 
-                            cfg.ReceiveEndpoint("ps-notification-updated", e =>
+                            cfg.ReceiveEndpoint("ps-notification-created", e =>
                             {
                                 //e.PrefetchCount = 16;
                                 //e.UseMessageRetry(r => r.Interval(2, 10));

@@ -119,7 +119,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 SelectedNotification = _mapper.Map<NotificationViewModel, NotificationDto>((bsNotification.Current as NotificationViewModel));
                 SelectedNotification.PossibleActionId = PossibleActionList.FirstOrDefault(x => x.PossibleActionName.ToLower() == "publicmessage").Id; // Set to public Messages
                 SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
-                SelectedNotification.NotificationStatus = (NotificationStatus)cmbStatus.SelectedIndex;
+                SelectedNotification.NotificationStatus = NotificationStatus.New;
                 SelectedNotification.ClientGroup = "-";
                 SelectedNotification.ClientFullName = "-";
                 SelectedNotification.ClientUserName = "-";
@@ -183,16 +183,8 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 erpNewNotification.SetError(cmbGroup, "لطفا گروه ارسال پیام را وارد کنید ");
                 return false;
             }
-            if (isSend && cmbStatus.SelectedIndex != (int)NotificationStatus.ReadyToPublish)
-            {
-                erpNewNotification.SetError(cmbStatus, "برای ارسال وضعیت پیام باید ReadyToPublish باشد ");
-                return false;
-            }
-            if (isSend && (bsNotification.Current as NotificationViewModel).Id == Guid.Empty)
-            {
-                erpNewNotification.SetError(btnSend, "قبل از ارسال پیام جدید آن را ذخیره کنید");
-                return false;
-            }
+
+
             return true;
         }
 
@@ -240,15 +232,14 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
         private async void NewNotification_Load(object sender, EventArgs e)
         {
-            var statusList = Enum.GetValues(typeof(NotificationStatus)).Cast<NotificationStatus>().ToList();
-            statusList.Insert(0, 0);
+
             var priorityList = Enum.GetValues(typeof(NotificationPriority)).Cast<NotificationPriority>().ToList();
             priorityList.Insert(0, 0);
             PossibleActionList = new ObservableCollection<PossibleActionDto>(await _presenter.GetAllPossibleActions());
             NotificationList = new ObservableCollection<NotificationViewModel>(_mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _presenter.GetAllNotifications()));
             cmbPriority.DataSource = priorityList;
 
-            cmbStatus.DataSource = statusList;
+
 
 
             bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(NotificationList); //);
@@ -258,7 +249,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             gcNotification.DataSource = bsNotification;
             btnCancel.Enabled = CanCancel;
             btnNew.Enabled = CanNew;
-            btnSend.Enabled = CanSend;
+
 
 
         }
@@ -267,12 +258,11 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             btnCancel.Enabled = CanCancel;
             btnNew.Enabled = CanNew;
-            btnSend.Enabled = CanSend;
+
             if (bsNotification.Current != null)
             {
 
                 cmbPriority.SelectedIndex = (int)(bsNotification.Current as NotificationViewModel).NotificationPriority;
-                cmbStatus.SelectedIndex = (int)(bsNotification.Current as NotificationViewModel).NotificationStatus;
             }
         }
 
@@ -287,7 +277,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 SelectedNotification.LastModifiedUser = "-";
                 SelectedNotification.MethodParameter = "{}";
                 //SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
-               
+
                 Guid result = await _presenter.SetNotificationStatus(SelectedNotification);
                 if (result != Guid.Empty)
                 {

@@ -6,12 +6,12 @@ using PSPublicMessagingAPI.Domain.Notifications.Events;
 
 namespace PSPublicMessagingAPI.Application.Notifications.Commands.CreateNotification;
 
-internal sealed class NotificationUpdatedDomainEventHandler : INotificationHandler<NotificationCreatedDomainEvent>
+internal sealed class NotificationCreatedDomainEventHandler : INotificationHandler<NotificationCreatedDomainEvent>
 {
     private readonly INotificationRepository _notificationRepository;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public NotificationUpdatedDomainEventHandler(
+    public NotificationCreatedDomainEventHandler(
         INotificationRepository notificationRepository, IPublishEndpoint publishEndpoint)
     {
         _notificationRepository = notificationRepository;
