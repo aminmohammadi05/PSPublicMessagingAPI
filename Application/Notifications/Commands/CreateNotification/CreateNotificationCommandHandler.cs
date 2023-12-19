@@ -50,7 +50,7 @@ internal sealed class CreateNotificationCommandHandler : ICommandHandler<CreateN
                 request.notificationPriority,
                 _dateTimeProvider.UtcNow,
                 MethodParameter.Create( request.methodParameter),
-                new UserName( request.lastModifiedUser));
+                new UserName( request.lastModifierUser));
 
             _notificationRepository.Add(newNotification);
 

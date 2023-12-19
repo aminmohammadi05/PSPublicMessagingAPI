@@ -5,18 +5,18 @@ using PSPublicMessagingAPI.Application.Abstractions.Messaging;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
 using PSPublicMessagingAPI.Domain.Abstractions;
 
-namespace PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserName;
+namespace PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserNameAndStatus;
 
-public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNotificationsByUserNameQuery, List<NotificationResponse>>
+public sealed class GetNotificationsByUserNameAndStatusQueryHandler : IQueryHandler<GetNotificationsByUserNameAndStatusQuery, List<NotificationResponse>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-    public GetNotificationsByUserNameQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+    public GetNotificationsByUserNameAndStatusQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
     {
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<List<NotificationResponse>>> Handle(GetNotificationsByUserNameQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<NotificationResponse>>> Handle(GetNotificationsByUserNameAndStatusQuery request, CancellationToken cancellationToken)
     {
         using var connection = _sqlConnectionFactory.CreateConnection();
 
@@ -39,7 +39,8 @@ public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNo
                            ,[MethodParameter_Parameter] as MethodParameter
                            ,[LastModifierUser]
                            FROM Notification
-                           WHERE targetClientUserName = @username
+                           WHERE targetClientUserName = @username AND
+                           [NotificationStatus] = @status
                            """;
 
         var notification = await connection.QueryAsync<NotificationResponse>(
@@ -47,7 +48,8 @@ public sealed class GetNotificationsByUserNameQueryHandler : IQueryHandler<GetNo
             
             new
             {
-                request.username
+                request.username,
+                request.status
             });
 
         return notification.ToList();

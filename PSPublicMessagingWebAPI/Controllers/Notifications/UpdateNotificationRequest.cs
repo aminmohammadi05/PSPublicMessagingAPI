@@ -16,4 +16,4 @@ public sealed record UpdateNotificationRequest(Guid Id,
     NotificationStatus notificationStatus,
     NotificationPriority notificationPriority,
     string methodParameter,
-    string lastModifiedUser);
+    string lastModifierUser);

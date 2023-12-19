@@ -16,4 +16,4 @@ public sealed record CreateNotificationRequest(
     NotificationStatus notificationStatus,
     NotificationPriority notificationPriority,
     string methodParameter,
-    string lastModifiedUser);
+    string lastModifierUser);

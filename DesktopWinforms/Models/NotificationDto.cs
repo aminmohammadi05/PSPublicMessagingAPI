@@ -43,7 +43,7 @@ namespace DesktopWinforms.Models
 
         public string TargetClientFullName { get; set; }
 
-        public string LastModifiedUser { get; set; }
+        public string LastModifierUser { get; set; }
 
         internal void ChangeStatus(NotificationStatus @new)
         {

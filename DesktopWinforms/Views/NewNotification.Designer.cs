@@ -264,13 +264,13 @@
             // cmbGroup
             // 
             cmbGroup.EditValue = "";
-            cmbGroup.Location = new System.Drawing.Point(394, 30);
+            cmbGroup.Location = new System.Drawing.Point(397, 30);
             cmbGroup.Name = "cmbGroup";
             cmbGroup.Properties.AllowMultiSelect = true;
             cmbGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             cmbGroup.Properties.DisplayMember = "OUName";
             cmbGroup.Properties.ValueMember = "OUName";
-            cmbGroup.Size = new System.Drawing.Size(191, 20);
+            cmbGroup.Size = new System.Drawing.Size(190, 20);
             cmbGroup.TabIndex = 288;
             // 
             // label1
@@ -313,23 +313,23 @@
             // cmbPriority
             // 
             cmbPriority.Dock = System.Windows.Forms.DockStyle.Fill;
-            cmbPriority.Location = new System.Drawing.Point(875, 30);
+            cmbPriority.Location = new System.Drawing.Point(876, 30);
             cmbPriority.Name = "cmbPriority";
-            cmbPriority.Size = new System.Drawing.Size(191, 21);
+            cmbPriority.Size = new System.Drawing.Size(190, 21);
             cmbPriority.TabIndex = 13;
             // 
             // txtNotificationDateTime
             // 
             txtNotificationDateTime.Dock = System.Windows.Forms.DockStyle.Fill;
             txtNotificationDateTime.EditValue = null;
-            txtNotificationDateTime.Location = new System.Drawing.Point(624, 30);
+            txtNotificationDateTime.Location = new System.Drawing.Point(626, 30);
             txtNotificationDateTime.Name = "txtNotificationDateTime";
             txtNotificationDateTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtNotificationDateTime.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtNotificationDateTime.Properties.CalendarTimeProperties.MaskSettings.Set("culture", "fa-IR");
             txtNotificationDateTime.Properties.CalendarView = DevExpress.XtraEditors.Repository.CalendarView.Classic;
             txtNotificationDateTime.Properties.VistaDisplayMode = DevExpress.Utils.DefaultBoolean.False;
-            txtNotificationDateTime.Size = new System.Drawing.Size(191, 20);
+            txtNotificationDateTime.Size = new System.Drawing.Size(190, 20);
             txtNotificationDateTime.TabIndex = 17;
             // 
             // label4
@@ -344,7 +344,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(821, 27);
+            label5.Location = new System.Drawing.Point(822, 27);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(48, 13);
             label5.TabIndex = 6;
@@ -353,7 +353,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(591, 27);
+            label6.Location = new System.Drawing.Point(593, 27);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(27, 13);
             label6.TabIndex = 14;

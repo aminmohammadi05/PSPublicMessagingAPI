@@ -8,6 +8,7 @@ using PSPublicMessagingAPI.Application.Notifications.Commands.UpdateNotification
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsAll;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserName;
+using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserNameAndStatus;
 using PSPublicMessagingAPI.Contract;
 
 namespace PSPublicMessagingWebAPI.Controllers.Notifications;
@@ -54,6 +55,16 @@ public class NotificationController : ControllerBase
         return result.IsSuccess ? Ok(result.Value) : NotFound();
     }
 
+    [HttpGet("{username}/{status:int}")]
+    public async Task<IActionResult> GetNotificationsByUserNameAndStatus(string username, int status, CancellationToken cancellationToken)
+    {
+        var query = new GetNotificationsByUserNameAndStatusQuery(username, status);
+
+        var result = await _sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : NotFound();
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> CreateNotification(
@@ -74,7 +85,7 @@ public class NotificationController : ControllerBase
              request.notificationStatus,
              request.notificationPriority,
              request.methodParameter,
-             request.lastModifiedUser);
+             request.lastModifierUser);
 
         var result = await _sender.Send(command, cancellationToken);
 
@@ -106,7 +117,7 @@ public class NotificationController : ControllerBase
             request.notificationStatus,
             request.notificationPriority,
             request.methodParameter,
-            request.lastModifiedUser);
+            request.lastModifierUser);
 
         var result = await _sender.Send(command, cancellationToken);
 

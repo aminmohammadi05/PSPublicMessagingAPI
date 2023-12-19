@@ -94,7 +94,7 @@ public sealed class Notification : Entity
         NotificationPriority notificationPriority,
         DateTime notificationDate,
         MethodParameter methodParameter,
-        UserName lastModifiedUser)
+        UserName lastModifierUser)
     {
         
 
@@ -114,7 +114,7 @@ public sealed class Notification : Entity
             notificationPriority,
             notificationDate,
             methodParameter,
-            lastModifiedUser);
+            lastModifierUser);
 
         notification.RaiseDomainEvent(new NotificationCreatedDomainEvent(notification.Id));
 
@@ -139,7 +139,7 @@ public sealed class Notification : Entity
         NotificationPriority notificationPriority,
         DateTime notificationDate,
         MethodParameter methodParameter,
-        UserName lastModifiedUser)
+        UserName lastModifierUser)
     {
 
 
@@ -159,7 +159,7 @@ public sealed class Notification : Entity
             notificationPriority,
             notificationDate,
             methodParameter,
-            lastModifiedUser);
+            lastModifierUser);
 
         notification.RaiseDomainEvent(new NotificationStateChangedDomainEvent(notification.Id));
 

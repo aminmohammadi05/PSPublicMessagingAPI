@@ -50,7 +50,7 @@ public class UpdateNotificationCommandHandler : ICommandHandler<UpdateNotificati
                 request.notificationPriority,
                 _dateTimeProvider.UtcNow,
                 MethodParameter.Create(request.methodParameter),
-                new UserName(request.lastModifiedUser));
+                new UserName(request.lastModifierUser));
 
             Notification notifi = await _notificationRepository.UpdateNotification(notification);
 

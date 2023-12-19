@@ -17,4 +17,4 @@ public record CreateNotificationCommand(
     NotificationStatus notificationStatus,
     NotificationPriority notificationPriority,
     string methodParameter,
-    string lastModifiedUser) : ICommand<Guid>;
+    string lastModifierUser) : ICommand<Guid>;

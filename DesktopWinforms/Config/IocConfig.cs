@@ -141,7 +141,7 @@ public class IocConfig
             .ForMember(dest => dest.NotificationPriority, opt => opt.MapFrom(src => src.NotificationPriority))
             .ForMember(dest => dest.NotificationText, opt => opt.MapFrom(src => src.NotificationText))
             .ForMember(dest => dest.NotificationTitle, opt => opt.MapFrom(src => src.NotificationTitle))
-            .ForMember(dest => dest.LastModifiedUser, opt => opt.MapFrom(src => src.LastModifiedUser))
+            .ForMember(dest => dest.LastModifierUser, opt => opt.MapFrom(src => src.LastModifierUser))
             .ForMember(dest => dest.NotificationStatus, opt => opt.MapFrom(src => src.NotificationStatus));
             #endregion
 

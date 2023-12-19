@@ -123,7 +123,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 SelectedNotification.ClientGroup = "-";
                 SelectedNotification.ClientFullName = "-";
                 SelectedNotification.ClientUserName = "-";
-                SelectedNotification.LastModifiedUser = "-";
+                SelectedNotification.LastModifierUser = "-";
                 SelectedNotification.MethodParameter = "{}";
                 SelectedNotification.TargetClientFullName = "-";
                 SelectedNotification.TargetClientUserName = "-";
@@ -274,7 +274,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
                 SelectedNotification.Id = (bsNotification.Current as NotificationViewModel).Id;
                 SelectedNotification.ChangeStatus(NotificationStatus.New);
-                SelectedNotification.LastModifiedUser = "-";
+                SelectedNotification.LastModifierUser = "-";
                 SelectedNotification.MethodParameter = "{}";
                 //SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
 

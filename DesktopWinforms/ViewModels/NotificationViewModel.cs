@@ -31,7 +31,7 @@ public class NotificationViewModel : ObservableObject
     private string possibleActionModuleName;
     private string clientFullName;
     private string targetClientFullName;
-    private string lastModifiedUser;
+    private string lastModifierUser;
     private bool sendToAll;
 
     
@@ -247,13 +247,13 @@ public class NotificationViewModel : ObservableObject
         }
     }
     
-    public string LastModifiedUser
+    public string LastModifierUser
     {
-        get => lastModifiedUser;
+        get => lastModifierUser;
         set
         {
-            lastModifiedUser = value;
-            OnPropertyChanged(nameof(LastModifiedUser));
+            lastModifierUser = value;
+            OnPropertyChanged(nameof(LastModifierUser));
         }
     }
 
