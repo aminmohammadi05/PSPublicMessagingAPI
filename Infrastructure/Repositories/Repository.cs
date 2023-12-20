@@ -26,4 +26,11 @@ internal abstract class Repository<T>
     {
         DbContext.Add(entity);
     }
+
+    public async Task<T> Update(T entity)
+    {
+        DbContext.Set<T>().Attach(entity);
+        DbContext.Entry(entity).State = EntityState.Modified;
+        return entity;
+    }
 }

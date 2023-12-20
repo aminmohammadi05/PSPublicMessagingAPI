@@ -46,26 +46,26 @@ internal sealed class NotificationRepository : Repository<Notification>, INotifi
 
     }
 
-    public async Task<Notification?> UpdateNotification(Notification notification, CancellationToken cancellationToken = default)
-    {
-        var notificationToUpdate =
-            await DbContext.Set<Notification>().FirstOrDefaultAsync(x => x.Id == notification.Id);
-        if (notificationToUpdate == null)
-        {
-            throw new ArgumentException("Notification cannot be updated");
-        }
-        var ii = DbContext.Set<Notification>().Where(s => s.Id == notification.Id).ExecuteUpdate(s =>
-            s.SetProperty(e => e.NotificationStatus, e => notification.NotificationStatus)
-                .SetProperty(e => e.NotificationPriority, e => notification.NotificationPriority)
-                .SetProperty(e => e.NotificationDate, e => notification.NotificationDate)
-                .SetProperty(e => e.NotificationText, e => notification.NotificationText)
-                .SetProperty(e => e.NotificationTitle, e => notification.NotificationTitle)
-                .SetProperty(e => e.TargetGroup, e => notification.TargetGroup)
+    //public async Task<Notification?> UpdateNotification(Notification notification, CancellationToken cancellationToken = default)
+    //{
+    //    var notificationToUpdate =
+    //        await DbContext.Set<Notification>().FirstOrDefaultAsync(x => x.Id == notification.Id);
+    //    if (notificationToUpdate == null)
+    //    {
+    //        throw new ArgumentException("Notification cannot be updated");
+    //    }
+    //    var ii = DbContext.Set<Notification>().Where(s => s.Id == notification.Id).ExecuteUpdate(s =>
+    //        s.SetProperty(e => e.NotificationStatus, e => notification.NotificationStatus)
+    //            .SetProperty(e => e.NotificationPriority, e => notification.NotificationPriority)
+    //            .SetProperty(e => e.NotificationDate, e => notification.NotificationDate)
+    //            .SetProperty(e => e.NotificationText, e => notification.NotificationText)
+    //            .SetProperty(e => e.NotificationTitle, e => notification.NotificationTitle)
+    //            .SetProperty(e => e.TargetGroup, e => notification.TargetGroup)
 
-        );
+    //    );
 
-       // DbContext.Set<Notification>().Update(notification);
+    //   // DbContext.Set<Notification>().Update(notification);
 
-        return notification;
-    }
+    //    return notification;
+    //}
 }

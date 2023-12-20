@@ -52,8 +52,9 @@ public class UpdateNotificationCommandHandler : ICommandHandler<UpdateNotificati
                 MethodParameter.Create(request.methodParameter),
                 new UserName(request.lastModifierUser));
 
-            Notification notifi = await _notificationRepository.UpdateNotification(notification);
-
+           // Notification notifi = await _notificationRepository.UpdateNotification(notification);
+           
+            notification = await _notificationRepository.Update(notification);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             //await _publishEndpoint.Publish(
             //    new NotificationUpdatedEvent(
