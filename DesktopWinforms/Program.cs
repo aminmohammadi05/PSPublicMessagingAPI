@@ -10,6 +10,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using AutoMapper;
+using DesktopWinforms.Services;
+using Microsoft.Extensions.Hosting;
 using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.DesktopWinforms.Properties;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
@@ -27,6 +29,7 @@ namespace DesktopWinforms
 
             try
             {
+                CreateHostBuilder().Build().RunAsync();
                 IServiceCollection services = new ServiceCollection();
                 var _services = IocConfig.CreateServiceProvider(services);
                 CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
@@ -63,8 +66,17 @@ namespace DesktopWinforms
                 Environment.Exit(0);
             }
         }
-       
+        private static IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
+                {
+                    IServiceProvider serviceProvider = IocConfig.CreateServiceProvider(services);
+                    services.AddHostedService<Worker>();
+                });
+        }
     }
+   
 
     public class MyCustomApplicationContext : ApplicationContext
     {

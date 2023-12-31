@@ -235,7 +235,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                         {
                             StaThreadWrapper(() =>
                             {
-                                var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
+                                var msg = new PSPublicMessagingAPI.Desktop.Views.Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
                                 msg.TopMost = true;
                                 msg.Show();
 

@@ -34,7 +34,8 @@ public class IocConfig
         
         services.AddSingleton<IMapper>(c => new Mapper(mapperConfiguration));
         services.AddSingleton<IToastService, ToastService>();
-        
+
+        services.AddSingleton<Dispatcher>(s => Dispatcher.CurrentDispatcher);
         services.AddSingleton<IFontService, FontService>();
         services.AddTransient<IMainView, MainWindow>();
         services.AddSingleton<INewNotification>(s =>
