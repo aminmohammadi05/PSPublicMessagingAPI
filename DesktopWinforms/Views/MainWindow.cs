@@ -72,7 +72,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             InitializeComponent();
             hub = new HubConnectionBuilder()
-                .WithUrl("http://backup-server.parsswitch.net:9595/notifications")
+                .WithUrl($"{configurationManagerService.SignalHost}/notifications")
                 .WithAutomaticReconnect()
                 .Build();
             _configurationManagerService = configurationManagerService;
