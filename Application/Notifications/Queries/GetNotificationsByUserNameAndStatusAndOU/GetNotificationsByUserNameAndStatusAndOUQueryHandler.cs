@@ -41,7 +41,7 @@ public class GetNotificationsByUserNameAndStatusAndOUQueryHandler : IQueryHandle
                            FROM Notification
                            WHERE (targetClientUserName = @username AND
                            [NotificationStatus] = @status AND
-                           [TargetGroup] = @OU) OR [TargetGroup] = 'ALL'
+                           [TargetGroup] = @OU) OR ([NotificationStatus] = @status AND [TargetGroup] = 'ALL')
                            """;
 
         var notification = await connection.QueryAsync<NotificationResponse>(
