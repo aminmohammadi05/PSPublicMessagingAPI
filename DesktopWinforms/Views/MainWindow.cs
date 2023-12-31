@@ -25,7 +25,6 @@ using PSPublicMessagingAPI.Domain.Notifications;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using static DevExpress.Data.Filtering.Helpers.SubExprHelper.ThreadHoppingFiltering;
-using PSPublicMessagingAPI.Desktop.Consumers;
 using MassTransit;
 using PSPublicMessagingAPI.Contract;
 using DevExpress.Utils.MVVM.Services;
@@ -35,6 +34,7 @@ using PSPublicMessagingAPI.SharedToastMessage.Services;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace PSPublicMessagingAPI.Desktop.Views
 {
@@ -45,15 +45,13 @@ namespace PSPublicMessagingAPI.Desktop.Views
         Read,
         All
     }
-    [CallbackBehavior(
-        ConcurrencyMode = System.ServiceModel.ConcurrencyMode.Single,
-        UseSynchronizationContext = false)]
-    public partial class MainWindow : ViewBase, IMainView, IConsumer<NotificationCreatedEvent>
+   
+    public partial class MainWindow : ViewBase, IMainView
     {
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
-
+        private HubConnection hub;
 
 
         private IMainViewPresenter _presenter;
@@ -70,21 +68,13 @@ namespace PSPublicMessagingAPI.Desktop.Views
         // ShellViewModel shellViewModel;
         IFontService _fontService;
         IConfigurationManagerService _configurationManagerService;
-        NotificationCreatedConsumer _consumer;
-        public MainWindow(ICommunicationApplicationController communicationAppController, IToastService toastService, IActiveDirectoryService activeDirectoryService, IMapper mapper, NotificationCreatedConsumer consumer, IFontService fontService, IConfigurationManagerService configurationManagerService, Dispatcher dispatcher) : base(toastService)
+        public MainWindow(ICommunicationApplicationController communicationAppController, IToastService toastService, IActiveDirectoryService activeDirectoryService, IMapper mapper, IFontService fontService, IConfigurationManagerService configurationManagerService, Dispatcher dispatcher) : base(toastService)
         {
             InitializeComponent();
-            //if (!ShellHelper.IsApplicationShortcutExist("سیستم پیامرسان عمومی"))
-            //{
-            //    ShellHelper.TryCreateShortcut(
-            //        exePath: System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"),
-            //        applicationId: baseToastManager.ApplicationId,
-            //        name: "سیستم پیامرسان عمومی");
-
-            //}
-            _uiSyncContext = WindowsFormsSynchronizationContext.Current;
-            _consumer = consumer;
-            _consumer.MessageReceived += _consumer_MessageReceived; ;
+            hub = new HubConnectionBuilder()
+                .WithUrl("http://backup-server.parsswitch.net:9595/notifications")
+                .WithAutomaticReconnect()
+                .Build();
             _configurationManagerService = configurationManagerService;
             SilentMode = _configurationManagerService.Silent;
             btnSilent.Checked = SilentMode;
@@ -98,10 +88,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             erpMain.ContainerControl = this;
             _communicationAppController = communicationAppController;
             _toastService = toastService;
-            // this.shellViewModel = shellViewModel;
-            _dispatcher = dispatcher;
-            //shellViewModel.StartListening();
-            //shellViewModel.MessageReceived += ShellViewModel_MessageReceived; ;
+           
             _mapper = mapper;
 
             _activeDirectoryService = activeDirectoryService;
@@ -126,110 +113,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             return GetAllControls(container, new List<Control>());
         }
-        public async Task Consume(ConsumeContext<NotificationCreatedEvent> context)
-        {
-            if (!_configurationManagerService.MainWindowIsOpen)
-            {
-                return;
-            }
-
-            NotificationDto notifi = await _communicationAppController.GetNotificationByIdAsync(context.Message.Id);
-            if (notifi == null)
-            {
-
-                return;
-            }
-
-            NotificationViewModel message = _mapper.Map<NotificationViewModel>(notifi);
-
-            if (message.Id == Guid.Empty)
-            {
-                return;
-            }
-
-            if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
-            {
-                return;
-            }
-            if ((!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Count() > 0) ||
-            (!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Any(x => x.ToLower() == _activeDirectoryService.OU.ToLower())))
-            {
-
-                if (_configurationManagerService.Silent)
-                {
-                    new ToastContentBuilder()
-                        .AddArgument(message.Id.ToString(), 9813)
-                        .AddHeader(message.Id.ToString(), message.NotificationTitle, new ToastArguments())
-                        .AddText(message.NotificationText)
-                        .Show();
-                    //_dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info));
-                }
-                else
-                {
-                    _uiSyncContext.Post((object state) =>
-                    {
-                        var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
-                        msg.TopMost = true;
-                        msg.Show();
-                    }, null);
-
-                }
-                _uiSyncContext.Post((object state) =>
-                {
-                    AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message);
-                }, null);
-            }
-
-
-        }
-        public void _consumer_MessageReceived(object sender, PropertyChangedEventArgs e)
-        {
-            NotificationViewModel message = _consumer.Notification;
-
-            if (message.Id == Guid.Empty)
-            {
-
-                return;
-            }
-
-            if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
-            {
-                return;
-            }
-            if ((!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Count() > 0) ||
-                (!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[',']).Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Any(x => x == _activeDirectoryService.OU)))
-            {
-
-                if (_configurationManagerService.Silent)
-                {
-                    _uiSyncContext.Post((object state) =>
-                    {
-                        baseToastManager.Notifications[0].Header = _consumer.Notification.NotificationTitle;
-                        baseToastManager.Notifications[0].Body = _consumer.Notification.NotificationText;
-                        baseToastManager.ShowNotification(baseToastManager.Notifications[0]);
-                    }, null);
-                    //_dispatcher.Invoke(() => ShowMessage(message.NotificationText, ToastType.Info));
-                }
-                else
-                {
-                    _uiSyncContext.Post((object state) =>
-                    {
-                        var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
-                        msg.TopMost = true;
-                        msg.Show();
-                    }, null);
-
-                }
-                _uiSyncContext.Post((object state) =>
-                {
-                    AddNewNotification(message.NotificationDate, _activeDirectoryService.CurrentUser, message);
-                }, null);
-
-
-
-            }
-        }
-
+      
 
         public IMainViewPresenter Presenter
         {
@@ -286,7 +170,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             }
         }
 
-        private void AddNewNotification(DateTime dateTime, string user, NotificationViewModel notif)
+        private void AddNewNotification(string user, NotificationViewModel notif)
         {
             if (NotificationList == null)
             {
@@ -301,16 +185,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             LoadNotifications(user);
 
         }
-        protected override void ShowMessage(string message, ToastType toastType)
-        {
-            _toastService.ToastMessage = new Toast()
-            {
-                Message = message,
-                ToastType = toastType
-            };
-            var notify = new ToastMessageView(_toastService);
-            notify.Show();
-        }
+        
 
         public void Run()
         {
@@ -318,6 +193,76 @@ namespace PSPublicMessagingAPI.Desktop.Views
         }
         private async void MainWindow_Load(object sender, EventArgs e)
         {
+            try
+            {
+                hub.On<NotificationCreatedEvent>("NotificationCreated",  (NotificationCreatedEvent notification) =>
+                {
+                    if (!_configurationManagerService.MainWindowIsOpen)
+                    {
+                        return;
+                    }
+
+                    NotificationDto notifi = _communicationAppController.GetNotificationByIdAsync(notification.Id);
+                    if (notifi == null)
+                    {
+
+                        return;
+                    }
+
+                    NotificationViewModel message = _mapper.Map<NotificationViewModel>(notifi);
+
+                    if (message.Id == Guid.Empty)
+                    {
+                        return;
+                    }
+
+                    if (message.NotificationStatus == NotificationStatus.ReadyToPublish)
+                    {
+                        return;
+                    }
+
+                    if ((!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[','])
+                            .Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x)).Count() > 0) ||
+                        (!string.IsNullOrEmpty(message.TargetGroup) && message.TargetGroup.Split(new char[','])
+                            .Select(x => x.Trim()).Where(x => !String.IsNullOrEmpty(x))
+                            .Any(x => x.ToLower() == _activeDirectoryService.OU.ToLower())))
+                    {
+                        if (_configurationManagerService.Silent)
+                        {
+                            ShowMessage(message.NotificationText, ToastType.Info);
+                        }
+                        else
+                        {
+                            StaThreadWrapper(() =>
+                            {
+                                var msg = new Message(message, _communicationAppController, _activeDirectoryService, _mapper, _fontService);
+                                msg.TopMost = true;
+                                msg.Show();
+
+                            });
+                            
+
+                        }
+                        AddNewNotification(_activeDirectoryService.CurrentUser, message);
+                    }
+                        
+                });
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+
+            try
+            {
+                await hub.StartAsync();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
             _configurationManagerService.MainWindowIsOpen = true;
 
             mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);

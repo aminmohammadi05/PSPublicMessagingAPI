@@ -133,7 +133,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 Guid result = await _presenter.SaveNotification(SelectedNotification);
                 if (result != Guid.Empty)
                 {
-                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.GetNotificationById(result));
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>( _presenter.GetNotificationById(result));
                     if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
                     {
                         bsNotification.RemoveCurrent();
@@ -281,7 +281,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 Guid result = await _presenter.SetNotificationStatus(SelectedNotification);
                 if (result != Guid.Empty)
                 {
-                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(await _presenter.GetNotificationById(result));
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>( _presenter.GetNotificationById(result));
                     if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
                     {
                         bsNotification.RemoveCurrent();

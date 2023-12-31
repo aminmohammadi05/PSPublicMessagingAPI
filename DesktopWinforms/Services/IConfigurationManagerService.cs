@@ -13,5 +13,6 @@ public interface IConfigurationManagerService
     string AboutTitle { get; set; }
     string AboutText { get; set; }
     string Host { get; set; }
+    string Port { get; set; }
     string ConnectionString { get; set; }
 }

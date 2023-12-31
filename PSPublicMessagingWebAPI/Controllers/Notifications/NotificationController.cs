@@ -9,6 +9,7 @@ using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsAll;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserName;
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserNameAndStatus;
+using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserNameAndStatusAndOUQuery;
 using PSPublicMessagingAPI.Contract;
 
 namespace PSPublicMessagingWebAPI.Controllers.Notifications;
@@ -59,6 +60,16 @@ public class NotificationController : ControllerBase
     public async Task<IActionResult> GetNotificationsByUserNameAndStatus(string username, int status, CancellationToken cancellationToken)
     {
         var query = new GetNotificationsByUserNameAndStatusQuery(username, status);
+
+        var result = await _sender.Send(query, cancellationToken);
+
+        return result.IsSuccess ? Ok(result.Value) : NotFound();
+    }
+
+    [HttpGet("{username}/{status:int}/{OU}")]
+    public async Task<IActionResult> GetNotificationsByUserNameAndStatusAndOU(string username, int status, string OU, CancellationToken cancellationToken)
+    {
+        var query = new GetNotificationsByUserNameAndStatusAndOUQuery(username, status, OU);
 
         var result = await _sender.Send(query, cancellationToken);
 

@@ -64,7 +64,7 @@ namespace DesktopWinforms.UserControls
         {
             var notifToSave = _mapper.Map<NotificationViewModel, NotificationDto>(Notification);
             var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
-            this.Notification = _mapper.Map<NotificationDto, NotificationViewModel>(await _communicationService.GetNotificationByIdAsync(notif)); ;
+            this.Notification = _mapper.Map<NotificationDto, NotificationViewModel>(_communicationService.GetNotificationByIdAsync(notif)); 
             btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
         }
 
@@ -74,7 +74,7 @@ namespace DesktopWinforms.UserControls
             var notifToSave = _mapper.Map<NotificationViewModel, NotificationDto>(Notification);
             //Presenter.GetType().GetMethod(Notification.PossibleActionMethodToCall).Invoke(Presenter, new object[] { parent, Notification.MethodParameter });
             var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
-            this.Notification = _mapper.Map< NotificationDto, NotificationViewModel>(await _communicationService.GetNotificationByIdAsync(notif)); ;
+            this.Notification = _mapper.Map< NotificationDto, NotificationViewModel>( _communicationService.GetNotificationByIdAsync(notif)); ;
             btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
             var msg = new PSPublicMessagingAPI.Desktop.Views.Message(this.Notification, _communicationService, _activeDirectoryService, _mapper, _fontService);
             msg.Show();

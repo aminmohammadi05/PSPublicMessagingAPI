@@ -44,11 +44,31 @@ namespace Desktop.Views.Shared
         {
 
         }
-        
+
+        public void StaThreadWrapper(Action action)
+        {
+            var t = new Thread(o =>
+            {
+                action();
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+        }
         protected virtual void ShowMessage(string message, ToastType toastType)
         {
-            
-            
+
+            StaThreadWrapper(() =>
+            {
+                _toastService.ToastMessage = new Toast()
+                {
+                    Message = message,
+                    ToastType = toastType
+                };
+                var notify = new ToastMessageView(_toastService);
+                notify.Show();
+            });
         }
         public ViewBase()
         {

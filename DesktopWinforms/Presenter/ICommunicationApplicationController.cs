@@ -29,7 +29,7 @@ public interface ICommunicationApplicationController
     Task<Guid> RemoveNotificationAsync(Guid notificationId);
     Task<List<NotificationDto>> GetUserUnreadNotificationsAsync(string user, string OU);
     Task<Guid> SetNotificationStatusAsync(NotificationDto notification);
-    Task<NotificationDto> GetNotificationByIdAsync(Guid notificationId);
+    NotificationDto GetNotificationByIdAsync(Guid notificationId);
     NotificationDto GetNotificationById(Guid notificationId);
     Task<List<NotificationDto>> GetAllNotificationsByUsernameAsync(string user, string OU);
     Task<List<NotificationDto>> GetNotificationsByStatusAsync(string user, string OU, NotificationStatus status);

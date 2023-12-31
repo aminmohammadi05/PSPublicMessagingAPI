@@ -4,12 +4,10 @@ using System.Windows.Threading;
 using AutoMapper;
 using Desktop.Views;
 using DesktopWinforms.Models;
-using DesktopWinforms.Services;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using PersianDate.Standard;
 using PSPublicMessagingAPI.Contract;
-using PSPublicMessagingAPI.Desktop.Consumers;
 using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.Desktop.Presenter.Presenter;
 using PSPublicMessagingAPI.Desktop.Presenter.View;
@@ -51,7 +49,6 @@ public class IocConfig
                                                            s.GetRequiredService<IToastService>(),
                                                            s.GetRequiredService<IActiveDirectoryService>(),
                                                            s.GetRequiredService<IMapper>(),
-                                                           s.GetRequiredService<NotificationCreatedConsumer>(),
                                                            s.GetRequiredService<IFontService>(),
                                                            s.GetRequiredService<IConfigurationManagerService>(),
                                                            Dispatcher.CurrentDispatcher)
@@ -70,16 +67,7 @@ public class IocConfig
                                              , s.GetRequiredService<ICommunicationApplicationController>());
         });
 
-        services.AddTransient<NotificationCreatedConsumer>(s =>
-        {
-            return new NotificationCreatedConsumer(s.GetRequiredService<ICommunicationApplicationController>(),
-                s.GetRequiredService<IToastService>(),
-                s.GetRequiredService<IActiveDirectoryService>(),
-                s.GetRequiredService<IMapper>(),
-                s.GetRequiredService<IFontService>(),
-                s.GetRequiredService<IConfigurationManagerService>(),
-                Dispatcher.CurrentDispatcher);
-        });
+       
 
 
         services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<ICommunicationApplicationController>(),
@@ -87,7 +75,7 @@ public class IocConfig
                                                            s.GetRequiredService<IActiveDirectoryService>(),
                                                           
                                                            s.GetRequiredService<IMapper>(),
-                                                           s.GetRequiredService<NotificationCreatedConsumer>(),
+                                                          
                                                            s.GetRequiredService<IFontService>(),
                                                            s.GetRequiredService<IConfigurationManagerService>(),
                                                            Dispatcher.CurrentDispatcher));

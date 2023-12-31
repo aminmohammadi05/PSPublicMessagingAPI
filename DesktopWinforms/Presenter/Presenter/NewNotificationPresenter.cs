@@ -31,9 +31,9 @@ public class NewNotificationPresenter : INewNotificationPresenter
     {
         return await _communicationAppController.GetAllNotificationsAsync();
     }
-    public async Task<NotificationDto> GetNotificationById(Guid id)
+    public NotificationDto GetNotificationById(Guid id)
     {
-        return await _communicationAppController.GetNotificationByIdAsync(id);
+        return _communicationAppController.GetNotificationByIdAsync(id);
     }
 
     public async Task<Guid> RemoveNotification(Guid notificationId)

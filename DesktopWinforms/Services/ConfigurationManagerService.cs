@@ -17,6 +17,7 @@ public class ConfigurationManagerService : IConfigurationManagerService
     private string aboutTitle;
     private string aboutText;
     private string host;
+    private string port;
 
     Configuration configuration { get; set; }
     public string RBUserName
@@ -155,6 +156,19 @@ public class ConfigurationManagerService : IConfigurationManagerService
         {
             host = value;
             configuration.AppSettings.Settings["host"].Value = host;
+            configuration.Save();
+
+            // Reload app config file
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+    }
+    public string Port
+    {
+        get => configuration.AppSettings.Settings["port"].Value;
+        set
+        {
+            port = value;
+            configuration.AppSettings.Settings["port"].Value = port;
             configuration.Save();
 
             // Reload app config file

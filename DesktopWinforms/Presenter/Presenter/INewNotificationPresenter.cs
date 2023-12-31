@@ -16,7 +16,7 @@ public interface INewNotificationPresenter : IPresenter<INewNotification>
     Task<Guid> RemoveNotification(Guid notificationId);
     Task<Guid> SaveNotification(NotificationDto selectedNotification);
     Task<Guid> SetNotificationStatus(NotificationDto selectedNotification);
-    Task<NotificationDto> GetNotificationById(Guid result);
+    NotificationDto GetNotificationById(Guid result);
     #endregion
     #region Possible Action
     Task<List<PossibleActionDto>> GetAllPossibleActions();

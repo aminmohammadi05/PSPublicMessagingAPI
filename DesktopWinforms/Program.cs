@@ -1,38 +1,18 @@
-﻿
-using DevExpress.LookAndFeel;
-using DevExpress.Skins;
-using DevExpress.UserSkins;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using PSPublicMessagingAPI.Desktop.Config;
 using PSPublicMessagingAPI.Desktop.Presenter.Presenter;
 using PSPublicMessagingAPI.Desktop.Services;
 using PSPublicMessagingAPI.Desktop.Views;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
-using System.Windows.Controls;
 using System.Windows.Forms;
-using PSPublicMessagingAPI.Desktop.Models;
-using RabbitMQ.Client.Events;
-using RabbitMQ.Client;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using AutoMapper;
-using DesktopWinforms.Services;
-using Microsoft.Extensions.Hosting;
-using PSPublicMessagingAPI.Desktop.Consumers;
-using MassTransit;
 using PSPublicMessagingAPI.Desktop.Presenter;
 using PSPublicMessagingAPI.DesktopWinforms.Properties;
 using PSPublicMessagingAPI.SharedToastMessage.Services;
-using SuperSimpleTcp;
-using Topshelf;
-using Host = Microsoft.Extensions.Hosting.Host;
 
 
 namespace DesktopWinforms
@@ -40,95 +20,50 @@ namespace DesktopWinforms
     static class Program
     {
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        //[STAThread]
-        //static void Main(string[] args)
-        //{
-
-
-        //    CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
-
-        //    // The following line provides localization for the application's user interface.  
-        //    Thread.CurrentThread.CurrentUICulture = culture;
-
-        //    // The following line provides localization for data formats.  
-        //    Thread.CurrentThread.CurrentCulture = culture;
-
-        //    // Set this culture as the default culture for all threads in this application.  
-        //    // Note: The following properties are supported in the .NET Framework 4.5+ 
-        //    CultureInfo.DefaultThreadCurrentCulture = culture;
-        //    CultureInfo.DefaultThreadCurrentUICulture = culture;
-        //    System.Windows.Forms.Application.EnableVisualStyles();
-        //    System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-
-        //    System.Windows.Forms.Application.Run(new MyCustomApplicationContext());
-
-        //}
+        
         [STAThread]
-        private static async Task  Main()
+        private static void  Main()
         {
 
-            var host = CreateHostBuilder().Build();
-
-
-            using (host)
+            try
             {
-                //host.Run();
-                await host.StartAsync();
-                await host.StopAsync();
+                IServiceCollection services = new ServiceCollection();
+                var _services = IocConfig.CreateServiceProvider(services);
+                CultureInfo culture = CultureInfo.CreateSpecificCulture("fa-IR");
+
+                // The following line provides localization for the application's user interface.  
+                Thread.CurrentThread.CurrentUICulture = culture;
+
+                // The following line provides localization for data formats.  
+                Thread.CurrentThread.CurrentCulture = culture;
+
+                // Set this culture as the default culture for all threads in this application.  
+                // Note: The following properties are supported in the .NET Framework 4.5+ 
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+                System.Windows.Forms.Application.SetHighDpiMode(HighDpiMode.SystemAware);
+                System.Windows.Forms.Application.EnableVisualStyles();
+                System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+                System.Windows.Forms.Application.Run(new MyCustomApplicationContext(_services));
+
+
+            }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.EventLog.WriteEntry("Public Messaging", ex.StackTrace,
+                    System.Diagnostics.EventLogEntryType.Warning);
+                Console.WriteLine(ex.Message + Environment.NewLine + ex.StackTrace);
+            }
+            finally
+            {
+                
+                Application.ExitThread();
+
+                Environment.Exit(0);
             }
         }
-        private static IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices(services =>
-                {
-                    IServiceProvider serviceProvider = IocConfig.CreateServiceProvider(services);
-                    services.AddMassTransit(x =>
-                    {
-                        // elided...
-                        x.AddConsumer<NotificationCreatedConsumer>();
-                        x.AddConsumer<MainWindow>();
-
-                        x.UsingRabbitMq((context, cfg) =>
-                        {
-
-                            cfg.ReceiveEndpoint("ps-notification-created", e =>
-                            {
-                                //e.PrefetchCount = 16;
-                                //e.UseMessageRetry(r => r.Interval(2, 10));
-                                e.ConfigureConsumer<MainWindow>(context, c =>
-                                {
-                                    c.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
-                                    c.UseMessageRetry(r => r.Immediate(5));
-                                    c.UseInMemoryOutbox();
-                                });
-                                e.ConfigureConsumer<NotificationCreatedConsumer>(context, c =>
-                                {
-                                    c.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
-                                    c.UseMessageRetry(r => r.Immediate(5));
-                                    c.UseInMemoryOutbox();
-                                });
-                            });
-                            var configurationManager = serviceProvider.GetRequiredService<IConfigurationManagerService>();
-                            
-                            cfg.Host(configurationManager.Host ,"/", h =>
-                            {
-                                
-                                h.Username(configurationManager.RBUserName);
-                                h.Password(configurationManager.RBPassword);
-                            });
-
-                            cfg.ConfigureEndpoints(context);
-                        });
-                    });
-                    services.AddHostedService<Worker>();
-
-                    
-                });
-        }
+       
     }
 
     public class MyCustomApplicationContext : ApplicationContext
@@ -181,7 +116,6 @@ namespace DesktopWinforms
                 _serviceProvider.GetRequiredService<IToastService>(),
                 _serviceProvider.GetRequiredService<IActiveDirectoryService>(),
                 _serviceProvider.GetRequiredService<IMapper>(),
-                _serviceProvider.GetRequiredService<NotificationCreatedConsumer>(),
                 _serviceProvider.GetRequiredService<IFontService>(),
                 _serviceProvider.GetRequiredService<IConfigurationManagerService>(),
                 Dispatcher.CurrentDispatcher);
