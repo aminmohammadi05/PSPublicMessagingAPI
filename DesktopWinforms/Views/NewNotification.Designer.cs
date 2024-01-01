@@ -294,7 +294,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(1083, 56);
+            label2.Location = new System.Drawing.Point(1083, 54);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(45, 13);
             label2.TabIndex = 2;
@@ -304,10 +304,10 @@
             // 
             tableLayoutPanel2.SetColumnSpan(txtMessageBody, 7);
             txtMessageBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            txtMessageBody.Location = new System.Drawing.Point(3, 59);
+            txtMessageBody.Location = new System.Drawing.Point(3, 57);
             txtMessageBody.Name = "txtMessageBody";
             txtMessageBody.Options.DocumentSaveOptions.CurrentFormat = DevExpress.XtraRichEdit.DocumentFormat.PlainText;
-            txtMessageBody.Size = new System.Drawing.Size(1063, 229);
+            txtMessageBody.Size = new System.Drawing.Size(1063, 231);
             txtMessageBody.TabIndex = 3;
             // 
             // cmbPriority

@@ -133,7 +133,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 Guid result = await _presenter.SaveNotification(SelectedNotification);
                 if (result != Guid.Empty)
                 {
-                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>( _presenter.GetNotificationById(result));
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(_presenter.GetNotificationById(result));
                     if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
                     {
                         bsNotification.RemoveCurrent();
@@ -244,7 +244,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
             bsNotification.DataSource = new ObservableCollection<NotificationViewModel>(NotificationList); //);
             bsNotification.Sort = "NotificationDate DESC";
-            cmbGroup.Properties.DataSource = _activeDirectoryService.ActiveDirectoryUsers.GroupBy(x => x.OUName).OrderBy(x => x.Key).Select((x, i) => new { OUName = x.Key, OUID = i + 1 }).ToList();
+            cmbGroup.Properties.DataSource = _activeDirectoryService.ActiveDirectoryUsers.Where(x => !String.IsNullOrEmpty(x.OUName)).GroupBy(x => x.OUName).OrderBy(x => x.Key).Select((x, i) => new { OUName = x.Key, OUID = i + 1 }).ToList();
             BindToControls();
             gcNotification.DataSource = bsNotification;
             btnCancel.Enabled = CanCancel;
@@ -281,7 +281,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 Guid result = await _presenter.SetNotificationStatus(SelectedNotification);
                 if (result != Guid.Empty)
                 {
-                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>( _presenter.GetNotificationById(result));
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(_presenter.GetNotificationById(result));
                     if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
                     {
                         bsNotification.RemoveCurrent();
