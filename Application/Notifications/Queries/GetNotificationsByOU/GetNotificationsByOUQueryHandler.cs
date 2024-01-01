@@ -5,18 +5,18 @@ using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationById
 using PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserNameAndStatus;
 using PSPublicMessagingAPI.Domain.Abstractions;
 
-namespace PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByUserNameAndStatusAndOUQuery;
+namespace PSPublicMessagingAPI.Application.Notifications.Queries.GetNotificationsByOUQuery;
 
-public class GetNotificationsByUserNameAndStatusAndOUQueryHandler : IQueryHandler<GetNotificationsByUserNameAndStatusAndOUQuery, List<NotificationResponse>>
+public class GetNotificationsByOUQueryHandler : IQueryHandler<GetNotificationsByOUQuery, List<NotificationResponse>>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
 
-    public GetNotificationsByUserNameAndStatusAndOUQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+    public GetNotificationsByOUQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
     {
         _sqlConnectionFactory = sqlConnectionFactory;
     }
 
-    public async Task<Result<List<NotificationResponse>>> Handle(GetNotificationsByUserNameAndStatusAndOUQuery request, CancellationToken cancellationToken)
+    public async Task<Result<List<NotificationResponse>>> Handle(GetNotificationsByOUQuery request, CancellationToken cancellationToken)
     {
         using var connection = _sqlConnectionFactory.CreateConnection();
 
@@ -39,8 +39,7 @@ public class GetNotificationsByUserNameAndStatusAndOUQueryHandler : IQueryHandle
                            ,[MethodParameter_Parameter] as MethodParameter
                            ,[LastModifierUser]
                            FROM Notification
-                           WHERE (targetClientUserName = @username AND
-                           [NotificationStatus] = @status AND
+                           WHERE
                            [TargetGroup] = @OU) 
                            """;
 
@@ -49,8 +48,6 @@ public class GetNotificationsByUserNameAndStatusAndOUQueryHandler : IQueryHandle
 
             new
             {
-                request.username,
-                request.status,
                 request.OU
             });
 

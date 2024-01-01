@@ -11,7 +11,6 @@
     <Folder Include="Abstractions\Data\" />
     <Folder Include="ClientActions\Commands\" />
     <Folder Include="Notifications\Commands\CreateNotification\" />
-    <Folder Include="Notifications\Queries\GetNotificationsByUserNameAndStatusAndOU\" />
     <Folder Include="PossibleActions\Commands\" />
     <Folder Include="UserRoles\Queries\" />
   </ItemGroup>

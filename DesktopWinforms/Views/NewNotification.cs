@@ -299,5 +299,39 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 }
             }
         }
+
+        private async void btnChangeStatus_Click(object sender, EventArgs e)
+        {
+            if (IsValid(true))
+            {
+                SelectedNotification = _mapper.Map<NotificationViewModel, NotificationDto>((bsNotification.Current as NotificationViewModel));
+
+                SelectedNotification.Id = (bsNotification.Current as NotificationViewModel).Id;
+                SelectedNotification.ChangeStatus(chbRead.Checked ? NotificationStatus.Read : NotificationStatus.New);
+                SelectedNotification.LastModifierUser = "-";
+                SelectedNotification.MethodParameter = "{}";
+                //SelectedNotification.NotificationPriority = (NotificationPriority)cmbPriority.SelectedIndex;
+
+                Guid result = await _presenter.SetNotificationStatus(SelectedNotification);
+                if (result != Guid.Empty)
+                {
+                    NotificationViewModel newNotification = _mapper.Map<NotificationDto, NotificationViewModel>(_presenter.GetNotificationById(result));
+                    if (bsNotification.List.Cast<NotificationViewModel>().Any(x => x.Id == result))
+                    {
+                        bsNotification.RemoveCurrent();
+                    }
+
+                    bsNotification.Add(newNotification);
+                    var ind = bsNotification.IndexOf(newNotification);
+                    bsNotification.Position = ind;
+
+                    ShowMessage("عملیات با موفقیت انجام شد", ToastType.Success);
+                }
+                else
+                {
+                    ShowMessage("خطایی رخ داد", ToastType.Error);
+                }
+            }
+        }
     }
 }

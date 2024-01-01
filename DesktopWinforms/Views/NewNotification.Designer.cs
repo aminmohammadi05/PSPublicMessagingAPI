@@ -37,6 +37,7 @@
             btnSaveNCRReport = new DevExpress.XtraEditors.SimpleButton();
             btnDeleteNCRReport = new DevExpress.XtraEditors.SimpleButton();
             btnClose = new DevExpress.XtraEditors.SimpleButton();
+            btnChangeStatus = new DevExpress.XtraEditors.SimpleButton();
             gcNotification = new DevExpress.XtraGrid.GridControl();
             gvNotification = new DevExpress.XtraGrid.Views.Grid.GridView();
             gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -46,7 +47,6 @@
             gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            cmbGroup = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             label1 = new System.Windows.Forms.Label();
             txtTitle = new System.Windows.Forms.TextBox();
             label2 = new System.Windows.Forms.Label();
@@ -55,6 +55,8 @@
             txtNotificationDateTime = new DevExpress.XtraEditors.DateEdit();
             label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
+            cmbGroup = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            chbRead = new System.Windows.Forms.CheckBox();
             label6 = new System.Windows.Forms.Label();
             bsNotification = new System.Windows.Forms.BindingSource(components);
             erpNewNotification = new System.Windows.Forms.ErrorProvider(components);
@@ -63,9 +65,9 @@
             ((System.ComponentModel.ISupportInitialize)gcNotification).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gvNotification).BeginInit();
             tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbGroup.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties.CalendarTimeProperties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbGroup.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsNotification).BeginInit();
             ((System.ComponentModel.ISupportInitialize)erpNewNotification).BeginInit();
             SuspendLayout();
@@ -103,14 +105,12 @@
             tableLayoutPanel4.Controls.Add(btnSaveNCRReport, 0, 0);
             tableLayoutPanel4.Controls.Add(btnDeleteNCRReport, 1, 0);
             tableLayoutPanel4.Controls.Add(btnClose, 6, 0);
+            tableLayoutPanel4.Controls.Add(btnChangeStatus, 4, 0);
             tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel4.Location = new System.Drawing.Point(3, 637);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
-            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
-            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             tableLayoutPanel4.Size = new System.Drawing.Size(1131, 57);
             tableLayoutPanel4.TabIndex = 1;
             // 
@@ -163,6 +163,16 @@
             btnClose.TabIndex = 6;
             btnClose.Text = "خروج   ";
             btnClose.Click += btnClose_Click;
+            // 
+            // btnChangeStatus
+            // 
+            btnChangeStatus.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnChangeStatus.ImageOptions.Image");
+            btnChangeStatus.Location = new System.Drawing.Point(551, 3);
+            btnChangeStatus.Name = "btnChangeStatus";
+            btnChangeStatus.Size = new System.Drawing.Size(121, 50);
+            btnChangeStatus.TabIndex = 99;
+            btnChangeStatus.Text = "تغییر وضعیت";
+            btnChangeStatus.Click += btnChangeStatus_Click;
             // 
             // gcNotification
             // 
@@ -240,7 +250,6 @@
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.99896F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.99813F));
-            tableLayoutPanel2.Controls.Add(cmbGroup, 5, 1);
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
             tableLayoutPanel2.Controls.Add(txtTitle, 1, 0);
             tableLayoutPanel2.Controls.Add(label2, 0, 2);
@@ -249,7 +258,9 @@
             tableLayoutPanel2.Controls.Add(txtNotificationDateTime, 3, 1);
             tableLayoutPanel2.Controls.Add(label4, 0, 1);
             tableLayoutPanel2.Controls.Add(label5, 2, 1);
-            tableLayoutPanel2.Controls.Add(label6, 4, 1);
+            tableLayoutPanel2.Controls.Add(cmbGroup, 7, 1);
+            tableLayoutPanel2.Controls.Add(chbRead, 4, 1);
+            tableLayoutPanel2.Controls.Add(label6, 6, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -260,18 +271,6 @@
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutPanel2.Size = new System.Drawing.Size(1131, 311);
             tableLayoutPanel2.TabIndex = 2;
-            // 
-            // cmbGroup
-            // 
-            cmbGroup.EditValue = "";
-            cmbGroup.Location = new System.Drawing.Point(397, 30);
-            cmbGroup.Name = "cmbGroup";
-            cmbGroup.Properties.AllowMultiSelect = true;
-            cmbGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            cmbGroup.Properties.DisplayMember = "OUName";
-            cmbGroup.Properties.ValueMember = "OUName";
-            cmbGroup.Size = new System.Drawing.Size(190, 20);
-            cmbGroup.TabIndex = 288;
             // 
             // label1
             // 
@@ -313,23 +312,23 @@
             // cmbPriority
             // 
             cmbPriority.Dock = System.Windows.Forms.DockStyle.Fill;
-            cmbPriority.Location = new System.Drawing.Point(876, 30);
+            cmbPriority.Location = new System.Drawing.Point(848, 30);
             cmbPriority.Name = "cmbPriority";
-            cmbPriority.Size = new System.Drawing.Size(190, 21);
+            cmbPriority.Size = new System.Drawing.Size(218, 21);
             cmbPriority.TabIndex = 13;
             // 
             // txtNotificationDateTime
             // 
             txtNotificationDateTime.Dock = System.Windows.Forms.DockStyle.Fill;
             txtNotificationDateTime.EditValue = null;
-            txtNotificationDateTime.Location = new System.Drawing.Point(626, 30);
+            txtNotificationDateTime.Location = new System.Drawing.Point(570, 30);
             txtNotificationDateTime.Name = "txtNotificationDateTime";
             txtNotificationDateTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtNotificationDateTime.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             txtNotificationDateTime.Properties.CalendarTimeProperties.MaskSettings.Set("culture", "fa-IR");
             txtNotificationDateTime.Properties.CalendarView = DevExpress.XtraEditors.Repository.CalendarView.Classic;
             txtNotificationDateTime.Properties.VistaDisplayMode = DevExpress.Utils.DefaultBoolean.False;
-            txtNotificationDateTime.Size = new System.Drawing.Size(190, 20);
+            txtNotificationDateTime.Size = new System.Drawing.Size(218, 20);
             txtNotificationDateTime.TabIndex = 17;
             // 
             // label4
@@ -344,16 +343,38 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(822, 27);
+            label5.Location = new System.Drawing.Point(794, 27);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(48, 13);
             label5.TabIndex = 6;
             label5.Text = "تاریخ پیام";
             // 
+            // cmbGroup
+            // 
+            cmbGroup.EditValue = "";
+            cmbGroup.Location = new System.Drawing.Point(58, 30);
+            cmbGroup.Name = "cmbGroup";
+            cmbGroup.Properties.AllowMultiSelect = true;
+            cmbGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbGroup.Properties.DisplayMember = "OUName";
+            cmbGroup.Properties.ValueMember = "OUName";
+            cmbGroup.Size = new System.Drawing.Size(164, 20);
+            cmbGroup.TabIndex = 288;
+            // 
+            // chbRead
+            // 
+            chbRead.AutoSize = true;
+            chbRead.Location = new System.Drawing.Point(484, 30);
+            chbRead.Name = "chbRead";
+            chbRead.Size = new System.Drawing.Size(80, 17);
+            chbRead.TabIndex = 290;
+            chbRead.Text = "خوانده شده";
+            chbRead.UseVisualStyleBackColor = true;
+            // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(593, 27);
+            label6.Location = new System.Drawing.Point(228, 27);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(27, 13);
             label6.TabIndex = 14;
@@ -385,9 +406,9 @@
             ((System.ComponentModel.ISupportInitialize)gvNotification).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbGroup.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties.CalendarTimeProperties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtNotificationDateTime.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbGroup.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsNotification).EndInit();
             ((System.ComponentModel.ISupportInitialize)erpNewNotification).EndInit();
             ResumeLayout(false);
@@ -423,5 +444,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
         private DevExpress.XtraEditors.DateEdit txtNotificationDateTime;
+        private System.Windows.Forms.CheckBox chbRead;
+        private DevExpress.XtraEditors.SimpleButton btnChangeStatus;
     }
 }

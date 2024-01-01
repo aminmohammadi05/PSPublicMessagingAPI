@@ -34,35 +34,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
     public List<object> ClientActions { get; set; }
 
     #region Notifications
-    public async Task<List<NotificationDto>> GetUserUnreadNotificationsAsync(string user, string OU)
-    {
-        using (var client = new HttpClient())
-        {
-
-            client.BaseAddress = new Uri($"http://{_configurationManager.Host}:{_configurationManager.Port}/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-
-
-            var response = await client.GetAsync($"api/notifications/{user}");
-
-
-            if (response.IsSuccessStatusCode)
-            {
-                var t = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<List<NotificationDto>>(t, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-                return data;
-
-            }
-
-        }
-
-        return null;
-    }
+    
 
     public async Task<Guid> SetNotificationStatusAsync(NotificationDto notification)
     {
@@ -78,7 +50,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
                 "application/json");
 
 
-            var response = await client.PutAsync($"api/notifications", jsonContent);
+            var response = await client.PutAsync($"api/publicnotifications", jsonContent);
 
 
             if (response.IsSuccessStatusCode)
@@ -108,7 +80,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = client.GetAsync($"api/notifications/{notificationId.ToString()}").Result;
+            var response = client.GetAsync($"api/publicnotifications/{notificationId.ToString()}").Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -137,7 +109,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = client.GetAsync($"api/notifications/{notificationId.ToString()}").Result;
+            var response = client.GetAsync($"api/publicnotifications/{notificationId.ToString()}").Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -156,7 +128,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public async Task<List<NotificationDto>> GetAllNotificationsByUsernameAsync(string user, string OU)
+    public async Task<List<NotificationDto>> GetAllNotificationsByOUAsync(string OU)
     {
         using (var client = new HttpClient())
         {
@@ -167,7 +139,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = await client.GetAsync($"api/notifications/{user}");
+            var response = await client.GetAsync($"api/publicnotifications/{OU}");
 
 
             if (response.IsSuccessStatusCode)
@@ -186,7 +158,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
         return null;
     }
 
-    public async Task<List<NotificationDto>> GetNotificationsByStatusAsync(string user, string OU, NotificationStatus status)
+    public async Task<List<NotificationDto>> GetNotificationsByStatusAsync(string OU, NotificationStatus status)
     {
         using (var client = new HttpClient())
         {
@@ -197,7 +169,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = await client.GetAsync($"api/notifications/{user}/{(int)status}/{OU}");
+            var response = await client.GetAsync($"api/publicnotifications/{OU}/{(int)status}");
 
 
             if (response.IsSuccessStatusCode)
@@ -230,7 +202,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
                 "application/json");
 
 
-            var response = await client.PostAsync($"api/notifications", jsonContent);
+            var response = await client.PostAsync($"api/publicnotifications", jsonContent);
 
 
             if (response.IsSuccessStatusCode)
@@ -259,7 +231,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = await client.GetAsync($"api/notifications/");
+            var response = await client.GetAsync($"api/publicnotifications/");
 
 
             if (response.IsSuccessStatusCode)
@@ -329,7 +301,7 @@ public class CommunicationApplicationController : ICommunicationApplicationContr
 
 
 
-            var response = await client.DeleteAsync($"api/notifications/{notificationId}");
+            var response = await client.DeleteAsync($"api/publicnotifications/{notificationId}");
 
 
             if (response.IsSuccessStatusCode)

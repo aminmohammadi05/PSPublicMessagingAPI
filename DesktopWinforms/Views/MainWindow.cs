@@ -273,7 +273,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 mnuCreateMessage.Visibility = roles != null ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 mainContainer.IsSplitterFixed = true;
                 mainContainer.FixedPanel = SplitFixedPanel.Panel2;
-                NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotificationsAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
+                NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.OU, NotificationStatus.New));
                 LoadNotifications(_activeDirectoryService.CurrentUser);
             }
             else
@@ -305,7 +305,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);
                 var roles = await _activeDirectoryService.GetUserRoles(_activeDirectoryService.CurrentUser);
                 mnuCreateMessage.Visibility = roles != null ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
-                NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetUserUnreadNotificationsAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
+                NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.OU, NotificationStatus.New));
                 LoadNotifications(_activeDirectoryService.CurrentUser);
                 //mnuCreateMessage.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
             }
@@ -338,7 +338,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void mnuAllMessages_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             CurrentStatus = MessagesListStatus.All;
-            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetAllNotificationsByUsernameAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU));
+            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetAllNotificationsByOUAsync(_activeDirectoryService.OU));
             this.mainContainer.Panel2.Controls.Find("flpNotification", false)[0].Controls.Clear();
             foreach (var item in NotificationList)
             {
@@ -356,7 +356,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void mnuReadMessages_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             CurrentStatus = MessagesListStatus.Read;
-            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU, NotificationStatus.Read));
+            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.OU, NotificationStatus.Read));
             this.mainContainer.Panel2.Controls.Find("flpNotification", false)[0].Controls.Clear();
             foreach (var item in NotificationList)
             {
@@ -374,7 +374,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         private async void mnuNewMessages_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             CurrentStatus = MessagesListStatus.New;
-            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.CurrentUser, _activeDirectoryService.OU, NotificationStatus.New));
+            NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.OU, NotificationStatus.New));
             this.mainContainer.Panel2.Controls.Find("flpNotification", false)[0].Controls.Clear();
             foreach (var item in NotificationList)
             {

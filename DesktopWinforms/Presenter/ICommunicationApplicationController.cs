@@ -27,12 +27,11 @@ public interface ICommunicationApplicationController
     Task<UserRole> GetUserRoleAsync(string userName);
     void RunCreateNewNotification();
     Task<Guid> RemoveNotificationAsync(Guid notificationId);
-    Task<List<NotificationDto>> GetUserUnreadNotificationsAsync(string user, string OU);
     Task<Guid> SetNotificationStatusAsync(NotificationDto notification);
     NotificationDto GetNotificationByIdAsync(Guid notificationId);
     NotificationDto GetNotificationById(Guid notificationId);
-    Task<List<NotificationDto>> GetAllNotificationsByUsernameAsync(string user, string OU);
-    Task<List<NotificationDto>> GetNotificationsByStatusAsync(string user, string OU, NotificationStatus status);
+    Task<List<NotificationDto>> GetAllNotificationsByOUAsync(string OU);
+    Task<List<NotificationDto>> GetNotificationsByStatusAsync(string OU, NotificationStatus status);
     Task<Guid> SaveNotificationAsync(NotificationDto notification);
     #endregion
 

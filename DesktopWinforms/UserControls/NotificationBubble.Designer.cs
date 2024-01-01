@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotificationBubble));
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            btnMarkAsRead = new DevExpress.XtraEditors.SimpleButton();
             btnVisit = new DevExpress.XtraEditors.SimpleButton();
             lblTitle = new System.Windows.Forms.Label();
             lblModule = new System.Windows.Forms.Label();
@@ -69,7 +69,6 @@
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel1.Controls.Add(btnMarkAsRead, 1, 4);
             tableLayoutPanel1.Controls.Add(btnVisit, 2, 4);
             tableLayoutPanel1.Controls.Add(lblTitle, 0, 0);
             tableLayoutPanel1.Controls.Add(lblModule, 0, 1);
@@ -79,7 +78,7 @@
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(12);
             tableLayoutPanel1.RowCount = 5;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
@@ -88,16 +87,6 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.Size = new System.Drawing.Size(396, 314);
             tableLayoutPanel1.TabIndex = 0;
-            // 
-            // btnMarkAsRead
-            // 
-            btnMarkAsRead.Location = new System.Drawing.Point(141, 259);
-            btnMarkAsRead.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btnMarkAsRead.Name = "btnMarkAsRead";
-            btnMarkAsRead.Size = new System.Drawing.Size(117, 40);
-            btnMarkAsRead.TabIndex = 0;
-            btnMarkAsRead.Text = "خواندم";
-            btnMarkAsRead.Click += btnMarkAsRead_Click;
             // 
             // btnVisit
             // 
@@ -284,6 +273,7 @@
             svgImageBox1.Name = "svgImageBox1";
             svgImageBox1.Size = new System.Drawing.Size(27, 16);
             svgImageBox1.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
+            svgImageBox1.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("svgImageBox1.SvgImage");
             svgImageBox1.TabIndex = 8;
             svgImageBox1.Text = "svgImageBox1";
             // 
@@ -294,6 +284,7 @@
             svgImageBox2.Name = "svgImageBox2";
             svgImageBox2.Size = new System.Drawing.Size(27, 16);
             svgImageBox2.SizeMode = DevExpress.XtraEditors.SvgImageSizeMode.Squeeze;
+            svgImageBox2.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("svgImageBox2.SvgImage");
             svgImageBox2.TabIndex = 9;
             svgImageBox2.Text = "svgImageBox2";
             // 
@@ -369,7 +360,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DevExpress.XtraEditors.SimpleButton btnMarkAsRead;
         private DevExpress.XtraEditors.SimpleButton btnVisit;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblModule;

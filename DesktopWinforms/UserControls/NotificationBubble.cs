@@ -36,7 +36,7 @@ namespace DesktopWinforms.UserControls
             _activeDirectoryService = activeDirectoryService;
             InitializeComponent();
             _mapper = mapper;
-            btnMarkAsRead.Enabled = Notification.NotificationStatus == NotificationStatus.New;
+            //btnMarkAsRead.Enabled = Notification.NotificationStatus == NotificationStatus.New;
             _fontService = fontService;
             _fontService = fontService;
             List<Control> allControls = GetAllControls(this);
@@ -64,8 +64,8 @@ namespace DesktopWinforms.UserControls
         {
             var notifToSave = _mapper.Map<NotificationViewModel, NotificationDto>(Notification);
             var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
-            this.Notification = _mapper.Map<NotificationDto, NotificationViewModel>(_communicationService.GetNotificationByIdAsync(notif)); 
-            btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
+            this.Notification = _mapper.Map<NotificationDto, NotificationViewModel>(_communicationService.GetNotificationByIdAsync(notif));
+            //  btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
         }
 
         private async void btnVisit_Click(object sender, EventArgs e)
@@ -73,9 +73,9 @@ namespace DesktopWinforms.UserControls
 
             var notifToSave = _mapper.Map<NotificationViewModel, NotificationDto>(Notification);
             //Presenter.GetType().GetMethod(Notification.PossibleActionMethodToCall).Invoke(Presenter, new object[] { parent, Notification.MethodParameter });
-            var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
-            this.Notification = _mapper.Map< NotificationDto, NotificationViewModel>( _communicationService.GetNotificationByIdAsync(notif)); ;
-            btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
+            //var notif = await _communicationService.SetNotificationStatusAsync(notifToSave);
+            // this.Notification = _mapper.Map< NotificationDto, NotificationViewModel>( _communicationService.GetNotificationByIdAsync(notif)); ;
+            // btnMarkAsRead.Enabled = this.Notification.NotificationStatus != NotificationStatus.Read;
             var msg = new PSPublicMessagingAPI.Desktop.Views.Message(this.Notification, _communicationService, _activeDirectoryService, _mapper, _fontService);
             msg.Show();
         }
@@ -98,14 +98,14 @@ namespace DesktopWinforms.UserControls
                 svgImageBox3.Visible = false;
                 lblStatus.Visible = false;
                 label3.Visible = false;
-                btnMarkAsRead.Visible = false;
+                //  btnMarkAsRead.Visible = false;
             }
             else
             {
                 svgImageBox3.Visible = true;
                 lblStatus.Visible = true;
                 label3.Visible = true;
-                btnMarkAsRead.Visible = true;
+                // btnMarkAsRead.Visible = true;
                 svgImageBox3.SvgImage = DevExpress.Images.ImageResourceCache.Default.GetSvgImage(Notification.NotificationStatusIcon.ToLower());
 
             }
