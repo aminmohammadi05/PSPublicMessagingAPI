@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             MessengerBar = new DevExpress.XtraBars.BarManager(components);
             mnuMainMenu = new DevExpress.XtraBars.Bar();
             mnuMessageActions = new DevExpress.XtraBars.BarSubItem();
@@ -58,6 +59,8 @@
             flpNotification = new System.Windows.Forms.FlowLayoutPanel();
             erpMain = new DevExpress.XtraEditors.DXErrorProvider.DXErrorProvider(components);
             baseToastManager = new DevExpress.XtraBars.ToastNotifications.ToastNotificationsManager(components);
+            adorneruiManager1 = new DevExpress.Utils.VisualEffects.AdornerUIManager(components);
+            badgeNewNotification = new DevExpress.Utils.VisualEffects.Badge();
             ((System.ComponentModel.ISupportInitialize)MessengerBar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)mainContainer).BeginInit();
             ((System.ComponentModel.ISupportInitialize)mainContainer.Panel1).BeginInit();
@@ -70,6 +73,7 @@
             ((System.ComponentModel.ISupportInitialize)svgLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)erpMain).BeginInit();
             ((System.ComponentModel.ISupportInitialize)baseToastManager).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)adorneruiManager1).BeginInit();
             SuspendLayout();
             // 
             // MessengerBar
@@ -105,8 +109,10 @@
             // 
             mnuMessageActions.Caption = "پیامها";
             mnuMessageActions.Id = 7;
-            mnuMessageActions.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(mnuCreateMessage), new DevExpress.XtraBars.LinkPersistInfo(mnuAllMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuReadMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuNewMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuExit) });
-            mnuMessageActions.MenuDrawMode = DevExpress.XtraBars.MenuDrawMode.SmallImagesText;
+            mnuMessageActions.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuMessageActions.ImageOptions.Image");
+            mnuMessageActions.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuMessageActions.ImageOptions.LargeImage");
+            mnuMessageActions.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] { new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, mnuCreateMessage, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), new DevExpress.XtraBars.LinkPersistInfo(mnuAllMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuReadMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuNewMessages), new DevExpress.XtraBars.LinkPersistInfo(mnuExit) });
+            mnuMessageActions.MenuDrawMode = DevExpress.XtraBars.MenuDrawMode.LargeImagesText;
             mnuMessageActions.Name = "mnuMessageActions";
             mnuMessageActions.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             // 
@@ -114,6 +120,9 @@
             // 
             mnuCreateMessage.Caption = "ایجاد پیام";
             mnuCreateMessage.Id = 15;
+            mnuCreateMessage.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuCreateMessage.ImageOptions.Image");
+            mnuCreateMessage.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuCreateMessage.ImageOptions.LargeImage");
+            mnuCreateMessage.ImageToTextAlignment = DevExpress.XtraBars.BarItemImageToTextAlignment.AfterText;
             mnuCreateMessage.Name = "mnuCreateMessage";
             mnuCreateMessage.ItemClick += mnuCreateMessage_ItemClick;
             // 
@@ -121,6 +130,8 @@
             // 
             mnuAllMessages.Caption = "همه پیامها";
             mnuAllMessages.Id = 9;
+            mnuAllMessages.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuAllMessages.ImageOptions.Image");
+            mnuAllMessages.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuAllMessages.ImageOptions.LargeImage");
             mnuAllMessages.Name = "mnuAllMessages";
             mnuAllMessages.ItemClick += mnuAllMessages_ItemClick;
             // 
@@ -128,6 +139,8 @@
             // 
             mnuReadMessages.Caption = "پیامهای خوانده شده";
             mnuReadMessages.Id = 10;
+            mnuReadMessages.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuReadMessages.ImageOptions.Image");
+            mnuReadMessages.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuReadMessages.ImageOptions.LargeImage");
             mnuReadMessages.Name = "mnuReadMessages";
             mnuReadMessages.ItemClick += mnuReadMessages_ItemClick;
             // 
@@ -135,6 +148,8 @@
             // 
             mnuNewMessages.Caption = "پیامهای جدید";
             mnuNewMessages.Id = 11;
+            mnuNewMessages.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuNewMessages.ImageOptions.Image");
+            mnuNewMessages.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuNewMessages.ImageOptions.LargeImage");
             mnuNewMessages.Name = "mnuNewMessages";
             mnuNewMessages.ItemClick += mnuNewMessages_ItemClick;
             // 
@@ -142,6 +157,8 @@
             // 
             mnuExit.Caption = "خروج";
             mnuExit.Id = 12;
+            mnuExit.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuExit.ImageOptions.Image");
+            mnuExit.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuExit.ImageOptions.LargeImage");
             mnuExit.Name = "mnuExit";
             mnuExit.ItemClick += mnuExit_ItemClick;
             // 
@@ -149,6 +166,8 @@
             // 
             mnuAbout.Caption = "درباره این برنامه";
             mnuAbout.Id = 8;
+            mnuAbout.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("mnuAbout.ImageOptions.Image");
+            mnuAbout.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("mnuAbout.ImageOptions.LargeImage");
             mnuAbout.Name = "mnuAbout";
             mnuAbout.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
             mnuAbout.ItemClick += mnuAbout_ItemClick;
@@ -166,7 +185,7 @@
             barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             barDockControlTop.Location = new System.Drawing.Point(0, 0);
             barDockControlTop.Manager = MessengerBar;
-            barDockControlTop.Size = new System.Drawing.Size(414, 20);
+            barDockControlTop.Size = new System.Drawing.Size(414, 24);
             // 
             // barDockControlBottom
             // 
@@ -180,17 +199,17 @@
             // 
             barDockControlLeft.CausesValidation = false;
             barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            barDockControlLeft.Location = new System.Drawing.Point(0, 20);
+            barDockControlLeft.Location = new System.Drawing.Point(0, 24);
             barDockControlLeft.Manager = MessengerBar;
-            barDockControlLeft.Size = new System.Drawing.Size(0, 770);
+            barDockControlLeft.Size = new System.Drawing.Size(0, 766);
             // 
             // barDockControlRight
             // 
             barDockControlRight.CausesValidation = false;
             barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            barDockControlRight.Location = new System.Drawing.Point(414, 20);
+            barDockControlRight.Location = new System.Drawing.Point(414, 24);
             barDockControlRight.Manager = MessengerBar;
-            barDockControlRight.Size = new System.Drawing.Size(0, 770);
+            barDockControlRight.Size = new System.Drawing.Size(0, 766);
             // 
             // barButtonItem1
             // 
@@ -202,7 +221,7 @@
             // 
             mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             mainContainer.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.Panel2;
-            mainContainer.Location = new System.Drawing.Point(0, 20);
+            mainContainer.Location = new System.Drawing.Point(0, 24);
             mainContainer.Name = "mainContainer";
             // 
             // mainContainer.Panel1
@@ -214,7 +233,7 @@
             // 
             mainContainer.Panel2.Controls.Add(flpNotification);
             mainContainer.Panel2.Text = "Panel2";
-            mainContainer.Size = new System.Drawing.Size(414, 770);
+            mainContainer.Size = new System.Drawing.Size(414, 766);
             mainContainer.SplitterPosition = 404;
             mainContainer.TabIndex = 4;
             // 
@@ -345,10 +364,11 @@
             // 
             // flpNotification
             // 
+            flpNotification.AutoScroll = true;
             flpNotification.Dock = System.Windows.Forms.DockStyle.Fill;
             flpNotification.Location = new System.Drawing.Point(0, 0);
             flpNotification.Name = "flpNotification";
-            flpNotification.Size = new System.Drawing.Size(404, 770);
+            flpNotification.Size = new System.Drawing.Size(404, 766);
             flpNotification.TabIndex = 0;
             // 
             // erpMain
@@ -359,6 +379,17 @@
             // 
             baseToastManager.ApplicationId = "dc549d39-213d-4439-9fde-c56461f6006f";
             baseToastManager.Notifications.AddRange(new DevExpress.XtraBars.ToastNotifications.IToastNotificationProperties[] { new DevExpress.XtraBars.ToastNotifications.ToastNotification("cdfd44d5-ddc2-4e38-8248-d972126fba52", null, null, null, null, null, null, "", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "", null, DevExpress.XtraBars.ToastNotifications.ToastNotificationSound.Default, DevExpress.XtraBars.ToastNotifications.ToastNotificationDuration.Default, null, DevExpress.XtraBars.ToastNotifications.AppLogoCrop.Default, DevExpress.XtraBars.ToastNotifications.ToastNotificationTemplate.Generic) });
+            // 
+            // adorneruiManager1
+            // 
+            adorneruiManager1.Elements.Add(badgeNewNotification);
+            adorneruiManager1.Owner = this;
+            // 
+            // badgeNewNotification
+            // 
+            badgeNewNotification.Properties.Location = System.Drawing.ContentAlignment.BottomLeft;
+            badgeNewNotification.TargetElement = mnuMessageActions;
+            badgeNewNotification.TargetElementRegion = DevExpress.Utils.VisualEffects.TargetElementRegion.Control;
             // 
             // MainWindow
             // 
@@ -393,6 +424,7 @@
             ((System.ComponentModel.ISupportInitialize)svgLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)erpMain).EndInit();
             ((System.ComponentModel.ISupportInitialize)baseToastManager).EndInit();
+            ((System.ComponentModel.ISupportInitialize)adorneruiManager1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -428,5 +460,7 @@
         private DevExpress.XtraBars.BarToggleSwitchItem btnSilent;
         private DevExpress.XtraBars.BarButtonItem mnuCreateMessage;
         private DevExpress.XtraBars.ToastNotifications.ToastNotificationsManager baseToastManager;
+        private DevExpress.Utils.VisualEffects.AdornerUIManager adorneruiManager1;
+        private DevExpress.Utils.VisualEffects.Badge badgeNewNotification;
     }
 }

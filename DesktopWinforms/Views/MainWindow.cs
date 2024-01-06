@@ -45,7 +45,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         Read,
         All
     }
-   
+
     public partial class MainWindow : ViewBase, IMainView
     {
         private ConnectionFactory _factory;
@@ -88,7 +88,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             erpMain.ContainerControl = this;
             _communicationAppController = communicationAppController;
             _toastService = toastService;
-           
+
             _mapper = mapper;
 
             _activeDirectoryService = activeDirectoryService;
@@ -113,7 +113,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             return GetAllControls(container, new List<Control>());
         }
-      
+
 
         public IMainViewPresenter Presenter
         {
@@ -185,7 +185,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
             LoadNotifications(user);
 
         }
-        
+
 
         public void Run()
         {
@@ -195,7 +195,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
         {
             try
             {
-                hub.On<NotificationCreatedEvent>("NotificationCreated",  (NotificationCreatedEvent notification) =>
+                hub.On<NotificationCreatedEvent>("NotificationCreated", (NotificationCreatedEvent notification) =>
                 {
                     if (!_configurationManagerService.MainWindowIsOpen)
                     {
@@ -240,12 +240,13 @@ namespace PSPublicMessagingAPI.Desktop.Views
                                 msg.Show();
 
                             });
-                            
+
 
                         }
                         AddNewNotification(_activeDirectoryService.CurrentUser, message);
+                        UpdateBadgeValue();
                     }
-                        
+
                 });
             }
             catch (Exception exception)
@@ -265,19 +266,21 @@ namespace PSPublicMessagingAPI.Desktop.Views
             }
             _configurationManagerService.MainWindowIsOpen = true;
 
-            mnuMainMenu.Visible = !String.IsNullOrEmpty(_activeDirectoryService.CurrentUser);
+            mnuMainMenu.Visible = !(String.IsNullOrEmpty(_activeDirectoryService.CurrentUser) || String.IsNullOrEmpty(_activeDirectoryService.OU));
 
-            if (!String.IsNullOrEmpty(_activeDirectoryService.CurrentUser))
+            if (!(String.IsNullOrEmpty(_activeDirectoryService.CurrentUser) || String.IsNullOrEmpty(_activeDirectoryService.OU)))
             {
                 var roles = await _activeDirectoryService.GetUserRoles(_activeDirectoryService.CurrentUser);
                 mnuCreateMessage.Visibility = roles != null ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 mainContainer.IsSplitterFixed = true;
                 mainContainer.FixedPanel = SplitFixedPanel.Panel2;
                 NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.OU, NotificationStatus.New));
+                UpdateBadgeValue();
                 LoadNotifications(_activeDirectoryService.CurrentUser);
             }
             else
             {
+                badgeNewNotification.Visible = false;
                 mainContainer.IsSplitterFixed = true;
                 mainContainer.FixedPanel = SplitFixedPanel.Panel1;
                 string[] userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split(new Char[] { '\\' });
@@ -286,7 +289,15 @@ namespace PSPublicMessagingAPI.Desktop.Views
             //mnuMainMenu.Visible = false;
 
         }
+        private void UpdateBadgeValue()
+        {
+            badgeNewNotification.Visible = NotificationList.Count != 0;
+            if (NotificationList.Count != 0 && badgeNewNotification.Properties != null)
+            {
+                badgeNewNotification.Properties.Text = NotificationList.Count.ToString();
 
+            }
+        }
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -307,6 +318,7 @@ namespace PSPublicMessagingAPI.Desktop.Views
                 mnuCreateMessage.Visibility = roles != null ? DevExpress.XtraBars.BarItemVisibility.Always : DevExpress.XtraBars.BarItemVisibility.Never;
                 NotificationList = _mapper.Map<List<NotificationDto>, List<NotificationViewModel>>(await _communicationAppController.GetNotificationsByStatusAsync(_activeDirectoryService.OU, NotificationStatus.New));
                 LoadNotifications(_activeDirectoryService.CurrentUser);
+                UpdateBadgeValue();
                 //mnuCreateMessage.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
             }
         }
@@ -425,6 +437,6 @@ namespace PSPublicMessagingAPI.Desktop.Views
             _configurationManagerService.MainWindowIsOpen = false;
         }
 
-        
+
     }
 }
