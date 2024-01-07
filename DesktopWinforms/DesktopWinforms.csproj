@@ -66,6 +66,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,6 +77,12 @@
 
   <ItemGroup>
     <Folder Include="Consumers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Update="app.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
   </ItemGroup>
 
 </Project>
