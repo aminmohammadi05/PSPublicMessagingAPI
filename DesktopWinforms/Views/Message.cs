@@ -19,48 +19,48 @@ namespace PSPublicMessagingAPI.Desktop.Views
     public partial class Message : Form
     {
         public NotificationViewModel Notification { get; set; }
-    IMapper _mapper;
-    private readonly ICommunicationApplicationController _communicationService;
-    private readonly IActiveDirectoryService _activeDirectoryService;
-    IFontService _fontService;
-    public Message(NotificationViewModel notification, ICommunicationApplicationController communicationService, IActiveDirectoryService activeDirectoryService, IMapper mapper, IFontService fontService)
-    {
-
-        this.Notification = notification;
-        _communicationService = communicationService;
-        _activeDirectoryService = activeDirectoryService;
-        InitializeComponent();
-        _fontService = fontService;
-        List<Control> allControls = GetAllControls(this);
-        allControls.ForEach(k => k.Font = new Font(_fontService.pfc.Families[0], k.Font.Size));
-        _mapper = mapper;
-
-    }
-
-    private List<Control> GetAllControls(Control container, List<Control> list)
-    {
-        foreach (Control c in container.Controls)
+        IMapper _mapper;
+        private readonly ICommunicationApplicationController _communicationService;
+        private readonly IActiveDirectoryService _activeDirectoryService;
+        IFontService _fontService;
+        public Message(NotificationViewModel notification, ICommunicationApplicationController communicationService, IActiveDirectoryService activeDirectoryService, IMapper mapper, IFontService fontService)
         {
 
-            if (c.Controls.Count > 0)
-                list = GetAllControls(c, list);
-            else
-                list.Add(c);
+            this.Notification = notification;
+            _communicationService = communicationService;
+            _activeDirectoryService = activeDirectoryService;
+            InitializeComponent();
+            _fontService = fontService;
+            List<Control> allControls = GetAllControls(this);
+            allControls.ForEach(k => k.Font = new Font(_fontService.pfc.Families[0], k.Font.Size));
+            _mapper = mapper;
+
         }
 
-        return list;
-    }
-    private List<Control> GetAllControls(Control container)
-    {
-        return GetAllControls(container, new List<Control>());
-    }
+        private List<Control> GetAllControls(Control container, List<Control> list)
+        {
+            foreach (Control c in container.Controls)
+            {
+
+                if (c.Controls.Count > 0)
+                    list = GetAllControls(c, list);
+                else
+                    list.Add(c);
+            }
+
+            return list;
+        }
+        private List<Control> GetAllControls(Control container)
+        {
+            return GetAllControls(container, new List<Control>());
+        }
 
 
-    private void NotificationBubble_Load(object sender, EventArgs e)
-    {
-        this.BringToFront();
+        private void NotificationBubble_Load(object sender, EventArgs e)
+        {
+            this.BringToFront();
 
-        lblTitle.Text = Notification.NotificationTitle;
+            lblTitle.Text = Notification.NotificationTitle;
 
             lblDate.Text = Notification.NotificationDatePersian;
             lblTime.Text = Notification.NotificationTimePersian;
@@ -87,10 +87,10 @@ namespace PSPublicMessagingAPI.Desktop.Views
 
             }
         }
-    private NotificationViewModel mapToViewModel(Notification notif)
-    {
-        return _mapper.Map<Notification, NotificationViewModel>(notif);
+        private NotificationViewModel mapToViewModel(Notification notif)
+        {
+            return _mapper.Map<Notification, NotificationViewModel>(notif);
 
+        }
     }
-}
 }

@@ -40,7 +40,7 @@ public class GetNotificationsByOUQueryHandler : IQueryHandler<GetNotificationsBy
                            ,[LastModifierUser]
                            FROM Notification
                            WHERE
-                           [TargetGroup] = @OU) 
+                           [TargetGroup] = @OU 
                            """;
 
         var notification = await connection.QueryAsync<NotificationResponse>(
