@@ -21,43 +21,37 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_09D366E50665414F987D9A4A11504B37"
+        "MsmKey" = "8:_1E632396AC5D450C8EF362A43EFDE34C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_0C97C5263001482EA3340516172128CD"
+        "MsmKey" = "8:_2D94C1E2BE3A416CB2A9C7A2CF97CBCE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1C1738FFAB6C48CFA14DE7B77C0E7C82"
+        "MsmKey" = "8:_4F9FB969D2744CE08DF54BE4600F5B41"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_38F50AE1B9E7490DAE4A55C25AF79EC8"
+        "MsmKey" = "8:_5008F5F7A35D498C87FD015CE29D788B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3CC6DD682A574D34A9291995907D2FD5"
+        "MsmKey" = "8:_5145338A93C3402DAB4DE4FA3CA517C5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_4B4A8263226A4D6A8465E8D572B1A484"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_602B1B23C8914A239604F2F6F3F92F13"
+        "MsmKey" = "8:_619CE13BD029439C80A72121419D4B46"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -69,13 +63,31 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_90D0526F24464CF4AE879DA1E4F7CCF6"
+        "MsmKey" = "8:_86639E0046BB4ADBBE1FC76C03A05211"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9688913A03AF4206965446861CEC6035"
+        "MsmKey" = "8:_87B6CF7A690847D6993FFF45B3F71AA1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8C1EE17DBD894032A704C81B9C2D3CBB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_93681DE4CE5242C681DD8577587A5FBF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9375A0B56D2749E5A4CA79A32364B204"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -87,13 +99,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9E2B093DF23D4B2DBD7CC369D7116A68"
+        "MsmKey" = "8:_B6E894875DE54054A1B9BD51267A0CA3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B8F6525B9DA640B8BF407C0E914D463C"
+        "MsmKey" = "8:_BD381659C580441896AD543BE1329A48"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -105,31 +117,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CFB01C4835BF4336B6E240DF975EB720"
+        "MsmKey" = "8:_C5729363694A44EE8FE402C15BFC0E6C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D00F3A5172FE49228997B3B96EDDEADD"
+        "MsmKey" = "8:_DA15B4E0BE104E219B1326B46B7954E0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E292DE87205146AFAD6F476FF43C7EA8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_E36EE147E2BF41199AB6C809A5EBF6CE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EB0D5CA5572146E993A80EE751124DF5"
+        "MsmKey" = "8:_FF65CEB236404251A6FC81602CA97ADA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -250,10 +250,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_09D366E50665414F987D9A4A11504B37"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1E632396AC5D450C8EF362A43EFDE34C"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Domain.pdb"
-            "TargetName" = "8:Domain.pdb"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\DesktopWinforms.dll.config"
+            "TargetName" = "8:DesktopWinforms.dll.config"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -270,7 +270,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0C97C5263001482EA3340516172128CD"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2D94C1E2BE3A416CB2A9C7A2CF97CBCE"
             {
             "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\SharedToastMessage.pdb"
             "TargetName" = "8:SharedToastMessage.pdb"
@@ -290,90 +290,70 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1C1738FFAB6C48CFA14DE7B77C0E7C82"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4F9FB969D2744CE08DF54BE4600F5B41"
+            {
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\DesktopWinforms.pdb"
+            "TargetName" = "8:DesktopWinforms.pdb"
+            "Tag" = "8:"
+            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5008F5F7A35D498C87FD015CE29D788B"
+            {
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\D3DCompiler_47_cor3.dll"
+            "TargetName" = "8:D3DCompiler_47_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5145338A93C3402DAB4DE4FA3CA517C5"
+            {
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\vcruntime140_cor3.dll"
+            "TargetName" = "8:vcruntime140_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_619CE13BD029439C80A72121419D4B46"
             {
             "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Infrastructure.pdb"
             "TargetName" = "8:Infrastructure.pdb"
-            "Tag" = "8:"
-            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_38F50AE1B9E7490DAE4A55C25AF79EC8"
-            {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\PenImc_cor3.dll"
-            "TargetName" = "8:PenImc_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3CC6DD682A574D34A9291995907D2FD5"
-            {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Contract.pdb"
-            "TargetName" = "8:Contract.pdb"
-            "Tag" = "8:"
-            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4B4A8263226A4D6A8465E8D572B1A484"
-            {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\PresentationNative_cor3.dll"
-            "TargetName" = "8:PresentationNative_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_602B1B23C8914A239604F2F6F3F92F13"
-            {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\DesktopWinforms.exe"
-            "TargetName" = "8:DesktopWinforms.exe"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -410,10 +390,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_90D0526F24464CF4AE879DA1E4F7CCF6"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_86639E0046BB4ADBBE1FC76C03A05211"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\wpfgfx_cor3.dll"
-            "TargetName" = "8:wpfgfx_cor3.dll"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Contract.pdb"
+            "TargetName" = "8:Contract.pdb"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -430,7 +410,67 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9688913A03AF4206965446861CEC6035"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_87B6CF7A690847D6993FFF45B3F71AA1"
+            {
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\WebView2Loader.dll"
+            "TargetName" = "8:WebView2Loader.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8C1EE17DBD894032A704C81B9C2D3CBB"
+            {
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\sni.dll"
+            "TargetName" = "8:sni.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_93681DE4CE5242C681DD8577587A5FBF"
+            {
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\PresentationNative_cor3.dll"
+            "TargetName" = "8:PresentationNative_cor3.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9375A0B56D2749E5A4CA79A32364B204"
             {
             "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Microsoft.Data.SqlClient.SNI.dll"
             "TargetName" = "8:Microsoft.Data.SqlClient.SNI.dll"
@@ -470,10 +510,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9E2B093DF23D4B2DBD7CC369D7116A68"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B6E894875DE54054A1B9BD51267A0CA3"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Application.pdb"
-            "TargetName" = "8:Application.pdb"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\PenImc_cor3.dll"
+            "TargetName" = "8:PenImc_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -490,10 +530,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B8F6525B9DA640B8BF407C0E914D463C"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BD381659C580441896AD543BE1329A48"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\DesktopWinforms.dll.config"
-            "TargetName" = "8:DesktopWinforms.dll.config"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Domain.pdb"
+            "TargetName" = "8:Domain.pdb"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -530,10 +570,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CFB01C4835BF4336B6E240DF975EB720"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C5729363694A44EE8FE402C15BFC0E6C"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\WebView2Loader.dll"
-            "TargetName" = "8:WebView2Loader.dll"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\wpfgfx_cor3.dll"
+            "TargetName" = "8:wpfgfx_cor3.dll"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -550,10 +590,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D00F3A5172FE49228997B3B96EDDEADD"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DA15B4E0BE104E219B1326B46B7954E0"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\DesktopWinforms.pdb"
-            "TargetName" = "8:DesktopWinforms.pdb"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\Application.pdb"
+            "TargetName" = "8:Application.pdb"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -570,50 +610,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E292DE87205146AFAD6F476FF43C7EA8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FF65CEB236404251A6FC81602CA97ADA"
             {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\vcruntime140_cor3.dll"
-            "TargetName" = "8:vcruntime140_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E36EE147E2BF41199AB6C809A5EBF6CE"
-            {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\D3DCompiler_47_cor3.dll"
-            "TargetName" = "8:D3DCompiler_47_cor3.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB0D5CA5572146E993A80EE751124DF5"
-            {
-            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\sni.dll"
-            "TargetName" = "8:sni.dll"
+            "SourcePath" = "8:..\\DesktopWinforms\\bin\\Release\\net7.0-windows\\publish\\win-x86\\DesktopWinforms.exe"
+            "TargetName" = "8:DesktopWinforms.exe"
             "Tag" = "8:"
             "Folder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Condition" = "8:"
@@ -829,7 +829,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_051D36B727864407BC043B51087CDB6E"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_261E21A9C6CE47A79DFB7EFB9C8E0CB0"
             {
             "Name" = "8:PSMessenger"
             "Arguments" = "8:"
@@ -837,13 +837,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_602B1B23C8914A239604F2F6F3F92F13"
+            "Target" = "8:_FF65CEB236404251A6FC81602CA97ADA"
             "Folder" = "8:_532780C7B48F4DA3A7A4950DC072F5BA"
             "WorkingFolder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Icon" = "8:_0426A0CE113E4D7F8557DC5DFD3991DD"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2D0A7EE1E8104B93AFCAE0F19C7069BB"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_591412C053AA4E7296D276767234FA10"
             {
             "Name" = "8:PSMessenger"
             "Arguments" = "8:"
@@ -851,13 +851,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_602B1B23C8914A239604F2F6F3F92F13"
+            "Target" = "8:_FF65CEB236404251A6FC81602CA97ADA"
             "Folder" = "8:_942A26B00B52403CB21758F8F871E38D"
             "WorkingFolder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Icon" = "8:_0426A0CE113E4D7F8557DC5DFD3991DD"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E83E9AE3F66E498986FBE58E34C1D972"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6F458D04AD134BDDB522BA5CDE8DA1A0"
             {
             "Name" = "8:PSMessenger"
             "Arguments" = "8:"
@@ -865,7 +865,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_602B1B23C8914A239604F2F6F3F92F13"
+            "Target" = "8:_FF65CEB236404251A6FC81602CA97ADA"
             "Folder" = "8:_AA9FE38F7C1C411FB38FA4D7DDC965BF"
             "WorkingFolder" = "8:_D20A1FAA02FF4996AEEF22DC8287EB5E"
             "Icon" = "8:_0426A0CE113E4D7F8557DC5DFD3991DD"

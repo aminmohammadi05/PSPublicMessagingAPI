@@ -51,6 +51,7 @@ public class ActiveDirectoryService : IActiveDirectoryService
                 context.ValidateCredentials(_configurationManagerService.UserName, _configurationManagerService.Password))
             {
                 CurrentUser = _configurationManagerService.UserName;
+                OU = _configurationManagerService.OU;
             }
             
             using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
